@@ -16,13 +16,14 @@
       theme: {
         extend: {
           colors: {
-            'night': '#07090f',
-            'surface': '#0d1220',
-            'gold': '#c8a96e',
-            'gold-light': '#e8cfa0',
-            'blue-soft': '#4f8ef5',
-            'ink': '#f0eeea',
-            'muted': '#7a8196',
+            'page': '#f0f7ff',
+            'surface': '#ffffff',
+            'primary': '#1757c2',
+            'primary-dark': '#0f3f8c',
+            'primary-light': '#3d9df3',
+            'ink': '#0d1a2e',
+            'muted': '#5e7a96',
+            'blue-pale': '#e8f2ff',
           },
           fontFamily: {
             'display': ['Fraunces', 'Georgia', 'serif'],
@@ -37,76 +38,66 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background-color: #07090f;
-      color: #f0eeea;
+      background-color: #f0f7ff;
+      color: #0d1a2e;
       font-family: 'Manrope', system-ui, sans-serif;
       overflow-x: hidden;
       line-height: 1.65;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.025;
-      mix-blend-mode: overlay;
     }
 
     /* Typography */
     .headline-xl {
       font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      font-size: clamp(2.6rem, 6vw, 5rem);
       line-height: 1.06;
       letter-spacing: -0.025em;
       font-weight: 400;
     }
     .headline-lg {
       font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-size: clamp(1.9rem, 4vw, 3rem);
       line-height: 1.12;
       letter-spacing: -0.02em;
       font-weight: 400;
     }
     .headline-md {
       font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
       line-height: 1.2;
       font-weight: 400;
     }
     .text-italic-serif { font-family: 'Fraunces', Georgia, serif; font-style: italic; }
-    .text-gold { color: #c8a96e; }
-    .text-gold-grad {
-      background: linear-gradient(135deg, #b8953a 0%, #e8cfa0 45%, #c8a96e 100%);
+    .text-blue { color: #1757c2; }
+    .text-blue-grad {
+      background: linear-gradient(135deg, #0f3f8c 0%, #3d9df3 55%, #1757c2 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .text-muted { color: #7a8196; }
+    .text-muted { color: #5e7a96; }
 
     /* Glows */
-    .glow-gold {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(200,169,110,0.09) 0%, transparent 65%);
-      pointer-events: none;
-    }
     .glow-blue {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(79,142,245,0.07) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(23,87,194,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .glow-light {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,157,243,0.06) 0%, transparent 65%);
       pointer-events: none;
     }
 
     /* Buttons */
-    .btn-gold {
+    .btn-primary {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: linear-gradient(135deg, #b8953a 0%, #e8cfa0 50%, #b8953a 100%);
+      background: linear-gradient(135deg, #0f3f8c 0%, #1757c2 50%, #3d9df3 100%);
       background-size: 200% 200%;
-      color: #07090f;
+      color: #ffffff;
       font-family: 'Manrope', sans-serif;
       font-weight: 700;
       font-size: 1rem;
@@ -116,62 +107,63 @@
       cursor: pointer;
       text-decoration: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 28px rgba(200,169,110,0.28);
+      box-shadow: 0 4px 28px rgba(23,87,194,0.3);
     }
-    .btn-gold:hover {
+    .btn-primary:hover {
       transform: scale(1.03) translateY(-2px);
-      box-shadow: 0 10px 45px rgba(200,169,110,0.42);
+      box-shadow: 0 10px 45px rgba(23,87,194,0.45);
     }
     .btn-ghost {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       background: transparent;
-      color: #f0eeea;
+      color: #1757c2;
       font-family: 'Manrope', sans-serif;
       font-weight: 600;
       font-size: 0.9rem;
       padding: 0.75rem 1.75rem;
       border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(23,87,194,0.35);
       cursor: pointer;
       text-decoration: none;
       transition: border-color 0.3s ease, background 0.3s ease;
     }
     .btn-ghost:hover {
-      border-color: rgba(200,169,110,0.5);
-      background: rgba(200,169,110,0.06);
+      border-color: #1757c2;
+      background: rgba(23,87,194,0.06);
     }
 
     /* Cards */
     .card {
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #ffffff;
+      border: 1px solid rgba(23,87,194,0.12);
       border-radius: 20px;
-      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .card:hover {
       transform: translateY(-3px);
-      border-color: rgba(200,169,110,0.2);
-      background: rgba(255,255,255,0.04);
+      border-color: rgba(23,87,194,0.28);
+      box-shadow: 0 8px 32px rgba(23,87,194,0.1);
     }
 
     /* Pricing */
     .pricing-standard {
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #ffffff;
+      border: 1px solid rgba(23,87,194,0.14);
       border-radius: 24px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .pricing-standard:hover { transform: translateY(-4px); }
+    .pricing-standard:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(23,87,194,0.12); }
     .pricing-featured {
-      background: linear-gradient(145deg, rgba(200,169,110,0.1), rgba(200,169,110,0.03));
-      border: 1.5px solid rgba(200,169,110,0.45);
+      background: linear-gradient(145deg, #1757c2, #0f3f8c);
+      border: none;
       border-radius: 24px;
-      box-shadow: 0 0 60px rgba(200,169,110,0.1);
+      box-shadow: 0 20px 60px rgba(23,87,194,0.35);
       transition: transform 0.3s ease;
+      color: #ffffff;
     }
-    .pricing-featured:hover { transform: translateY(-6px); }
+    .pricing-featured:hover { transform: translateY(-6px); box-shadow: 0 28px 80px rgba(23,87,194,0.45); }
 
     /* FAQ */
     .faq-answer {
@@ -179,7 +171,7 @@
       overflow: hidden;
       transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .faq-answer.open { max-height: 400px; }
+    .faq-answer.open { max-height: 500px; }
     .faq-icon { transition: transform 0.3s ease; }
     .faq-icon.rotated { transform: rotate(45deg); }
 
@@ -190,54 +182,56 @@
     .divider {
       width: 48px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #c8a96e, transparent);
+      background: linear-gradient(90deg, transparent, #1757c2, transparent);
     }
 
     .time-ghost {
       font-family: 'Fraunces', Georgia, serif;
       font-size: clamp(4rem, 12vw, 10rem);
       font-weight: 300;
-      color: rgba(200,169,110,0.06);
+      color: rgba(23,87,194,0.04);
       line-height: 1;
       user-select: none;
       pointer-events: none;
     }
 
     .testimonial-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #ffffff;
+      border: 1px solid rgba(23,87,194,0.12);
       border-radius: 20px;
       padding: 1.75rem;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .testimonial-card:hover {
       transform: translateY(-4px) scale(1.01);
-      border-color: rgba(200,169,110,0.25);
+      border-color: rgba(23,87,194,0.3);
+      box-shadow: 0 8px 32px rgba(23,87,194,0.1);
     }
 
     .guarantee-ring {
-      width: 140px;
-      height: 140px;
-      border: 2px solid rgba(200,169,110,0.4);
+      width: 150px;
+      height: 150px;
+      border: 2.5px solid rgba(23,87,194,0.5);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      background: radial-gradient(circle, rgba(23,87,194,0.05) 0%, transparent 70%);
     }
     .guarantee-ring::before {
       content: '';
       position: absolute;
       inset: 8px;
-      border: 1px solid rgba(200,169,110,0.2);
+      border: 1px solid rgba(23,87,194,0.2);
       border-radius: 50%;
     }
 
     .nav-blur {
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      background: rgba(7,9,15,0.85);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(240,247,255,0.92);
+      border-bottom: 1px solid rgba(23,87,194,0.12);
     }
 
     .section-label {
@@ -245,15 +239,15 @@
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #c8a96e;
+      color: #1757c2;
     }
 
-    .star { color: #c8a96e; font-size: 0.9rem; }
+    .star { color: #f0a800; font-size: 0.9rem; }
 
     .comp-row { transition: background 0.2s ease; }
-    .comp-row:hover { background: rgba(255,255,255,0.025); }
-    .comp-check { color: #c8a96e; font-size: 1.1rem; }
-    .comp-cross { color: #4a5060; font-size: 1.1rem; }
+    .comp-row:hover { background: rgba(23,87,194,0.03); }
+    .comp-check { color: #1757c2; font-size: 1.1rem; }
+    .comp-cross { color: #c8d4e0; font-size: 1.1rem; }
 
     .stat-number {
       font-family: 'Fraunces', Georgia, serif;
@@ -266,17 +260,88 @@
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-12px); }
     }
-    @keyframes glow-pulse {
-      0%, 100% { opacity: 0.5; }
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.6; }
       50% { opacity: 1; }
     }
     .float-anim { animation: float 6s ease-in-out infinite; }
-    .glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+    .pulse-anim { animation: pulse-ring 3s ease-in-out infinite; }
 
     section { position: relative; overflow: hidden; }
 
+    /* Sticky bottom bar */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      border-top: 1px solid rgba(23,87,194,0.18);
+      backdrop-filter: blur(16px);
+      padding: 0.9rem 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 -4px 30px rgba(23,87,194,0.12);
+    }
+    .sticky-bar.visible { transform: translateY(0); }
+
+    /* product image placeholder */
+    .product-img-wrap {
+      position: relative;
+    }
+    .product-img-wrap img {
+      max-width: 100%;
+      height: auto;
+      filter: drop-shadow(0 30px 60px rgba(23,87,194,0.2));
+      border-radius: 12px;
+    }
+    .product-badge {
+      position: absolute;
+      background: #1757c2;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    /* value stack */
+    .value-stack-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      border-radius: 12px;
+      transition: background 0.2s;
+    }
+    .value-stack-row:hover { background: rgba(23,87,194,0.04); }
+
+    .strikethrough {
+      text-decoration: line-through;
+      color: #9ab0c8;
+    }
+
+    /* section with blue bg */
+    .section-blue {
+      background: linear-gradient(135deg, #1757c2 0%, #0f3f8c 100%);
+      color: #ffffff;
+    }
+    .section-blue .text-muted { color: rgba(255,255,255,0.65); }
+
+    /* mini CTA band */
+    .cta-band {
+      background: linear-gradient(135deg, #e8f2ff 0%, #d4e8ff 100%);
+      border-top: 1px solid rgba(23,87,194,0.1);
+      border-bottom: 1px solid rgba(23,87,194,0.1);
+    }
+
     @media (max-width: 767px) {
       .pricing-grid { grid-template-columns: 1fr !important; }
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .step-grid { grid-template-columns: repeat(2,1fr) !important; }
     }
   </style>
 </head>
@@ -284,129 +349,157 @@
 <body>
 
 <!-- NAV -->
-<nav class="nav-blur fixed top-0 left-0 right-0 z-50 py-4 px-6">
+<nav class="nav-blur fixed top-0 left-0 right-0 z-50 py-3.5 px-6">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
     <div class="flex items-center gap-2">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#c8a96e,#e8cfa0);border-radius:8px;display:flex;align-items:center;justify-content:center;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#07090f" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#1757c2,#3d9df3);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
       </div>
-      <span style="font-family:'Fraunces',Georgia,serif;font-size:1.15rem;letter-spacing:-0.02em;color:#f0eeea;">Mental<span class="text-gold">Pro</span>™</span>
+      <span style="font-family:'Fraunces',Georgia,serif;font-size:1.15rem;letter-spacing:-0.02em;color:#0d1a2e;">Mental<span class="text-blue">Pro</span>™</span>
     </div>
-    <a href="#pricing" class="btn-gold" style="padding:0.6rem 1.5rem;font-size:0.875rem;">Inizia Stanotte</a>
+    <a href="#pricing" class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.875rem;">Inizia Stanotte →</a>
   </div>
 </nav>
 
 
 <!-- HERO -->
-<section class="relative min-h-screen flex flex-col justify-center pt-24 pb-16 px-6">
-  <div class="glow-gold" style="width:800px;height:800px;top:-200px;right:-200px;opacity:0.8;"></div>
-  <div class="glow-blue" style="width:700px;height:700px;bottom:-100px;left:-150px;opacity:0.9;"></div>
-  <div class="time-ghost absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">23:07</div>
+<section class="relative pt-28 pb-16 px-6" style="background:linear-gradient(160deg,#f0f7ff 0%,#e4f0ff 60%,#d8eaff 100%);">
+  <div class="glow-blue" style="width:700px;height:700px;top:-150px;right:-200px;opacity:1;"></div>
+  <div class="glow-light" style="width:500px;height:500px;bottom:-100px;left:-100px;opacity:1;"></div>
+  <div class="time-ghost absolute top-1/2 right-0 -translate-y-1/2 whitespace-nowrap" style="right:-30px;opacity:0.7;">23:07</div>
 
-  <div class="max-w-5xl mx-auto relative z-10 text-center">
-    <div class="inline-flex items-center gap-2 mb-8" id="hero-label" style="opacity:0;transform:translateY(20px);">
-      <div style="width:6px;height:6px;border-radius:50%;background:#c8a96e;" class="glow-pulse"></div>
-      <span class="section-label">Il Problema Non È il Sonno</span>
-    </div>
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="hero-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
 
-    <h1 class="headline-xl mb-6" id="hero-h1" style="opacity:0;transform:translateY(30px);">
-      Quando spegni la luce,<br>
-      <em class="text-italic-serif text-gold-grad">inizia la riunione.</em>
-    </h1>
+      <!-- Left copy -->
+      <div>
+        <div class="inline-flex items-center gap-2 mb-8" id="hero-label" style="opacity:0;transform:translateY(20px);background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.2);padding:0.35rem 1rem;border-radius:50px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#1757c2;" class="pulse-anim"></div>
+          <span class="section-label">Il Problema Non È il Sonno</span>
+        </div>
 
-    <p id="hero-sub" style="opacity:0;transform:translateY(20px);font-size:1.1rem;color:#7a8196;max-width:640px;margin:0 auto 2.5rem;line-height:1.75;">
-      Il tuo corpo è esausto. Ma la testa non si ferma. Mail. Decisioni. Pensieri a ciclo continuo.
-      <strong style="color:#f0eeea;font-weight:600;">Non è debolezza — è un meccanismo biologico che non si attiva.</strong>
-      Mental Pro lo riattiva.
-    </p>
+        <h1 class="headline-xl mb-6" id="hero-h1" style="opacity:0;transform:translateY(30px);color:#0d1a2e;">
+          Quando spegni la luce,<br>
+          <em class="text-italic-serif text-blue-grad">inizia la riunione.</em>
+        </h1>
 
-    <div class="flex flex-wrap gap-4 justify-center mb-14" id="hero-cta" style="opacity:0;transform:translateY(20px);">
-      <a href="#pricing" class="btn-gold" style="font-size:1.05rem;padding:1.1rem 2.75rem;">
-        Spegni la Riunione Stanotte
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#mechanism" class="btn-ghost">Come funziona</a>
-    </div>
+        <p id="hero-sub" style="opacity:0;transform:translateY(20px);font-size:1.05rem;color:#5e7a96;max-width:520px;margin-bottom:2.5rem;line-height:1.8;">
+          Il tuo corpo è esausto. Ma la testa non si ferma. Mail. Decisioni. Pensieri a ciclo continuo.
+          <strong style="color:#0d1a2e;font-weight:600;">Non è debolezza — è un meccanismo biologico che non si attiva.</strong>
+          Mental Pro lo riattiva.
+        </p>
 
-    <div class="flex flex-wrap justify-center gap-8" id="hero-stats" style="opacity:0;transform:translateY(15px);">
-      <div class="flex items-center gap-3">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2.25rem;font-weight:400;color:#c8a96e;">78%</div>
-        <div style="font-size:0.82rem;color:#7a8196;text-align:left;max-width:130px;line-height:1.4;">dorme meglio<br>entro 14 giorni</div>
+        <div class="flex flex-wrap gap-4 mb-10" id="hero-cta" style="opacity:0;transform:translateY(20px);">
+          <a href="#pricing" class="btn-primary" style="font-size:1.05rem;padding:1.1rem 2.75rem;">
+            Spegni la Riunione Stanotte
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#mechanism" class="btn-ghost">Come funziona</a>
+        </div>
+
+        <div class="flex flex-wrap gap-8" id="hero-stats" style="opacity:0;transform:translateY(15px);">
+          <div class="flex items-center gap-3">
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:2.25rem;font-weight:400;color:#1757c2;">78%</div>
+            <div style="font-size:0.82rem;color:#5e7a96;text-align:left;max-width:130px;line-height:1.4;">dorme meglio<br>entro 14 giorni</div>
+          </div>
+          <div style="width:1px;height:44px;background:rgba(23,87,194,0.15);"></div>
+          <div class="flex items-center gap-3">
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:2.25rem;font-weight:400;color:#1757c2;">60gg</div>
+            <div style="font-size:0.82rem;color:#5e7a96;text-align:left;max-width:130px;line-height:1.4;">garanzia<br>soddisfatti o rimborsati</div>
+          </div>
+          <div style="width:1px;height:44px;background:rgba(23,87,194,0.15);"></div>
+          <div class="flex items-center gap-3">
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:2.25rem;font-weight:400;color:#1757c2;">1</div>
+            <div style="font-size:0.82rem;color:#5e7a96;text-align:left;max-width:130px;line-height:1.4;">misurino la sera.<br>Nient'altro.</div>
+          </div>
+        </div>
       </div>
-      <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);"></div>
-      <div class="flex items-center gap-3">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2.25rem;font-weight:400;color:#c8a96e;">60gg</div>
-        <div style="font-size:0.82rem;color:#7a8196;text-align:left;max-width:130px;line-height:1.4;">garanzia<br>soddisfatti o rimborsati</div>
+
+      <!-- Right image -->
+      <div class="product-img-wrap flex justify-center" id="hero-img" style="opacity:0;transform:translateY(20px);">
+        <div style="position:relative;display:inline-block;">
+          <img src="product.jpg" alt="Mental Pro™ — integratore in polvere" style="max-width:360px;width:100%;" onerror="this.parentElement.innerHTML='<div style=\'width:300px;height:380px;background:linear-gradient(145deg,#e8f2ff,#d0e6ff);border-radius:20px;border:2px dashed rgba(23,87,194,0.25);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;\'><div style=\'font-family:Fraunces,Georgia,serif;font-size:2rem;color:#1757c2;\'>Mental<br>Pro™</div><div style=\'font-size:0.75rem;color:#5e7a96;text-align:center;\'>Salva l\'immagine come<br><strong>product.jpg</strong><br>nella cartella del progetto</div></div>';">
+          <div class="product-badge" style="top:-10px;right:-10px;">★ Più Scelto</div>
+          <div class="product-badge" style="bottom:20px;left:-20px;background:#0f3f8c;">60gg garanzia</div>
+        </div>
       </div>
-      <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);"></div>
-      <div class="flex items-center gap-3">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2.25rem;font-weight:400;color:#c8a96e;">1</div>
-        <div style="font-size:0.82rem;color:#7a8196;text-align:left;max-width:130px;line-height:1.4;">misurino la sera.<br>Nient'altro.</div>
-      </div>
+
     </div>
   </div>
 
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style="opacity:0.4;">
-    <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#7a8196;">Scorri</span>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style="opacity:0.5;">
+    <span style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#5e7a96;">Scorri</span>
     <svg class="float-anim" width="16" height="22" viewBox="0 0 16 22" fill="none">
-      <rect x="1" y="1" width="14" height="20" rx="7" stroke="#7a8196" stroke-width="1.5"/>
-      <rect x="7" y="5" width="2" height="5" rx="1" fill="#c8a96e" class="glow-pulse"/>
+      <rect x="1" y="1" width="14" height="20" rx="7" stroke="#1757c2" stroke-width="1.5"/>
+      <rect x="7" y="5" width="2" height="5" rx="1" fill="#1757c2"/>
     </svg>
   </div>
 </section>
 
 
 <!-- PROBLEM SECTION -->
-<section class="relative py-24 px-6" style="background:linear-gradient(to bottom,#07090f 0%,#0a0e1a 50%,#07090f 100%);">
-  <div class="glow-gold" style="width:500px;height:500px;top:50%;left:-100px;transform:translateY(-50%);opacity:0.6;"></div>
+<section class="relative py-24 px-6" style="background:#ffffff;">
+  <div class="glow-light" style="width:500px;height:500px;top:50%;left:-100px;transform:translateY(-50%);opacity:0.8;"></div>
 
   <div class="max-w-3xl mx-auto">
     <div class="text-center mb-16 fade-up">
       <span class="section-label">Una Notte Qualunque</span>
-      <h2 class="headline-lg mt-4">Ti riconosci in questo?</h2>
+      <h2 class="headline-lg mt-4" style="color:#0d1a2e;">Ti riconosci in questo?</h2>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:1.25rem;">
       <div class="card p-6 fade-up" style="position:relative;padding-left:5.5rem;">
-        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(200,169,110,0.3);">23:07</div>
-        <p style="font-size:0.975rem;line-height:1.75;color:#c8d0e0;">Spengo la luce. Giornata piena. Testa pesante. <strong style="color:#f0eeea;">"Crollo in 5 minuti."</strong></p>
+        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(23,87,194,0.25);">23:07</div>
+        <p style="font-size:0.975rem;line-height:1.75;color:#3d5470;">Spengo la luce. Giornata piena. Testa pesante. <strong style="color:#0d1a2e;">"Crollo in 5 minuti."</strong></p>
       </div>
       <div class="card p-6 fade-up" style="position:relative;padding-left:5.5rem;">
-        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(200,169,110,0.35);">23:26</div>
-        <p style="font-size:0.975rem;line-height:1.75;color:#c8d0e0;">Il cervello si accende. Come se qualcuno avesse premuto un interruttore. <strong style="color:#f0eeea;">"Ho risposto bene a quella mail? Domani devo ricordarmi quella cosa."</strong></p>
+        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(23,87,194,0.3);">23:26</div>
+        <p style="font-size:0.975rem;line-height:1.75;color:#3d5470;">Il cervello si accende. Come se qualcuno avesse premuto un interruttore. <strong style="color:#0d1a2e;">"Ho risposto bene a quella mail? Domani devo ricordarmi quella cosa."</strong></p>
       </div>
       <div class="card p-6 fade-up" style="position:relative;padding-left:5.5rem;">
-        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(200,169,110,0.4);">00:47</div>
-        <p style="font-size:0.975rem;line-height:1.75;color:#c8d0e0;">Il corpo è fermo. <strong style="color:#f0eeea;">Ma la mente corre.</strong> E più provi a fermarla… più accelera. Prendo il telefono. Lo so mentre lo faccio. Errore.</p>
+        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(23,87,194,0.35);">00:47</div>
+        <p style="font-size:0.975rem;line-height:1.75;color:#3d5470;">Il corpo è fermo. <strong style="color:#0d1a2e;">Ma la mente corre.</strong> E più provi a fermarla… più accelera. Prendo il telefono. Lo so mentre lo faccio. Errore.</p>
       </div>
       <div class="card p-6 fade-up" style="position:relative;padding-left:5.5rem;">
-        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(200,169,110,0.45);">02:03</div>
-        <p style="font-size:0.975rem;line-height:1.75;color:#c8d0e0;">Ancora sveglio. Stesso soffitto. Stessa frustrazione. <strong style="color:#f0eeea;">"Perché a me succede?"</strong></p>
+        <div style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:300;color:rgba(23,87,194,0.4);">02:03</div>
+        <p style="font-size:0.975rem;line-height:1.75;color:#3d5470;">Ancora sveglio. Stesso soffitto. Stessa frustrazione. <strong style="color:#0d1a2e;">"Perché a me succede?"</strong></p>
       </div>
     </div>
 
-    <div class="mt-12 p-8 fade-up" style="background:linear-gradient(135deg,rgba(200,169,110,0.08),rgba(200,169,110,0.02));border:1px solid rgba(200,169,110,0.2);border-radius:20px;">
-      <p class="headline-md" style="line-height:1.4;">Questo è il punto che ti <em class="text-italic-serif text-gold">distrugge.</em><br>
-      <span style="color:#7a8196;font-size:0.8em;font-family:'Manrope',sans-serif;font-style:normal;font-weight:400;">Non è che non hai sonno. È che non riesci a spegnerti.</span></p>
+    <div class="mt-12 p-8 fade-up" style="background:linear-gradient(135deg,#e8f2ff,#d8eaff);border:1px solid rgba(23,87,194,0.2);border-radius:20px;">
+      <p class="headline-md" style="line-height:1.4;color:#0d1a2e;">Questo è il punto che ti <em class="text-italic-serif" style="color:#1757c2;">distrugge.</em><br>
+      <span style="color:#5e7a96;font-size:0.8em;font-family:'Manrope',sans-serif;font-style:normal;font-weight:400;">Non è che non hai sonno. È che non riesci a spegnerti.</span></p>
     </div>
   </div>
 </section>
 
 
+<!-- CTA BAND 1 -->
+<div class="cta-band py-8 px-6">
+  <div class="max-w-3xl mx-auto flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <div style="font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#0d1a2e;">Smettila di aspettare la prossima notte storta.</div>
+      <div style="font-size:0.85rem;color:#5e7a96;margin-top:0.25rem;">60 giorni di garanzia. Zero rischi. Spedizione inclusa dal 3-pack.</div>
+    </div>
+    <a href="#pricing" class="btn-primary">Scegli il tuo percorso →</a>
+  </div>
+</div>
+
+
 <!-- REFRAME -->
-<section class="relative py-28 px-6">
-  <div class="glow-blue" style="width:700px;height:700px;top:-100px;right:-200px;opacity:0.8;"></div>
+<section class="relative py-28 px-6" style="background:#ffffff;">
+  <div class="glow-blue" style="width:600px;height:600px;top:-100px;right:-200px;opacity:0.7;"></div>
 
   <div class="max-w-5xl mx-auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:4rem;align-items:center;">
 
       <div>
         <span class="section-label fade-up">La Verità Scomoda</span>
-        <h2 class="headline-lg mt-4 mb-6 fade-up">Il problema<br>non è <em class="text-italic-serif text-gold">il sonno.</em></h2>
+        <h2 class="headline-lg mt-4 mb-6 fade-up" style="color:#0d1a2e;">Il problema<br>non è <em class="text-italic-serif" style="color:#1757c2;">il sonno.</em></h2>
         <div class="divider mb-6 fade-up"></div>
-        <div class="fade-up" style="color:#a8b0c4;line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
+        <div class="fade-up" style="color:#5e7a96;line-height:1.8;display:flex;flex-direction:column;gap:1rem;">
           <p>Hai provato la camomilla. La melatonina. Le app di meditazione. A volte funzionano. Per qualche sera. Poi torni punto e a capo.</p>
-          <p style="color:#f0eeea;">Perché nessuno ti ha mai detto questa cosa: <strong>queste soluzioni lavorano sul sonno. Non sul rumore mentale.</strong></p>
+          <p style="color:#0d1a2e;">Perché nessuno ti ha mai detto questa cosa: <strong>queste soluzioni lavorano sul sonno. Non sul rumore mentale.</strong></p>
           <p>E finché quel sistema è acceso, tu continui a pensare. Non è forza di volontà. <em>È biologia.</em></p>
         </div>
       </div>
@@ -414,34 +507,34 @@
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div class="card p-5 fade-up">
           <div style="display:flex;gap:1rem;align-items:flex-start;">
-            <div style="min-width:36px;height:36px;border-radius:10px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#ff6060;">✗</div>
+            <div style="min-width:36px;height:36px;border-radius:10px;background:rgba(220,60,60,0.08);border:1px solid rgba(220,60,60,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#dc3c3c;">✗</div>
             <div>
-              <div style="font-weight:600;color:#f0eeea;margin-bottom:4px;font-size:0.925rem;">Credi di dover "rilassarti di più"</div>
-              <div style="font-size:0.825rem;color:#7a8196;">Il problema non è la tensione muscolare. È l'iperattività cognitiva.</div>
+              <div style="font-weight:600;color:#0d1a2e;margin-bottom:4px;font-size:0.925rem;">Credi di dover "rilassarti di più"</div>
+              <div style="font-size:0.825rem;color:#5e7a96;">Il problema non è la tensione muscolare. È l'iperattività cognitiva.</div>
             </div>
           </div>
         </div>
         <div class="card p-5 fade-up">
           <div style="display:flex;gap:1rem;align-items:flex-start;">
-            <div style="min-width:36px;height:36px;border-radius:10px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#ff6060;">✗</div>
+            <div style="min-width:36px;height:36px;border-radius:10px;background:rgba(220,60,60,0.08);border:1px solid rgba(220,60,60,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#dc3c3c;">✗</div>
             <div>
-              <div style="font-weight:600;color:#f0eeea;margin-bottom:4px;font-size:0.925rem;">Cerchi soluzioni che agiscono sul corpo</div>
-              <div style="font-size:0.825rem;color:#7a8196;">La tisana rilassa i muscoli. Ma chi spegne i pensieri?</div>
+              <div style="font-weight:600;color:#0d1a2e;margin-bottom:4px;font-size:0.925rem;">Cerchi soluzioni che agiscono sul corpo</div>
+              <div style="font-size:0.825rem;color:#5e7a96;">La tisana rilassa i muscoli. Ma chi spegne i pensieri?</div>
             </div>
           </div>
         </div>
         <div class="card p-5 fade-up">
           <div style="display:flex;gap:1rem;align-items:flex-start;">
-            <div style="min-width:36px;height:36px;border-radius:10px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#ff6060;">✗</div>
+            <div style="min-width:36px;height:36px;border-radius:10px;background:rgba(220,60,60,0.08);border:1px solid rgba(220,60,60,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#dc3c3c;">✗</div>
             <div>
-              <div style="font-weight:600;color:#f0eeea;margin-bottom:4px;font-size:0.925rem;">Pensi che sia colpa tua</div>
-              <div style="font-size:0.825rem;color:#7a8196;">Non è così. Chi non dorme è spesso la persona più capace. Quella che tiene tutto in piedi.</div>
+              <div style="font-weight:600;color:#0d1a2e;margin-bottom:4px;font-size:0.925rem;">Pensi che sia colpa tua</div>
+              <div style="font-size:0.825rem;color:#5e7a96;">Non è così. Chi non dorme è spesso la persona più capace. Quella che tiene tutto in piedi.</div>
             </div>
           </div>
         </div>
-        <div class="fade-up" style="background:linear-gradient(135deg,rgba(200,169,110,0.1),rgba(200,169,110,0.03));border:1px solid rgba(200,169,110,0.25);border-radius:16px;padding:1.25rem 1.5rem;">
-          <p style="color:#f0eeea;font-weight:500;font-size:0.9rem;line-height:1.65;font-style:italic;">"Non mi ricordavo cosa volesse dire addormentarsi senza pensarci."</p>
-          <p style="color:#7a8196;font-size:0.78rem;margin-top:0.4rem;">— Cliente Mental Pro, 38 anni</p>
+        <div class="fade-up" style="background:linear-gradient(135deg,#e8f2ff,#d8eaff);border:1px solid rgba(23,87,194,0.2);border-radius:16px;padding:1.25rem 1.5rem;">
+          <p style="color:#0d1a2e;font-weight:500;font-size:0.9rem;line-height:1.65;font-style:italic;">"Non mi ricordavo cosa volesse dire addormentarsi senza pensarci."</p>
+          <p style="color:#5e7a96;font-size:0.78rem;margin-top:0.4rem;">— Cliente Mental Pro, 38 anni</p>
         </div>
       </div>
 
@@ -451,67 +544,66 @@
 
 
 <!-- MECHANISM -->
-<section id="mechanism" class="relative py-28 px-6" style="background:linear-gradient(to bottom,#07090f 0%,#0a0e1a 100%);">
-  <div class="glow-gold" style="width:600px;height:600px;bottom:-100px;right:-100px;opacity:0.7;"></div>
+<section id="mechanism" class="relative py-28 px-6" style="background:linear-gradient(160deg,#f0f7ff 0%,#e4f0ff 100%);">
+  <div class="glow-blue" style="width:600px;height:600px;bottom:-100px;right:-100px;opacity:0.6;"></div>
 
   <div class="max-w-4xl mx-auto text-center">
     <span class="section-label fade-up">Il Meccanismo</span>
-    <h2 class="headline-lg mt-4 mb-4 fade-up">Il <em class="text-italic-serif text-gold">Freno Mentale</em> Serale</h2>
+    <h2 class="headline-lg mt-4 mb-4 fade-up" style="color:#0d1a2e;">Il <em class="text-italic-serif" style="color:#1757c2;">Freno Mentale</em> Serale</h2>
     <p class="text-muted max-w-2xl mx-auto mb-16 fade-up" style="font-size:1rem;">Non è una tecnica. Non è meditazione. È un processo biologico reale — il passaggio in cui il cervello scala dalla modalità analisi alla modalità riposo.</p>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-bottom:4rem;">
       <div class="card p-7 fade-up text-left">
-        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.2);border-radius:50px;margin-bottom:1.25rem;">
-          <span style="font-size:0.72rem;font-weight:700;color:#ff6060;letter-spacing:0.1em;text-transform:uppercase;">Senza freno</span>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(220,60,60,0.08);border:1px solid rgba(220,60,60,0.2);border-radius:50px;margin-bottom:1.25rem;">
+          <span style="font-size:0.72rem;font-weight:700;color:#dc3c3c;letter-spacing:0.1em;text-transform:uppercase;">Senza freno</span>
         </div>
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#f0eeea;margin-bottom:0.75rem;">Onde Beta</div>
-        <div style="font-size:0.875rem;color:#7a8196;line-height:1.7;margin-bottom:1rem;">Alta elaborazione. Analisi. Pianificazione. Il cervello è ancora in ufficio — anche se il corpo è nel letto.</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#0d1a2e;margin-bottom:0.75rem;">Onde Beta</div>
+        <div style="font-size:0.875rem;color:#5e7a96;line-height:1.7;margin-bottom:1rem;">Alta elaborazione. Analisi. Pianificazione. Il cervello è ancora in ufficio — anche se il corpo è nel letto.</div>
         <div style="display:flex;flex-direction:column;gap:0.4rem;">
-          <div style="font-size:0.8rem;color:#a05050;">→ Loop di pensieri ossessivi</div>
-          <div style="font-size:0.8rem;color:#a05050;">→ 60-90 minuti per addormentarsi</div>
-          <div style="font-size:0.8rem;color:#a05050;">→ Risvegli alle 3 di notte</div>
+          <div style="font-size:0.8rem;color:#b04040;">→ Loop di pensieri ossessivi</div>
+          <div style="font-size:0.8rem;color:#b04040;">→ 60-90 minuti per addormentarsi</div>
+          <div style="font-size:0.8rem;color:#b04040;">→ Risvegli alle 3 di notte</div>
         </div>
       </div>
 
-      <div class="card p-7 fade-up text-left" style="border-color:rgba(200,169,110,0.2);">
-        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.3);border-radius:50px;margin-bottom:1.25rem;">
-          <span style="font-size:0.72rem;font-weight:700;color:#c8a96e;letter-spacing:0.1em;text-transform:uppercase;">Con Mental Pro</span>
+      <div class="card p-7 fade-up text-left" style="border-color:rgba(23,87,194,0.25);background:linear-gradient(145deg,#f0f7ff,#e8f2ff);">
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(23,87,194,0.1);border:1px solid rgba(23,87,194,0.3);border-radius:50px;margin-bottom:1.25rem;">
+          <span style="font-size:0.72rem;font-weight:700;color:#1757c2;letter-spacing:0.1em;text-transform:uppercase;">Con Mental Pro</span>
         </div>
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#f0eeea;margin-bottom:0.75rem;">Onde Alpha → Theta</div>
-        <div style="font-size:0.875rem;color:#7a8196;line-height:1.7;margin-bottom:1rem;">Il rumore mentale si abbassa. Le frasi si fanno più lente. Più distanti. Fino a spegnersi. Senza sforzo.</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#0d1a2e;margin-bottom:0.75rem;">Onde Alpha → Theta</div>
+        <div style="font-size:0.875rem;color:#5e7a96;line-height:1.7;margin-bottom:1rem;">Il rumore mentale si abbassa. Le frasi si fanno più lente. Più distanti. Fino a spegnersi. Senza sforzo.</div>
         <div style="display:flex;flex-direction:column;gap:0.4rem;">
-          <div style="font-size:0.8rem;color:#8fbf7a;">→ Silenzio mentale</div>
-          <div style="font-size:0.8rem;color:#8fbf7a;">→ 10-15 minuti per addormentarsi</div>
-          <div style="font-size:0.8rem;color:#8fbf7a;">→ Sveglia lucida, non annebbiata</div>
+          <div style="font-size:0.8rem;color:#1757c2;">→ Silenzio mentale</div>
+          <div style="font-size:0.8rem;color:#1757c2;">→ 10-15 minuti per addormentarsi</div>
+          <div style="font-size:0.8rem;color:#1757c2;">→ Sveglia lucida, non annebbiata</div>
         </div>
       </div>
     </div>
 
-    <!-- 4-Step -->
-    <div class="fade-up" style="background:rgba(200,169,110,0.05);border:1px solid rgba(200,169,110,0.15);border-radius:16px;padding:0.5rem 1.5rem;display:inline-block;margin-bottom:1.5rem;">
-      <span style="font-size:0.75rem;font-weight:700;color:#c8a96e;letter-spacing:0.12em;text-transform:uppercase;">Sinergia Neurocalmante 4-Step™</span>
+    <div class="fade-up" style="background:rgba(23,87,194,0.06);border:1px solid rgba(23,87,194,0.15);border-radius:16px;padding:0.5rem 1.5rem;display:inline-block;margin-bottom:1.5rem;">
+      <span style="font-size:0.75rem;font-weight:700;color:#1757c2;letter-spacing:0.12em;text-transform:uppercase;">Sinergia Neurocalmante 4-Step™</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;" class="fade-up">
-      <div style="padding:1.25rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;text-align:center;">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(200,169,110,0.5);margin-bottom:0.5rem;">01</div>
-        <div style="font-weight:600;font-size:0.8rem;color:#f0eeea;margin-bottom:0.35rem;">Bilanciamento</div>
-        <div style="font-size:0.72rem;color:#7a8196;line-height:1.5;">Inositolo + Magnesio Bisglicinato</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;" class="fade-up step-grid">
+      <div style="padding:1.25rem 1rem;background:#fff;border:1px solid rgba(23,87,194,0.12);border-radius:16px;text-align:center;">
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(23,87,194,0.4);margin-bottom:0.5rem;">01</div>
+        <div style="font-weight:600;font-size:0.8rem;color:#0d1a2e;margin-bottom:0.35rem;">Bilanciamento</div>
+        <div style="font-size:0.72rem;color:#5e7a96;line-height:1.5;">Inositolo + Magnesio Bisglicinato</div>
       </div>
-      <div style="padding:1.25rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;text-align:center;">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(200,169,110,0.5);margin-bottom:0.5rem;">02</div>
-        <div style="font-weight:600;font-size:0.8rem;color:#f0eeea;margin-bottom:0.35rem;">Stop Loop</div>
-        <div style="font-size:0.72rem;color:#7a8196;line-height:1.5;">Taurina anti-rimuginamento</div>
+      <div style="padding:1.25rem 1rem;background:#fff;border:1px solid rgba(23,87,194,0.12);border-radius:16px;text-align:center;">
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(23,87,194,0.4);margin-bottom:0.5rem;">02</div>
+        <div style="font-weight:600;font-size:0.8rem;color:#0d1a2e;margin-bottom:0.35rem;">Stop Loop</div>
+        <div style="font-size:0.72rem;color:#5e7a96;line-height:1.5;">Taurina anti-rimuginamento</div>
       </div>
-      <div style="padding:1.25rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;text-align:center;">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(200,169,110,0.5);margin-bottom:0.5rem;">03</div>
-        <div style="font-weight:600;font-size:0.8rem;color:#f0eeea;margin-bottom:0.35rem;">Rilassamento</div>
-        <div style="font-size:0.72rem;color:#7a8196;line-height:1.5;">Glicina per il riposo profondo</div>
+      <div style="padding:1.25rem 1rem;background:#fff;border:1px solid rgba(23,87,194,0.12);border-radius:16px;text-align:center;">
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(23,87,194,0.4);margin-bottom:0.5rem;">03</div>
+        <div style="font-weight:600;font-size:0.8rem;color:#0d1a2e;margin-bottom:0.35rem;">Rilassamento</div>
+        <div style="font-size:0.72rem;color:#5e7a96;line-height:1.5;">Glicina per il riposo profondo</div>
       </div>
-      <div style="padding:1.25rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;text-align:center;">
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(200,169,110,0.5);margin-bottom:0.5rem;">04</div>
-        <div style="font-weight:600;font-size:0.8rem;color:#f0eeea;margin-bottom:0.35rem;">Stabilizzazione</div>
-        <div style="font-size:0.72rem;color:#7a8196;line-height:1.5;">Sonno continuo, niente risvegli</div>
+      <div style="padding:1.25rem 1rem;background:#fff;border:1px solid rgba(23,87,194,0.12);border-radius:16px;text-align:center;">
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:300;color:rgba(23,87,194,0.4);margin-bottom:0.5rem;">04</div>
+        <div style="font-weight:600;font-size:0.8rem;color:#0d1a2e;margin-bottom:0.35rem;">Stabilizzazione</div>
+        <div style="font-size:0.72rem;color:#5e7a96;line-height:1.5;">Sonno continuo, niente risvegli</div>
       </div>
     </div>
 
@@ -520,33 +612,33 @@
 
 
 <!-- AUTHORITY -->
-<section class="relative py-24 px-6">
-  <div class="glow-blue" style="width:600px;height:600px;top:0;left:-200px;opacity:0.6;"></div>
+<section class="relative py-24 px-6" style="background:#ffffff;">
+  <div class="glow-light" style="width:600px;height:600px;top:0;left:-200px;opacity:0.6;"></div>
 
   <div class="max-w-5xl mx-auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;align-items:center;">
 
       <div style="display:flex;justify-content:center;" class="fade-up">
-        <div style="width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,rgba(200,169,110,0.12),rgba(79,142,245,0.08));border:2px solid rgba(200,169,110,0.3);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.25rem;position:relative;">
-          <div style="font-family:'Fraunces',Georgia,serif;font-size:3.5rem;font-weight:300;color:#c8a96e;line-height:1;">RB</div>
-          <div style="font-size:0.72rem;color:#7a8196;letter-spacing:0.1em;text-transform:uppercase;">Farmacista</div>
-          <div style="position:absolute;bottom:12px;right:0;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.3);border-radius:10px;padding:0.3rem 0.7rem;">
-            <span style="font-size:0.68rem;font-weight:700;color:#c8a96e;">20+ anni</span>
+        <div style="width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,rgba(23,87,194,0.1),rgba(61,157,243,0.06));border:2px solid rgba(23,87,194,0.25);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.25rem;position:relative;">
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:3.5rem;font-weight:300;color:#1757c2;line-height:1;">RB</div>
+          <div style="font-size:0.72rem;color:#5e7a96;letter-spacing:0.1em;text-transform:uppercase;">Farmacista</div>
+          <div style="position:absolute;bottom:12px;right:0;background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.25);border-radius:10px;padding:0.3rem 0.7rem;">
+            <span style="font-size:0.68rem;font-weight:700;color:#1757c2;">20+ anni</span>
           </div>
         </div>
       </div>
 
       <div>
         <span class="section-label fade-up">Chi c'è dietro</span>
-        <h2 class="headline-md mt-3 mb-5 fade-up">Roberto Boscia<br><span style="color:#7a8196;font-size:0.75em;font-family:'Manrope',sans-serif;font-weight:400;">Farmacista — meccanismi neurochimici del sonno</span></h2>
-        <div class="fade-up" style="color:#a8b0c4;font-size:0.925rem;line-height:1.8;display:flex;flex-direction:column;gap:0.85rem;">
-          <p>Non sono uno che ha letto due articoli online. Da oltre vent'anni osservo un fenomeno preciso: <strong style="color:#f0eeea;">persone che crollano dalla stanchezza… ma appena si sdraiano, la testa si accende.</strong></p>
+        <h2 class="headline-md mt-3 mb-5 fade-up" style="color:#0d1a2e;">Roberto Boscia<br><span style="color:#5e7a96;font-size:0.75em;font-family:'Manrope',sans-serif;font-weight:400;">Farmacista — meccanismi neurochimici del sonno</span></h2>
+        <div class="fade-up" style="color:#5e7a96;font-size:0.925rem;line-height:1.8;display:flex;flex-direction:column;gap:0.85rem;">
+          <p>Non sono uno che ha letto due articoli online. Da oltre vent'anni osservo un fenomeno preciso: <strong style="color:#0d1a2e;">persone che crollano dalla stanchezza… ma appena si sdraiano, la testa si accende.</strong></p>
           <p>Erano spesso i più svegli. I più responsabili. Quelli che tengono tutto in piedi.</p>
-          <p>Ho capito che il vero problema non era il sonno. Era la mente che non riceveva il segnale per smettere di pensare. <strong style="color:#c8a96e;">Da lì è nata la formula di Mental Pro.</strong></p>
+          <p>Ho capito che il vero problema non era il sonno. Era la mente che non riceveva il segnale per smettere di pensare. <strong style="color:#1757c2;">Da lì è nata la formula di Mental Pro.</strong></p>
         </div>
-        <div class="mt-6 fade-up" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.1rem 1.4rem;">
-          <p style="font-style:italic;color:#c8d0e0;font-size:0.875rem;line-height:1.65;">"La differenza non è che dormo di più… è che finalmente la mia testa sta zitta."</p>
-          <p style="margin-top:0.5rem;font-size:0.75rem;color:#7a8196;font-style:normal;">— Paziente, citata da Roberto Boscia</p>
+        <div class="mt-6 fade-up" style="background:linear-gradient(135deg,#e8f2ff,#d8eaff);border:1px solid rgba(23,87,194,0.18);border-radius:14px;padding:1.1rem 1.4rem;">
+          <p style="font-style:italic;color:#0d1a2e;font-size:0.875rem;line-height:1.65;">"La differenza non è che dormo di più… è che finalmente la mia testa sta zitta."</p>
+          <p style="margin-top:0.5rem;font-size:0.75rem;color:#5e7a96;font-style:normal;">— Paziente, citata da Roberto Boscia</p>
         </div>
       </div>
 
@@ -556,59 +648,59 @@
 
 
 <!-- HOW IT WORKS -->
-<section class="relative py-28 px-6" style="background:linear-gradient(to bottom,#07090f 0%,#0a0e1a 50%,#07090f 100%);">
-  <div class="glow-gold" style="width:500px;height:500px;top:50%;right:-150px;transform:translateY(-50%);opacity:0.7;"></div>
+<section class="relative py-28 px-6" style="background:linear-gradient(160deg,#f0f7ff 0%,#e8f2ff 100%);">
+  <div class="glow-blue" style="width:500px;height:500px;top:50%;right:-150px;transform:translateY(-50%);opacity:0.6;"></div>
 
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-16">
       <span class="section-label fade-up">Come Si Usa</span>
-      <h2 class="headline-lg mt-4 mb-4 fade-up">Ridiculamente <em class="text-italic-serif text-gold">semplice.</em></h2>
+      <h2 class="headline-lg mt-4 mb-4 fade-up" style="color:#0d1a2e;">Ridiculamente <em class="text-italic-serif" style="color:#1757c2;">semplice.</em></h2>
       <p class="text-muted fade-up">Perché se è complicato, non lo fai. E se non lo fai, non funziona.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:3rem;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:3rem;" class="step-grid">
       <div class="fade-up text-center">
-        <div style="width:52px;height:52px;border-radius:14px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#c8a96e;">1</div>
-        <div style="font-weight:600;color:#f0eeea;margin-bottom:0.35rem;font-size:0.875rem;">La sera</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Prima di andare a letto</div>
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#1757c2;">1</div>
+        <div style="font-weight:600;color:#0d1a2e;margin-bottom:0.35rem;font-size:0.875rem;">La sera</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Prima di andare a letto</div>
       </div>
       <div class="fade-up text-center">
-        <div style="width:52px;height:52px;border-radius:14px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#c8a96e;">2</div>
-        <div style="font-weight:600;color:#f0eeea;margin-bottom:0.35rem;font-size:0.875rem;">Un bicchiere</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Prendi acqua</div>
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#1757c2;">2</div>
+        <div style="font-weight:600;color:#0d1a2e;margin-bottom:0.35rem;font-size:0.875rem;">Un bicchiere</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Prendi acqua</div>
       </div>
       <div class="fade-up text-center">
-        <div style="width:52px;height:52px;border-radius:14px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#c8a96e;">3</div>
-        <div style="font-weight:600;color:#f0eeea;margin-bottom:0.35rem;font-size:0.875rem;">Un misurino</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Aggiungi e mescola</div>
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#1757c2;">3</div>
+        <div style="font-weight:600;color:#0d1a2e;margin-bottom:0.35rem;font-size:0.875rem;">Un misurino</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Aggiungi e mescola</div>
       </div>
       <div class="fade-up text-center">
-        <div style="width:52px;height:52px;border-radius:14px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#c8a96e;">4</div>
-        <div style="font-weight:600;color:#f0eeea;margin-bottom:0.35rem;font-size:0.875rem;">Fine</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Il resto viene da sé</div>
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Fraunces',Georgia,serif;font-size:1.3rem;color:#1757c2;">4</div>
+        <div style="font-weight:600;color:#0d1a2e;margin-bottom:0.35rem;font-size:0.875rem;">Fine</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Il resto viene da sé</div>
       </div>
     </div>
 
     <div class="card p-8 fade-up">
       <div style="text-align:center;margin-bottom:1.5rem;">
-        <span style="font-size:0.72rem;font-weight:700;color:#c8a96e;letter-spacing:0.12em;text-transform:uppercase;">Risultati nel Tempo</span>
+        <span style="font-size:0.72rem;font-weight:700;color:#1757c2;letter-spacing:0.12em;text-transform:uppercase;">Risultati nel Tempo</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;">
-        <div style="text-align:center;padding:1rem;border-right:1px solid rgba(255,255,255,0.06);">
-          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#c8a96e;margin-bottom:0.4rem;">Giorno 1</div>
-          <div style="font-size:0.78rem;color:#7a8196;line-height:1.5;">Inizi il rituale serale</div>
+        <div style="text-align:center;padding:1rem;border-right:1px solid rgba(23,87,194,0.1);">
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#1757c2;margin-bottom:0.4rem;">Giorno 1</div>
+          <div style="font-size:0.78rem;color:#5e7a96;line-height:1.5;">Inizi il rituale serale</div>
         </div>
-        <div style="text-align:center;padding:1rem;border-right:1px solid rgba(255,255,255,0.06);">
-          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#c8a96e;margin-bottom:0.4rem;">Giorno 3</div>
-          <div style="font-size:0.78rem;color:#7a8196;line-height:1.5;">Mente meno rumorosa</div>
+        <div style="text-align:center;padding:1rem;border-right:1px solid rgba(23,87,194,0.1);">
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#1757c2;margin-bottom:0.4rem;">Giorno 3</div>
+          <div style="font-size:0.78rem;color:#5e7a96;line-height:1.5;">Mente meno rumorosa</div>
         </div>
-        <div style="text-align:center;padding:1rem;border-right:1px solid rgba(255,255,255,0.06);">
-          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#c8a96e;margin-bottom:0.4rem;">Settimana 1</div>
-          <div style="font-size:0.78rem;color:#7a8196;line-height:1.5;">Addormentamento più rapido</div>
+        <div style="text-align:center;padding:1rem;border-right:1px solid rgba(23,87,194,0.1);">
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#1757c2;margin-bottom:0.4rem;">Settimana 1</div>
+          <div style="font-size:0.78rem;color:#5e7a96;line-height:1.5;">Addormentamento più rapido</div>
         </div>
         <div style="text-align:center;padding:1rem;">
-          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#c8a96e;margin-bottom:0.4rem;">Sett. 2+</div>
-          <div style="font-size:0.78rem;color:#7a8196;line-height:1.5;">Sonno continuo, sveglia lucida</div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;color:#1757c2;margin-bottom:0.4rem;">Sett. 2+</div>
+          <div style="font-size:0.78rem;color:#5e7a96;line-height:1.5;">Sonno continuo, sveglia lucida</div>
         </div>
       </div>
     </div>
@@ -618,43 +710,43 @@
 
 
 <!-- COMPARISON -->
-<section class="relative py-24 px-6">
-  <div class="glow-blue" style="width:600px;height:600px;bottom:-200px;left:-100px;opacity:0.6;"></div>
+<section class="relative py-24 px-6" style="background:#ffffff;">
+  <div class="glow-light" style="width:600px;height:600px;bottom:-200px;left:-100px;opacity:0.6;"></div>
 
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-12 fade-up">
       <span class="section-label">Perché Funziona</span>
-      <h2 class="headline-lg mt-4">Gli altri lavorano<br><em class="text-italic-serif text-gold">sul posto sbagliato.</em></h2>
+      <h2 class="headline-lg mt-4" style="color:#0d1a2e;">Gli altri lavorano<br><em class="text-italic-serif" style="color:#1757c2;">sul posto sbagliato.</em></h2>
     </div>
 
-    <div class="fade-up" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:rgba(255,255,255,0.03);padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07);">
-        <div style="font-size:0.75rem;font-weight:700;color:#7a8196;text-transform:uppercase;letter-spacing:0.1em;"></div>
-        <div style="font-size:0.75rem;font-weight:700;color:#7a8196;text-transform:uppercase;letter-spacing:0.1em;text-align:center;">Soluzioni classiche</div>
-        <div style="font-size:0.75rem;font-weight:700;color:#c8a96e;text-transform:uppercase;letter-spacing:0.1em;text-align:center;">Mental Pro™</div>
+    <div class="fade-up" style="background:#fff;border:1px solid rgba(23,87,194,0.14);border-radius:20px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:linear-gradient(135deg,#f0f7ff,#e8f2ff);padding:1rem 1.5rem;border-bottom:1px solid rgba(23,87,194,0.1);">
+        <div style="font-size:0.75rem;font-weight:700;color:#5e7a96;text-transform:uppercase;letter-spacing:0.1em;"></div>
+        <div style="font-size:0.75rem;font-weight:700;color:#5e7a96;text-transform:uppercase;letter-spacing:0.1em;text-align:center;">Soluzioni classiche</div>
+        <div style="font-size:0.75rem;font-weight:700;color:#1757c2;text-transform:uppercase;letter-spacing:0.1em;text-align:center;">Mental Pro™</div>
       </div>
-      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.875rem;color:#c8d0e0;">Agisce sul rumore mentale</div>
+      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(23,87,194,0.06);">
+        <div style="font-size:0.875rem;color:#3d5470;">Agisce sul rumore mentale</div>
         <div class="comp-cross" style="text-align:center;">✗</div>
         <div class="comp-check" style="text-align:center;">✓</div>
       </div>
-      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.875rem;color:#c8d0e0;">Per menti iperattive</div>
+      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(23,87,194,0.06);">
+        <div style="font-size:0.875rem;color:#3d5470;">Per menti iperattive</div>
         <div class="comp-cross" style="text-align:center;">✗</div>
         <div class="comp-check" style="text-align:center;">✓</div>
       </div>
-      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.875rem;color:#c8d0e0;">Nessuna dipendenza</div>
-        <div style="text-align:center;font-size:0.75rem;color:#7a8196;">Dipende</div>
+      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(23,87,194,0.06);">
+        <div style="font-size:0.875rem;color:#3d5470;">Nessuna dipendenza</div>
+        <div style="text-align:center;font-size:0.75rem;color:#5e7a96;">Dipende</div>
         <div class="comp-check" style="text-align:center;">✓</div>
       </div>
-      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:0.875rem;color:#c8d0e0;">Non intontisce al risveglio</div>
+      <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;border-bottom:1px solid rgba(23,87,194,0.06);">
+        <div style="font-size:0.875rem;color:#3d5470;">Non intontisce al risveglio</div>
         <div class="comp-cross" style="text-align:center;">✗</div>
         <div class="comp-check" style="text-align:center;">✓</div>
       </div>
       <div class="comp-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:1rem 1.5rem;">
-        <div style="font-size:0.875rem;color:#c8d0e0;">Agisce sulla causa reale</div>
+        <div style="font-size:0.875rem;color:#3d5470;">Agisce sulla causa reale</div>
         <div class="comp-cross" style="text-align:center;">✗</div>
         <div class="comp-check" style="text-align:center;">✓</div>
       </div>
@@ -665,94 +757,103 @@
 
 
 <!-- TESTIMONIALS + STATS -->
-<section class="relative py-28 px-6" style="background:linear-gradient(to bottom,#07090f 0%,#0a0e1a 100%);">
-  <div class="glow-gold" style="width:700px;height:700px;top:-100px;right:-200px;opacity:0.6;"></div>
+<section class="relative py-28 px-6" style="background:linear-gradient(160deg,#f0f7ff 0%,#e4f0ff 100%);">
+  <div class="glow-blue" style="width:700px;height:700px;top:-100px;right:-200px;opacity:0.5;"></div>
 
   <div class="max-w-6xl mx-auto">
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:5rem;">
       <div class="text-center fade-up">
-        <div class="stat-number text-gold-grad" id="counter-78">0<span style="font-size:0.55em;">%</span></div>
-        <div style="font-size:0.82rem;color:#7a8196;margin-top:0.5rem;line-height:1.5;">riduzione tempo<br>di addormentamento</div>
+        <div class="stat-number text-blue-grad" id="counter-78">0<span style="font-size:0.55em;">%</span></div>
+        <div style="font-size:0.82rem;color:#5e7a96;margin-top:0.5rem;line-height:1.5;">riduzione tempo<br>di addormentamento</div>
       </div>
       <div class="text-center fade-up">
-        <div class="stat-number text-gold-grad"><span id="counter-14">0</span><span style="font-size:0.55em;"> gg</span></div>
-        <div style="font-size:0.82rem;color:#7a8196;margin-top:0.5rem;line-height:1.5;">per i primi<br>risultati</div>
+        <div class="stat-number text-blue-grad"><span id="counter-14">0</span><span style="font-size:0.55em;"> gg</span></div>
+        <div style="font-size:0.82rem;color:#5e7a96;margin-top:0.5rem;line-height:1.5;">per i primi<br>risultati</div>
       </div>
       <div class="text-center fade-up">
-        <div class="stat-number text-gold-grad"><span id="counter-60">0</span><span style="font-size:0.55em;"> gg</span></div>
-        <div style="font-size:0.82rem;color:#7a8196;margin-top:0.5rem;line-height:1.5;">di garanzia<br>totale</div>
+        <div class="stat-number text-blue-grad"><span id="counter-60">0</span><span style="font-size:0.55em;"> gg</span></div>
+        <div style="font-size:0.82rem;color:#5e7a96;margin-top:0.5rem;line-height:1.5;">di garanzia<br>totale</div>
       </div>
     </div>
 
     <div class="text-center mb-12 fade-up">
       <span class="section-label">Cosa Dicono</span>
-      <h2 class="headline-lg mt-4">Persone reali.<br><em class="text-italic-serif text-gold">Risultati reali.</em></h2>
+      <h2 class="headline-lg mt-4" style="color:#0d1a2e;">Persone reali.<br><em class="text-italic-serif" style="color:#1757c2;">Risultati reali.</em></h2>
     </div>
 
-    <!-- Asymmetric testimonials -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
-      <div class="testimonial-card" style="grid-column:span 2;background:linear-gradient(145deg,rgba(200,169,110,0.07),rgba(200,169,110,0.02));border-color:rgba(200,169,110,0.2);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:3rem;">
+      <div class="testimonial-card" style="grid-column:span 2;background:linear-gradient(145deg,#e8f2ff,#d8eaff);border-color:rgba(23,87,194,0.2);">
         <div style="display:flex;gap:3px;margin-bottom:1rem;"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p style="font-size:1.05rem;color:#f0eeea;line-height:1.75;margin-bottom:1.25rem;font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;">"Passavo anche un'ora e mezza a pensare nel letto. Liste. Conversazioni. Preoccupazioni. Ora in 10-15 minuti mi addormento quasi sempre. La differenza non è che dormo di più: è la testa. È silenziosa."</p>
+        <p style="font-size:1.05rem;color:#0d1a2e;line-height:1.75;margin-bottom:1.25rem;font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;">"Passavo anche un'ora e mezza a pensare nel letto. Liste. Conversazioni. Preoccupazioni. Ora in 10-15 minuti mi addormento quasi sempre. La differenza non è che dormo di più: è la testa. È silenziosa."</p>
         <div style="display:flex;align-items:center;gap:0.75rem;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(200,169,110,0.3),rgba(200,169,110,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#c8a96e;font-size:1.1rem;">M</div>
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(23,87,194,0.25),rgba(23,87,194,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#1757c2;font-size:1.1rem;">M</div>
           <div>
-            <div style="font-weight:600;font-size:0.875rem;color:#f0eeea;">Marta</div>
-            <div style="font-size:0.75rem;color:#7a8196;">41 anni — Manager</div>
+            <div style="font-weight:600;font-size:0.875rem;color:#0d1a2e;">Marta</div>
+            <div style="font-size:0.75rem;color:#5e7a96;">41 anni — Manager</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial-card">
         <div style="display:flex;gap:3px;margin-bottom:1rem;"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p style="font-size:0.9rem;color:#c8d0e0;line-height:1.7;margin-bottom:1.25rem;">"Alle 3 mi svegliavo sempre. Cervello acceso, impossibile riaddormentarsi. Ora dormo fino alla sveglia. <strong style="color:#f0eeea;">Sembrava un miracolo.</strong>"</p>
+        <p style="font-size:0.9rem;color:#3d5470;line-height:1.7;margin-bottom:1.25rem;">"Alle 3 mi svegliavo sempre. Cervello acceso, impossibile riaddormentarsi. Ora dormo fino alla sveglia. <strong style="color:#0d1a2e;">Sembrava un miracolo.</strong>"</p>
         <div style="display:flex;align-items:center;gap:0.75rem;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(79,142,245,0.3),rgba(79,142,245,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#4f8ef5;">E</div>
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(61,157,243,0.25),rgba(61,157,243,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#3d9df3;">E</div>
           <div>
-            <div style="font-weight:600;font-size:0.875rem;color:#f0eeea;">Elena</div>
-            <div style="font-size:0.75rem;color:#7a8196;">38 anni</div>
+            <div style="font-weight:600;font-size:0.875rem;color:#0d1a2e;">Elena</div>
+            <div style="font-size:0.75rem;color:#5e7a96;">38 anni</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial-card">
         <div style="display:flex;gap:3px;margin-bottom:1rem;"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p style="font-size:0.9rem;color:#c8d0e0;line-height:1.7;margin-bottom:1.25rem;">"Non mi addormento 'di colpo', ma è come se la mente si spegnesse piano. E a un certo punto… <strong style="color:#f0eeea;">dormo.</strong>"</p>
+        <p style="font-size:0.9rem;color:#3d5470;line-height:1.7;margin-bottom:1.25rem;">"Non mi addormento 'di colpo', ma è come se la mente si spegnesse piano. E a un certo punto… <strong style="color:#0d1a2e;">dormo.</strong>"</p>
         <div style="display:flex;align-items:center;gap:0.75rem;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(200,169,110,0.3),rgba(200,169,110,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#c8a96e;">C</div>
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(23,87,194,0.25),rgba(23,87,194,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#1757c2;">C</div>
           <div>
-            <div style="font-weight:600;font-size:0.875rem;color:#f0eeea;">Chiara</div>
-            <div style="font-size:0.75rem;color:#7a8196;">36 anni</div>
+            <div style="font-weight:600;font-size:0.875rem;color:#0d1a2e;">Chiara</div>
+            <div style="font-size:0.75rem;color:#5e7a96;">36 anni</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial-card" style="grid-column:span 2;">
         <div style="display:flex;gap:3px;margin-bottom:1rem;"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-        <p style="font-size:0.925rem;color:#c8d0e0;line-height:1.75;margin-bottom:1.25rem;">"Pensavo di avere un problema di sonno. <strong style="color:#f0eeea;">In realtà era la mia testa.</strong> È la prima volta che sento il silenzio quando spengo la luce. Ho provato tutto: melatonina, tisane, app. Nessuno ha lavorato sul vero problema. Mental Pro sì."</p>
+        <p style="font-size:0.925rem;color:#3d5470;line-height:1.75;margin-bottom:1.25rem;">"Pensavo di avere un problema di sonno. <strong style="color:#0d1a2e;">In realtà era la mia testa.</strong> È la prima volta che sento il silenzio quando spengo la luce. Ho provato tutto: melatonina, tisane, app. Nessuno ha lavorato sul vero problema. Mental Pro sì."</p>
         <div style="display:flex;align-items:center;gap:0.75rem;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(120,200,120,0.3),rgba(120,200,120,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#78c878;">M</div>
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(23,160,90,0.25),rgba(23,160,90,0.1));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;color:#17a05a;">M</div>
           <div>
-            <div style="font-weight:600;font-size:0.875rem;color:#f0eeea;">Marco</div>
-            <div style="font-size:0.75rem;color:#7a8196;">42 anni — Direttore commerciale</div>
+            <div style="font-weight:600;font-size:0.875rem;color:#0d1a2e;">Marco</div>
+            <div style="font-size:0.75rem;color:#5e7a96;">42 anni — Direttore commerciale</div>
           </div>
         </div>
       </div>
-
     </div>
+
+    <!-- CTA after testimonials -->
+    <div class="text-center fade-up" style="padding:2.5rem;background:#fff;border:1px solid rgba(23,87,194,0.15);border-radius:24px;">
+      <div style="font-family:'Fraunces',Georgia,serif;font-size:1.6rem;color:#0d1a2e;margin-bottom:0.5rem;">Unisciti a loro stanotte.</div>
+      <div style="font-size:0.9rem;color:#5e7a96;margin-bottom:1.5rem;">Inizia dal percorso più adatto a te. Puoi sempre restare 60 giorni con la garanzia rimborso.</div>
+      <a href="#pricing" class="btn-primary" style="font-size:1.05rem;padding:1.1rem 2.75rem;">
+        Scegli il tuo percorso
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
   </div>
 </section>
 
 
 <!-- PRICING -->
-<section id="pricing" class="relative py-28 px-6">
-  <div class="glow-gold" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.5;"></div>
+<section id="pricing" class="relative py-28 px-6" style="background:#ffffff;">
+  <div class="glow-blue" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.4;"></div>
 
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-16 fade-up">
       <span class="section-label">Scegli il Tuo Percorso</span>
-      <h2 class="headline-lg mt-4 mb-3">Più completo è il percorso,<br><em class="text-italic-serif text-gold">più il risultato si consolida.</em></h2>
+      <h2 class="headline-lg mt-4 mb-3" style="color:#0d1a2e;">Più completo è il percorso,<br><em class="text-italic-serif" style="color:#1757c2;">più il risultato si consolida.</em></h2>
       <p class="text-muted" style="max-width:480px;margin:0 auto;">Scegli in base a dove sei adesso.</p>
     </div>
 
@@ -760,76 +861,84 @@
 
       <!-- Tier 1 -->
       <div class="pricing-standard p-7 fade-up">
-        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(120,200,120,0.1);border:1px solid rgba(120,200,120,0.2);border-radius:50px;margin-bottom:1.25rem;">
-          <div style="width:7px;height:7px;border-radius:50%;background:#78c878;"></div>
-          <span style="font-size:0.7rem;font-weight:700;color:#78c878;letter-spacing:0.1em;text-transform:uppercase;">Night Reboot</span>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(23,160,90,0.08);border:1px solid rgba(23,160,90,0.2);border-radius:50px;margin-bottom:1.25rem;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#17a05a;"></div>
+          <span style="font-size:0.7rem;font-weight:700;color:#17a05a;letter-spacing:0.1em;text-transform:uppercase;">Night Reboot</span>
         </div>
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#f0eeea;line-height:1;margin-bottom:0.25rem;">€47</div>
-        <div style="font-size:0.75rem;color:#7a8196;margin-bottom:1.5rem;">+ spedizione €10</div>
-        <div style="font-size:0.85rem;color:#7a8196;margin-bottom:1.5rem;">Dormire meglio, inizia da qui</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#0d1a2e;line-height:1;margin-bottom:0.25rem;">€47</div>
+        <div style="font-size:0.75rem;color:#5e7a96;margin-bottom:1.5rem;">+ spedizione €10</div>
+        <div style="font-size:0.85rem;color:#5e7a96;margin-bottom:1.5rem;">Dormire meglio, inizia da qui</div>
         <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;">
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#78c878;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">1 confezione (60 giorni)</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#78c878;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Supporto base ritmo sonno</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#78c878;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Garanzia 60 giorni</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#17a05a;">✓</span><span style="font-size:0.85rem;color:#3d5470;">1 confezione (60 giorni)</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#17a05a;">✓</span><span style="font-size:0.85rem;color:#3d5470;">Supporto base ritmo sonno</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#17a05a;">✓</span><span style="font-size:0.85rem;color:#3d5470;">Garanzia 60 giorni</span></div>
         </div>
         <a href="#" class="btn-ghost" style="width:100%;justify-content:center;">Inizia il tuo reset</a>
       </div>
 
       <!-- Tier 2 Featured -->
       <div class="pricing-featured p-7 fade-up" style="position:relative;margin-top:-10px;margin-bottom:-10px;">
-        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#b8953a,#e8cfa0);color:#07090f;font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 1rem;border-radius:50px;white-space:nowrap;">★ Più Scelto</div>
-        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(200,169,110,0.15);border:1px solid rgba(200,169,110,0.35);border-radius:50px;margin-bottom:1.25rem;">
-          <div style="width:7px;height:7px;border-radius:50%;background:#c8a96e;"></div>
-          <span style="font-size:0.7rem;font-weight:700;color:#c8a96e;letter-spacing:0.1em;text-transform:uppercase;">Circadian Balance</span>
+        <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#ffffff;color:#1757c2;font-size:0.68rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 1rem;border-radius:50px;white-space:nowrap;border:1.5px solid rgba(23,87,194,0.3);">★ Più Scelto</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:50px;margin-bottom:1.25rem;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#fff;"></div>
+          <span style="font-size:0.7rem;font-weight:700;color:#fff;letter-spacing:0.1em;text-transform:uppercase;">Circadian Balance</span>
         </div>
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#f0eeea;line-height:1;margin-bottom:0.25rem;">€129</div>
-        <div style="font-size:0.75rem;color:#c8a96e;margin-bottom:1.5rem;">Spedizione gratuita · €43/unità</div>
-        <div style="font-size:0.85rem;color:#7a8196;margin-bottom:1.5rem;">Il sistema completo per stabilizzare il sonno</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#fff;line-height:1;margin-bottom:0.25rem;">€129</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;">Spedizione gratuita · €43/unità</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.75);margin-bottom:1.5rem;">Il sistema completo per stabilizzare il sonno</div>
         <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;">
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">3 confezioni (180 giorni)</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Ebook bundle completo</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Videocorso "Protocollo 3:30" (1h)</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Spedizione gratuita inclusa</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Garanzia 60 giorni</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:#a0d4ff;margin-top:2px;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">3 confezioni (180 giorni)</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:#a0d4ff;margin-top:2px;">✓</span>
+            <div>
+              <span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">Ebook bundle completo:</span>
+              <div style="margin-top:0.4rem;display:flex;flex-direction:column;gap:0.3rem;padding-left:0.75rem;border-left:2px solid rgba(255,255,255,0.2);">
+                <span style="font-size:0.78rem;color:rgba(255,255,255,0.7);">· Protocollo jet lag</span>
+                <span style="font-size:0.78rem;color:rgba(255,255,255,0.7);">· Protocollo bio-ice hack: come dormire anche con un caldo estremo</span>
+                <span style="font-size:0.78rem;color:rgba(255,255,255,0.7);">· Protocollo come dormire lontano da casa</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">Videocorso "Protocollo 3:30" (1h)</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">Spedizione gratuita inclusa</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.9);">Garanzia 60 giorni</span></div>
         </div>
-        <a href="#" class="btn-gold" style="width:100%;justify-content:center;">Attiva il tuo sistema</a>
-        <div style="text-align:center;margin-top:0.75rem;font-size:0.73rem;color:#7a8196;">Il percorso più equilibrato</div>
+        <a href="#" class="btn-primary" style="width:100%;justify-content:center;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,0.5);color:#fff;box-shadow:none;">Attiva il tuo sistema →</a>
+        <div style="text-align:center;margin-top:0.75rem;font-size:0.73rem;color:rgba(255,255,255,0.55);">Il percorso più equilibrato</div>
       </div>
 
       <!-- Tier 3 -->
       <div class="pricing-standard p-7 fade-up">
-        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(255,100,100,0.1);border:1px solid rgba(255,100,100,0.2);border-radius:50px;margin-bottom:1.25rem;">
-          <div style="width:7px;height:7px;border-radius:50%;background:#ff6464;"></div>
-          <span style="font-size:0.7rem;font-weight:700;color:#ff6464;letter-spacing:0.1em;text-transform:uppercase;">Sleep Elite</span>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:0.3rem 0.85rem;background:rgba(23,87,194,0.08);border:1px solid rgba(23,87,194,0.2);border-radius:50px;margin-bottom:1.25rem;">
+          <div style="width:7px;height:7px;border-radius:50%;background:#1757c2;"></div>
+          <span style="font-size:0.7rem;font-weight:700;color:#1757c2;letter-spacing:0.1em;text-transform:uppercase;">Sleep Elite</span>
         </div>
-        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#f0eeea;line-height:1;margin-bottom:0.25rem;">€249</div>
-        <div style="font-size:0.75rem;color:#7a8196;margin-bottom:1.5rem;">Spedizione prioritaria gratuita</div>
-        <div style="font-size:0.85rem;color:#7a8196;margin-bottom:1.5rem;">Ottimizzazione completa del sonno</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#0d1a2e;line-height:1;margin-bottom:0.25rem;">€249</div>
+        <div style="font-size:0.75rem;color:#5e7a96;margin-bottom:1.5rem;">Spedizione prioritaria gratuita</div>
+        <div style="font-size:0.85rem;color:#5e7a96;margin-bottom:1.5rem;">Ottimizzazione completa del sonno</div>
         <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;">
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#ff9090;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">6 confezioni (360 giorni)</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#ff9090;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Ebook + Videocorso completo</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#ff9090;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Libro fisico incluso</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#ff9090;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Sleep Personality Test</span></div>
-          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#ff9090;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Spedizione prioritaria</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#1757c2;">✓</span><span style="font-size:0.85rem;color:#3d5470;">6 confezioni (360 giorni)</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#1757c2;">✓</span><span style="font-size:0.85rem;color:#3d5470;">Ebook + Videocorso completo</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#1757c2;">✓</span><span style="font-size:0.85rem;color:#3d5470;">Libro incluso: <em>Dormire è facile... se sai come farlo</em></span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#1757c2;">✓</span><span style="font-size:0.85rem;color:#3d5470;">Sleep Personality Test</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:center;"><span style="color:#1757c2;">✓</span><span style="font-size:0.85rem;color:#3d5470;">Spedizione prioritaria</span></div>
         </div>
-        <a href="#" class="btn-ghost" style="width:100%;justify-content:center;">Attiva livello Elite</a>
+        <a href="#" class="btn-primary" style="width:100%;justify-content:center;">Attiva livello Elite →</a>
       </div>
 
     </div>
 
-    <!-- Decision helper -->
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;" class="fade-up">
-      <div style="text-align:center;padding:0.875rem;background:rgba(120,200,120,0.05);border:1px solid rgba(120,200,120,0.12);border-radius:14px;">
-        <div style="font-size:0.68rem;font-weight:700;color:#78c878;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">1 Pack</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Voglio iniziare e testare</div>
+      <div style="text-align:center;padding:0.875rem;background:rgba(23,160,90,0.05);border:1px solid rgba(23,160,90,0.15);border-radius:14px;">
+        <div style="font-size:0.68rem;font-weight:700;color:#17a05a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">1 Pack</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Voglio iniziare e testare</div>
       </div>
-      <div style="text-align:center;padding:0.875rem;background:rgba(200,169,110,0.05);border:1px solid rgba(200,169,110,0.15);border-radius:14px;">
-        <div style="font-size:0.68rem;font-weight:700;color:#c8a96e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">3 Pack</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Voglio risolvere il problema</div>
+      <div style="text-align:center;padding:0.875rem;background:rgba(23,87,194,0.06);border:1px solid rgba(23,87,194,0.18);border-radius:14px;">
+        <div style="font-size:0.68rem;font-weight:700;color:#1757c2;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">3 Pack</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Voglio risolvere il problema</div>
       </div>
-      <div style="text-align:center;padding:0.875rem;background:rgba(255,100,100,0.05);border:1px solid rgba(255,100,100,0.12);border-radius:14px;">
-        <div style="font-size:0.68rem;font-weight:700;color:#ff9090;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">6 Pack</div>
-        <div style="font-size:0.78rem;color:#7a8196;">Voglio massimizzare il risultato</div>
+      <div style="text-align:center;padding:0.875rem;background:rgba(23,87,194,0.06);border:1px solid rgba(23,87,194,0.18);border-radius:14px;">
+        <div style="font-size:0.68rem;font-weight:700;color:#1757c2;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">6 Pack</div>
+        <div style="font-size:0.78rem;color:#5e7a96;">Voglio massimizzare il risultato</div>
       </div>
     </div>
 
@@ -838,41 +947,91 @@
 
 
 <!-- BONUSES -->
-<section class="relative py-24 px-6" style="background:linear-gradient(to bottom,#07090f 0%,#0a0e1a 60%,#07090f 100%);">
-  <div class="glow-gold" style="width:500px;height:500px;bottom:-100px;right:-100px;opacity:0.6;"></div>
+<section class="relative py-24 px-6" style="background:linear-gradient(160deg,#f0f7ff 0%,#e4f0ff 100%);">
+  <div class="glow-blue" style="width:500px;height:500px;bottom:-100px;right:-100px;opacity:0.5;"></div>
 
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-12 fade-up">
       <span class="section-label">Incluso in Ogni Ordine</span>
-      <h2 class="headline-lg mt-4">Tre bonus per<br><em class="text-italic-serif text-gold">amplificare i risultati.</em></h2>
+      <h2 class="headline-lg mt-4" style="color:#0d1a2e;">Tre bonus per<br><em class="text-italic-serif" style="color:#1757c2;">amplificare i risultati.</em></h2>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2.5rem;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:3.5rem;">
       <div class="card p-6 fade-up">
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(200,169,110,0.2),rgba(200,169,110,0.05));border:1px solid rgba(200,169,110,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem;">📖</div>
-        <div style="font-weight:700;color:#f0eeea;margin-bottom:0.5rem;font-size:0.9rem;">Guida al Rituale di Spegnimento</div>
-        <div style="font-size:0.8rem;color:#7a8196;line-height:1.65;">Protocollo pratico da 20 minuti. Cose concrete da fare prima di dormire per preparare il cervello al rallentamento.</div>
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(23,87,194,0.12),rgba(23,87,194,0.04));border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem;">📖</div>
+        <div style="font-weight:700;color:#0d1a2e;margin-bottom:0.5rem;font-size:0.9rem;">Guida al Rituale di Spegnimento</div>
+        <div style="font-size:0.8rem;color:#5e7a96;line-height:1.65;">Protocollo pratico da 20 minuti. Cose concrete da fare prima di dormire per preparare il cervello al rallentamento.</div>
       </div>
       <div class="card p-6 fade-up">
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(200,169,110,0.2),rgba(200,169,110,0.05));border:1px solid rgba(200,169,110,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem;">🌙</div>
-        <div style="font-weight:700;color:#f0eeea;margin-bottom:0.5rem;font-size:0.9rem;">Protocollo Anti-Risveglio</div>
-        <div style="font-size:0.8rem;color:#7a8196;line-height:1.65;">Cosa fare esattamente quando ti svegli alle 3 di notte per non entrare nel loop mentale. Una cosa che nessuno ti spiega.</div>
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(23,87,194,0.12),rgba(23,87,194,0.04));border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem;">🌙</div>
+        <div style="font-weight:700;color:#0d1a2e;margin-bottom:0.5rem;font-size:0.9rem;">Protocollo Anti-Risveglio</div>
+        <div style="font-size:0.8rem;color:#5e7a96;line-height:1.65;">Cosa fare esattamente quando ti svegli alle 3 di notte per non entrare nel loop mentale. Una cosa che nessuno ti spiega.</div>
       </div>
       <div class="card p-6 fade-up">
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(200,169,110,0.2),rgba(200,169,110,0.05));border:1px solid rgba(200,169,110,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem;">✅</div>
-        <div style="font-weight:700;color:#f0eeea;margin-bottom:0.5rem;font-size:0.9rem;">Checklist Svuota-Mente</div>
-        <div style="font-size:0.8rem;color:#7a8196;line-height:1.65;">3-5 minuti pratici per togliere il carico cognitivo. Il problema non è che pensi troppo — è che pensi nel momento sbagliato.</div>
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(23,87,194,0.12),rgba(23,87,194,0.04));border:1px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.3rem;">✅</div>
+        <div style="font-weight:700;color:#0d1a2e;margin-bottom:0.5rem;font-size:0.9rem;">Checklist Svuota-Mente</div>
+        <div style="font-size:0.8rem;color:#5e7a96;line-height:1.65;">3-5 minuti pratici per togliere il carico cognitivo. Il problema non è che pensi troppo — è che pensi nel momento sbagliato.</div>
       </div>
     </div>
 
-    <!-- Value stack -->
-    <div class="fade-up" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:1.5rem 2rem;">
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center;align-items:center;">
-        <div><div style="font-size:0.72rem;color:#7a8196;margin-bottom:0.25rem;">Mental Pro</div><div style="font-family:'Fraunces',Georgia,serif;color:#c8a96e;">€69</div></div>
-        <div><div style="font-size:0.72rem;color:#7a8196;margin-bottom:0.25rem;">Guida</div><div style="font-family:'Fraunces',Georgia,serif;color:#c8a96e;">€49</div></div>
-        <div><div style="font-size:0.72rem;color:#7a8196;margin-bottom:0.25rem;">Protocollo</div><div style="font-family:'Fraunces',Georgia,serif;color:#c8a96e;">€39</div></div>
-        <div><div style="font-size:0.72rem;color:#7a8196;margin-bottom:0.25rem;">Checklist</div><div style="font-family:'Fraunces',Georgia,serif;color:#c8a96e;">€19</div></div>
-        <div style="border-left:1px solid rgba(255,255,255,0.1);padding-left:1rem;"><div style="font-size:0.72rem;color:#7a8196;margin-bottom:0.25rem;">Valore totale</div><div style="font-family:'Fraunces',Georgia,serif;color:#f0eeea;font-size:1.3rem;">€176</div></div>
+    <!-- VALUE STACK — price destruction -->
+    <div class="fade-up" style="background:#ffffff;border:1.5px solid rgba(23,87,194,0.18);border-radius:24px;overflow:hidden;">
+      <div style="background:linear-gradient(135deg,#1757c2,#0f3f8c);padding:1.5rem 2rem;text-align:center;">
+        <div style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.65);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.4rem;">Quello che ricevi vale</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-size:3rem;font-weight:400;color:#fff;line-height:1;text-decoration:line-through;opacity:0.6;">€176</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.65);margin-top:0.25rem;">se li comprassi separatamente</div>
+      </div>
+
+      <div style="padding:1.75rem 2rem;">
+        <div class="value-stack-row">
+          <div>
+            <div style="font-size:1rem;font-weight:600;color:#0d1a2e;">Mental Pro™</div>
+            <div style="font-size:0.78rem;color:#5e7a96;">Formula in polvere — Sinergia Neurocalmante 4-Step™</div>
+          </div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#9ab0c8;" class="strikethrough">€69</div>
+        </div>
+        <div style="height:1px;background:rgba(23,87,194,0.07);margin:0.25rem 0;"></div>
+        <div class="value-stack-row">
+          <div>
+            <div style="font-size:1rem;font-weight:600;color:#0d1a2e;">Guida al Rituale</div>
+            <div style="font-size:0.78rem;color:#5e7a96;">Protocollo 20 minuti per spegnere la mente</div>
+          </div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#9ab0c8;" class="strikethrough">€49</div>
+        </div>
+        <div style="height:1px;background:rgba(23,87,194,0.07);margin:0.25rem 0;"></div>
+        <div class="value-stack-row">
+          <div>
+            <div style="font-size:1rem;font-weight:600;color:#0d1a2e;">Protocollo Anti-Risveglio</div>
+            <div style="font-size:0.78rem;color:#5e7a96;">Il sistema per riaddormentarsi senza loop mentale</div>
+          </div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#9ab0c8;" class="strikethrough">€39</div>
+        </div>
+        <div style="height:1px;background:rgba(23,87,194,0.07);margin:0.25rem 0;"></div>
+        <div class="value-stack-row">
+          <div>
+            <div style="font-size:1rem;font-weight:600;color:#0d1a2e;">Checklist Svuota-Mente</div>
+            <div style="font-size:0.78rem;color:#5e7a96;">3 minuti. Ogni sera. Per togliere il carico cognitivo</div>
+          </div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#9ab0c8;" class="strikethrough">€19</div>
+        </div>
+
+        <div style="margin-top:1.25rem;padding:1.5rem;background:linear-gradient(135deg,#e8f2ff,#d8eaff);border-radius:16px;border:1.5px solid rgba(23,87,194,0.2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:0.72rem;font-weight:700;color:#1757c2;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem;">Tu lo prendi a partire da</div>
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:3.5rem;font-weight:400;color:#0f3f8c;line-height:1;">€47</div>
+            <div style="font-size:0.82rem;color:#5e7a96;margin-top:0.3rem;">Risparmi <strong style="color:#1757c2;">€129</strong> rispetto al valore reale</div>
+          </div>
+          <div style="text-align:right;">
+            <a href="#pricing" class="btn-primary" style="font-size:1rem;padding:1rem 2rem;">
+              Voglio questo →
+            </a>
+            <div style="font-size:0.72rem;color:#5e7a96;margin-top:0.5rem;">+ 60 giorni garanzia rimborso</div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:1rem;font-size:0.82rem;color:#5e7a96;font-style:italic;">
+          "Abbiamo tolto il margine. Sappiamo che quando dormi bene, torni." — Roberto Boscia
+        </div>
       </div>
     </div>
 
@@ -881,38 +1040,38 @@
 
 
 <!-- GUARANTEE -->
-<section class="relative py-24 px-6">
-  <div class="glow-blue" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.5;"></div>
+<section class="relative py-24 px-6" style="background:#ffffff;">
+  <div class="glow-light" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.7;"></div>
 
   <div class="max-w-3xl mx-auto text-center">
     <div class="guarantee-ring mx-auto mb-8 fade-up" style="flex-direction:column;gap:4px;">
-      <div style="font-family:'Fraunces',Georgia,serif;font-size:2.5rem;color:#c8a96e;line-height:1;font-weight:400;">60</div>
-      <div style="font-size:0.68rem;font-weight:700;color:#c8a96e;letter-spacing:0.12em;text-transform:uppercase;">Giorni</div>
+      <div style="font-family:'Fraunces',Georgia,serif;font-size:2.5rem;color:#1757c2;line-height:1;font-weight:400;">60</div>
+      <div style="font-size:0.68rem;font-weight:700;color:#1757c2;letter-spacing:0.12em;text-transform:uppercase;">Giorni</div>
     </div>
 
-    <h2 class="headline-lg mb-6 fade-up">Rischio <em class="text-italic-serif text-gold">zero.</em><br>Garanzia totale.</h2>
+    <h2 class="headline-lg mb-6 fade-up" style="color:#0d1a2e;">Rischio <em class="text-italic-serif" style="color:#1757c2;">zero.</em><br>Garanzia totale.</h2>
 
     <p class="text-muted mb-8 fade-up" style="font-size:1rem;line-height:1.8;max-width:550px;margin-left:auto;margin-right:auto;">
-      Se provi Mental Pro e non noti differenze — se non senti la mente più calma, se non ti aiuta a spegnere il rumore serale — puoi richiedere il rimborso completo. <strong style="color:#f0eeea;">Senza domande. Senza spiegazioni.</strong>
+      Se provi Mental Pro e non noti differenze — se non senti la mente più calma, se non ti aiuta a spegnere il rumore serale — puoi richiedere il rimborso completo. <strong style="color:#0d1a2e;">Senza domande. Senza spiegazioni.</strong>
     </p>
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem;" class="fade-up">
-      <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:14px;">
+      <div style="padding:1rem;background:rgba(23,87,194,0.04);border:1px solid rgba(23,87,194,0.12);border-radius:14px;">
         <div style="font-size:1.3rem;margin-bottom:0.4rem;">🔒</div>
-        <div style="font-size:0.78rem;color:#c8d0e0;font-weight:600;">Transazione sicura</div>
+        <div style="font-size:0.78rem;color:#3d5470;font-weight:600;">Transazione sicura</div>
       </div>
-      <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:14px;">
+      <div style="padding:1rem;background:rgba(23,87,194,0.04);border:1px solid rgba(23,87,194,0.12);border-radius:14px;">
         <div style="font-size:1.3rem;margin-bottom:0.4rem;">⚡</div>
-        <div style="font-size:0.78rem;color:#c8d0e0;font-weight:600;">Spedizione rapida</div>
+        <div style="font-size:0.78rem;color:#3d5470;font-weight:600;">Spedizione rapida</div>
       </div>
-      <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:14px;">
+      <div style="padding:1rem;background:rgba(23,87,194,0.04);border:1px solid rgba(23,87,194,0.12);border-radius:14px;">
         <div style="font-size:1.3rem;margin-bottom:0.4rem;">💬</div>
-        <div style="font-size:0.78rem;color:#c8d0e0;font-weight:600;">Supporto email</div>
+        <div style="font-size:0.78rem;color:#3d5470;font-weight:600;">Supporto email</div>
       </div>
     </div>
 
     <div class="fade-up">
-      <a href="#pricing" class="btn-gold" style="font-size:1.05rem;padding:1.1rem 2.75rem;">
+      <a href="#pricing" class="btn-primary" style="font-size:1.05rem;padding:1.1rem 2.75rem;">
         Inizia Senza Rischio
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -922,72 +1081,72 @@
 
 
 <!-- FAQ -->
-<section class="relative py-24 px-6" style="background:linear-gradient(to bottom,#07090f 0%,#0a0e1a 100%);">
+<section class="relative py-24 px-6" style="background:linear-gradient(160deg,#f0f7ff 0%,#e8f2ff 100%);">
   <div class="max-w-3xl mx-auto">
     <div class="text-center mb-12 fade-up">
       <span class="section-label">Domande Frequenti</span>
-      <h2 class="headline-lg mt-4">Risposte <em class="text-italic-serif text-gold">dirette.</em></h2>
+      <h2 class="headline-lg mt-4" style="color:#0d1a2e;">Risposte <em class="text-italic-serif" style="color:#1757c2;">dirette.</em></h2>
     </div>
 
-    <div class="fade-up">
+    <div class="fade-up" style="background:#fff;border-radius:20px;border:1px solid rgba(23,87,194,0.12);overflow:hidden;">
 
-      <div style="border-bottom:1px solid rgba(255,255,255,0.07);">
-        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
-          <span style="font-weight:600;color:#f0eeea;font-size:0.975rem;">Cos'è Mental Pro esattamente?</span>
-          <span class="faq-icon" style="color:#c8a96e;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
+      <div style="border-bottom:1px solid rgba(23,87,194,0.08);">
+        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.75rem;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
+          <span style="font-weight:600;color:#0d1a2e;font-size:0.975rem;">Cos'è Mental Pro esattamente?</span>
+          <span class="faq-icon" style="color:#1757c2;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
         </button>
         <div class="faq-answer">
-          <p style="font-size:0.875rem;color:#7a8196;line-height:1.8;padding-bottom:1.25rem;">Mental Pro è un integratore in polvere progettato per aiutare il cervello a passare dalla modalità "analisi attiva" alla modalità "riposo". Non ti addormenta. Non ti stordisce. Ti aiuta a smettere di pensare nel momento sbagliato. Pensa al tuo cervello come a un computer con 20 finestre aperte — Mental Pro è il comando "Chiudi tutto".</p>
+          <p style="font-size:0.875rem;color:#5e7a96;line-height:1.8;padding:0 1.75rem 1.4rem;">Mental Pro è un integratore in polvere progettato per aiutare il cervello a passare dalla modalità "analisi attiva" alla modalità "riposo". Non ti addormenta. Non ti stordisce. Ti aiuta a smettere di pensare nel momento sbagliato. Pensa al tuo cervello come a un computer con 20 finestre aperte — Mental Pro è il comando "Chiudi tutto".</p>
         </div>
       </div>
 
-      <div style="border-bottom:1px solid rgba(255,255,255,0.07);">
-        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
-          <span style="font-weight:600;color:#f0eeea;font-size:0.975rem;">Ho già provato tutto. Perché questo dovrebbe funzionare?</span>
-          <span class="faq-icon" style="color:#c8a96e;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
+      <div style="border-bottom:1px solid rgba(23,87,194,0.08);">
+        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.75rem;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
+          <span style="font-weight:600;color:#0d1a2e;font-size:0.975rem;">Ho già provato tutto. Perché questo dovrebbe funzionare?</span>
+          <span class="faq-icon" style="color:#1757c2;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
         </button>
         <div class="faq-answer">
-          <p style="font-size:0.875rem;color:#7a8196;line-height:1.8;padding-bottom:1.25rem;">Probabilmente hai provato cose che lavorano sul sonno. Non sul rumore mentale. La melatonina regola il ritmo sonno-veglia ma non spegne il sistema che genera pensieri. Le tisane rilassano i muscoli, non la mente. Mental Pro agisce direttamente sulla radice: l'iperattività cognitiva serale.</p>
+          <p style="font-size:0.875rem;color:#5e7a96;line-height:1.8;padding:0 1.75rem 1.4rem;">Probabilmente hai provato cose che lavorano sul sonno. Non sul rumore mentale. La melatonina regola il ritmo sonno-veglia ma non spegne il sistema che genera pensieri. Le tisane rilassano i muscoli, non la mente. Mental Pro agisce direttamente sulla radice: l'iperattività cognitiva serale.</p>
         </div>
       </div>
 
-      <div style="border-bottom:1px solid rgba(255,255,255,0.07);">
-        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
-          <span style="font-weight:600;color:#f0eeea;font-size:0.975rem;">Quanto tempo ci vuole per vedere risultati?</span>
-          <span class="faq-icon" style="color:#c8a96e;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
+      <div style="border-bottom:1px solid rgba(23,87,194,0.08);">
+        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.75rem;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
+          <span style="font-weight:600;color:#0d1a2e;font-size:0.975rem;">Quanto tempo ci vuole per vedere risultati?</span>
+          <span class="faq-icon" style="color:#1757c2;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
         </button>
         <div class="faq-answer">
-          <p style="font-size:0.875rem;color:#7a8196;line-height:1.8;padding-bottom:1.25rem;">Giorni 1-3: mente più "morbida". Settimana 1: addormentamento più rapido. Settimana 2+: miglioramento stabile. Il 78% degli utenti riporta una riduzione significativa entro 14 giorni. Più lo usi con costanza, più il cervello impara a rallentare.</p>
+          <p style="font-size:0.875rem;color:#5e7a96;line-height:1.8;padding:0 1.75rem 1.4rem;">Giorni 1-3: mente più "morbida". Settimana 1: addormentamento più rapido. Settimana 2+: miglioramento stabile. Il 78% degli utenti riporta una riduzione significativa entro 14 giorni. Più lo usi con costanza, più il cervello impara a rallentare.</p>
         </div>
       </div>
 
-      <div style="border-bottom:1px solid rgba(255,255,255,0.07);">
-        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
-          <span style="font-weight:600;color:#f0eeea;font-size:0.975rem;">Mi creerà dipendenza?</span>
-          <span class="faq-icon" style="color:#c8a96e;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
+      <div style="border-bottom:1px solid rgba(23,87,194,0.08);">
+        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.75rem;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
+          <span style="font-weight:600;color:#0d1a2e;font-size:0.975rem;">Mi creerà dipendenza?</span>
+          <span class="faq-icon" style="color:#1757c2;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
         </button>
         <div class="faq-answer">
-          <p style="font-size:0.875rem;color:#7a8196;line-height:1.8;padding-bottom:1.25rem;">No. Mental Pro non è un sedativo e non crea dipendenza. Il suo obiettivo è aiutare il cervello a ripristinare un meccanismo naturale — non sostituirlo artificialmente. I clienti riferiscono un miglioramento progressivo, non una dipendenza.</p>
+          <p style="font-size:0.875rem;color:#5e7a96;line-height:1.8;padding:0 1.75rem 1.4rem;">No. Mental Pro non è un sedativo e non crea dipendenza. Il suo obiettivo è aiutare il cervello a ripristinare un meccanismo naturale — non sostituirlo artificialmente. I clienti riferiscono un miglioramento progressivo, non una dipendenza.</p>
         </div>
       </div>
 
-      <div style="border-bottom:1px solid rgba(255,255,255,0.07);">
-        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
-          <span style="font-weight:600;color:#f0eeea;font-size:0.975rem;">È complicato da usare?</span>
-          <span class="faq-icon" style="color:#c8a96e;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
+      <div style="border-bottom:1px solid rgba(23,87,194,0.08);">
+        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.75rem;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
+          <span style="font-weight:600;color:#0d1a2e;font-size:0.975rem;">È complicato da usare?</span>
+          <span class="faq-icon" style="color:#1757c2;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
         </button>
         <div class="faq-answer">
-          <p style="font-size:0.875rem;color:#7a8196;line-height:1.8;padding-bottom:1.25rem;">No. 1 misurino. Acqua. La sera. Fine. Niente rituali, niente tecniche. Mental Pro è progettato per integrarsi nella tua vita — non per stravolgerla.</p>
+          <p style="font-size:0.875rem;color:#5e7a96;line-height:1.8;padding:0 1.75rem 1.4rem;">No. 1 misurino. Acqua. La sera. Fine. Niente rituali, niente tecniche. Mental Pro è progettato per integrarsi nella tua vita — non per stravolgerla.</p>
         </div>
       </div>
 
       <div>
-        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
-          <span style="font-weight:600;color:#f0eeea;font-size:0.975rem;">E se non funziona per me?</span>
-          <span class="faq-icon" style="color:#c8a96e;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
+        <button style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.75rem;background:none;border:none;cursor:pointer;text-align:left;" onclick="toggleFaq(this)">
+          <span style="font-weight:600;color:#0d1a2e;font-size:0.975rem;">E se non funziona per me?</span>
+          <span class="faq-icon" style="color:#1757c2;font-size:1.5rem;font-weight:300;min-width:20px;text-align:center;line-height:1;">+</span>
         </button>
         <div class="faq-answer">
-          <p style="font-size:0.875rem;color:#7a8196;line-height:1.8;padding-bottom:1.25rem;">Hai 60 giorni di garanzia soddisfatti o rimborsati. Se non noti miglioramenti — scrivi e ti rimborsiamo. Senza domande. Senza discussioni. Rischio zero. La domanda vera è: perché non provarlo?</p>
+          <p style="font-size:0.875rem;color:#5e7a96;line-height:1.8;padding:0 1.75rem 1.4rem;">Hai 60 giorni di garanzia soddisfatti o rimborsati. Se non noti miglioramenti — scrivi e ti rimborsiamo. Senza domande. Senza discussioni. Rischio zero. La domanda vera è: perché non provarlo?</p>
         </div>
       </div>
 
@@ -998,63 +1157,77 @@
 
 
 <!-- FINAL CTA -->
-<section class="relative py-32 px-6" style="background:linear-gradient(to bottom,#0a0e1a 0%,#07090f 100%);">
-  <div class="glow-gold" style="width:800px;height:800px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.7;"></div>
+<section class="relative py-32 px-6 section-blue">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(61,157,243,0.2) 0%,transparent 60%);pointer-events:none;"></div>
 
   <div class="max-w-3xl mx-auto text-center relative z-10">
-    <div class="time-ghost fade-in" style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:clamp(3rem,10vw,7rem);color:rgba(200,169,110,0.04);">stanotte</div>
-
-    <span class="section-label fade-up">La Scelta è Adesso</span>
-    <h2 class="headline-xl mt-6 mb-6 fade-up">
-      Stanotte arriva<br><em class="text-italic-serif text-gold-grad">comunque.</em>
+    <span class="section-label fade-up" style="color:rgba(255,255,255,0.6);">La Scelta è Adesso</span>
+    <h2 class="headline-xl mt-6 mb-6 fade-up" style="color:#ffffff;">
+      Stanotte arriva<br><em class="text-italic-serif" style="color:#a0d4ff;">comunque.</em>
     </h2>
 
-    <p class="text-muted mb-10 fade-up" style="font-size:1.05rem;line-height:1.8;max-width:500px;margin-left:auto;margin-right:auto;">
+    <p class="fade-up" style="font-size:1.05rem;line-height:1.8;max-width:500px;margin:0 auto 3rem;color:rgba(255,255,255,0.7);">
       Sarà uguale alle altre... oppure sarà la prima diversa.<br>Non è una decisione complicata. È una decisione onesta. Con te stesso.
     </p>
 
-    <div class="card p-6 mb-10 fade-up" style="max-width:400px;margin-left:auto;margin-right:auto;text-align:left;">
-      <div style="font-size:0.72rem;font-weight:700;color:#c8a96e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">Cosa ottieni oggi</div>
+    <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:2rem;max-width:400px;margin:0 auto 2.5rem;" class="fade-up">
+      <div style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;text-align:center;">Cosa ottieni oggi</div>
       <div style="display:flex;flex-direction:column;gap:0.6rem;">
-        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Mental Pro™ — formula completa</span></div>
-        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Guida al rituale di spegnimento</span></div>
-        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Protocollo anti-risveglio notturno</span></div>
-        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">Checklist svuota-mente</span></div>
-        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#c8a96e;">✓</span><span style="font-size:0.85rem;color:#c8d0e0;">60 giorni garanzia totale</span></div>
+        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.85);">Mental Pro™ — formula completa</span></div>
+        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.85);">Guida al rituale di spegnimento</span></div>
+        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.85);">Protocollo anti-risveglio notturno</span></div>
+        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.85);">Checklist svuota-mente</span></div>
+        <div style="display:flex;gap:0.6rem;align-items:center;"><span style="color:#a0d4ff;">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.85);">60 giorni garanzia totale</span></div>
       </div>
-      <div style="border-top:1px solid rgba(255,255,255,0.07);margin-top:1rem;padding-top:1rem;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.78rem;color:#7a8196;">Valore reale</span>
-        <span style="font-family:'Fraunces',Georgia,serif;color:#7a8196;text-decoration:line-through;">€176</span>
+      <div style="border-top:1px solid rgba(255,255,255,0.12);margin-top:1rem;padding-top:1rem;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Valore reale</span>
+        <span style="font-family:'Fraunces',Georgia,serif;color:rgba(255,255,255,0.4);text-decoration:line-through;">€176</span>
       </div>
     </div>
 
     <div class="fade-up">
-      <a href="#pricing" class="btn-gold" style="font-size:1.1rem;padding:1.25rem 3rem;">
+      <a href="#pricing" style="display:inline-flex;align-items:center;gap:0.5rem;background:#ffffff;color:#1757c2;font-family:'Manrope',sans-serif;font-weight:700;font-size:1.1rem;padding:1.25rem 3rem;border-radius:50px;text-decoration:none;box-shadow:0 8px 40px rgba(0,0,0,0.25);transition:transform 0.3s,box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.03) translateY(-2px)';this.style.boxShadow='0 16px 60px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 40px rgba(0,0,0,0.25)';">
         Scegli il Tuo Percorso
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <div style="margin-top:0.75rem;font-size:0.78rem;color:#7a8196;">Transazione sicura · Spedizione rapida · 60 giorni rimborso</div>
+      <div style="margin-top:0.75rem;font-size:0.78rem;color:rgba(255,255,255,0.45);">Transazione sicura · Spedizione rapida · 60 giorni rimborso</div>
     </div>
 
     <div class="mt-16 fade-up">
-      <div style="width:40px;height:1px;background:rgba(255,255,255,0.12);margin:0 auto 1.25rem;"></div>
-      <div style="font-style:italic;font-family:'Fraunces',Georgia,serif;color:#7a8196;font-size:0.9rem;line-height:1.65;">
-        "Non mi interessa venderti un prodotto. Mi interessa una cosa molto più semplice.<br>Che tu torni a dire: <em style="color:#c8d0e0;">'Stanotte ho dormito bene.'</em>"
+      <div style="width:40px;height:1px;background:rgba(255,255,255,0.2);margin:0 auto 1.25rem;"></div>
+      <div style="font-style:italic;font-family:'Fraunces',Georgia,serif;color:rgba(255,255,255,0.5);font-size:0.9rem;line-height:1.65;">
+        "Non mi interessa venderti un prodotto. Mi interessa una cosa molto più semplice.<br>Che tu torni a dire: <em style="color:rgba(255,255,255,0.8);">'Stanotte ho dormito bene.'</em>"
       </div>
-      <div style="margin-top:0.75rem;font-size:0.78rem;color:#4a5060;">— Roberto Boscia, Farmacista</div>
+      <div style="margin-top:0.75rem;font-size:0.78rem;color:rgba(255,255,255,0.3);">— Roberto Boscia, Farmacista</div>
     </div>
   </div>
 </section>
 
 
 <!-- FOOTER -->
-<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:2.5rem 1.5rem;">
+<footer style="background:#0d1a2e;border-top:1px solid rgba(23,87,194,0.2);padding:2.5rem 1.5rem;">
   <div class="max-w-6xl mx-auto" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;">
-    <div style="font-family:'Fraunces',Georgia,serif;font-size:1rem;color:#4a5060;">Mental<span style="color:#7a6040;">Pro</span>™</div>
-    <div style="font-size:0.72rem;color:#3a4060;line-height:1.6;max-width:480px;text-align:center;">Integratore alimentare. Non sostituisce una dieta variata ed equilibrata e uno stile di vita sano. Tenere fuori dalla portata dei bambini. Conservare in luogo fresco e asciutto.</div>
-    <div style="font-size:0.72rem;color:#3a4060;">© 2025 Mental Pro™</div>
+    <div style="font-family:'Fraunces',Georgia,serif;font-size:1rem;color:rgba(255,255,255,0.35);">Mental<span style="color:rgba(61,157,243,0.6);">Pro</span>™</div>
+    <div style="font-size:0.72rem;color:rgba(255,255,255,0.2);line-height:1.6;max-width:480px;text-align:center;">Integratore alimentare. Non sostituisce una dieta variata ed equilibrata e uno stile di vita sano. Tenere fuori dalla portata dei bambini. Conservare in luogo fresco e asciutto.</div>
+    <div style="font-size:0.72rem;color:rgba(255,255,255,0.2);">© 2025 Mental Pro™</div>
   </div>
 </footer>
+
+
+<!-- STICKY BOTTOM BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div style="font-family:'Fraunces',Georgia,serif;font-size:1.1rem;color:#0d1a2e;">Mental<span class="text-blue">Pro</span>™</div>
+      <div style="width:1px;height:24px;background:rgba(23,87,194,0.15);"></div>
+      <div style="font-size:0.8rem;color:#5e7a96;">A partire da <strong style="color:#1757c2;">€47</strong> · 60gg garanzia</div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div style="font-size:0.78rem;color:#5e7a96;">🔒 Transazione sicura</div>
+      <a href="#pricing" class="btn-primary" style="padding:0.65rem 1.6rem;font-size:0.9rem;">Scegli il percorso →</a>
+    </div>
+  </div>
+</div>
 
 
 <script>
@@ -1066,7 +1239,8 @@ gsap.timeline({ delay: 0.3 })
   .to('#hero-h1', { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.4')
   .to('#hero-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5')
   .to('#hero-cta', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4')
-  .to('#hero-stats', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+  .to('#hero-stats', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3')
+  .to('#hero-img', { opacity: 1, y: 0, duration: 0.9, ease: 'back.out(1.3)' }, '-=0.8');
 
 // Scroll fade-up
 gsap.utils.toArray('.fade-up').forEach(el => {
@@ -1074,15 +1248,6 @@ gsap.utils.toArray('.fade-up').forEach(el => {
     { opacity: 0, y: 35 },
     { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
       scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-    }
-  );
-});
-
-gsap.utils.toArray('.fade-in').forEach(el => {
-  gsap.fromTo(el,
-    { opacity: 0 },
-    { opacity: 1, duration: 1.2, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' }
     }
   );
 });
@@ -1122,12 +1287,12 @@ gsap.utils.toArray('.testimonial-card').forEach((card, i) => {
   );
 });
 
-// Parallax glows
-gsap.utils.toArray('.glow-gold, .glow-blue').forEach((g, i) => {
-  gsap.to(g, {
-    y: i % 2 === 0 ? -60 : 60, ease: 'none',
-    scrollTrigger: { trigger: g.parentElement, start: 'top bottom', end: 'bottom top', scrub: 2 }
-  });
+// Sticky bar show after hero
+ScrollTrigger.create({
+  trigger: '#hero-cta',
+  start: 'bottom top',
+  onEnter: () => document.getElementById('stickyBar').classList.add('visible'),
+  onLeaveBack: () => document.getElementById('stickyBar').classList.remove('visible'),
 });
 </script>
 
