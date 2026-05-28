@@ -75,16 +75,11 @@
 
     /* Book mockup */
     .book-wrap{perspective:900px;display:inline-block;}
-    .book-3d{display:flex;transform:rotateY(-20deg);transform-style:preserve-3d;filter:drop-shadow(-16px 16px 40px rgba(0,0,0,.5));transition:transform 400ms ease;}
+    .book-3d{display:flex;transform:rotateY(-20deg);transform-style:preserve-3d;filter:drop-shadow(-20px 20px 48px rgba(0,0,0,.6));transition:transform 400ms ease;}
     .book-3d:hover{transform:rotateY(-8deg);}
     .book-spine{width:28px;background:linear-gradient(to right,#061520,#0a2030);border-radius:3px 0 0 3px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-size:10px;font-weight:600;letter-spacing:.08em;color:rgba(200,138,43,.7);text-transform:uppercase;padding:16px 0;}
-    .book-front{width:200px;height:280px;background:linear-gradient(160deg,#0E2A36 0%,#152d3a 50%,#0a1e28 100%);border-radius:0 4px 4px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:24px 22px;border-left:1px solid rgba(200,138,43,.15);position:relative;overflow:hidden;}
-    .book-front::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--amber),transparent);}
-    .book-front::after{content:'';position:absolute;width:160px;height:160px;background:radial-gradient(circle,rgba(200,138,43,.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);}
-    .book-title-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.35;color:var(--text-d);position:relative;z-index:1;}
-    .book-title-text em{color:var(--amber);font-style:italic;}
-    .book-author-text{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dim);position:relative;z-index:1;}
-    .book-deco{width:40px;height:1px;background:var(--amber);opacity:.4;position:relative;z-index:1;}
+    .book-front{width:220px;height:308px;border-radius:0 4px 4px 0;overflow:hidden;position:relative;}
+    .book-front img{width:100%;height:100%;object-fit:cover;object-position:right center;display:block;}
 
     @media(max-width:768px){
       .sp{padding:64px 20px;}
@@ -165,12 +160,7 @@
           <div class="book-3d">
             <div class="book-spine">BOSCIA</div>
             <div class="book-front">
-              <div class="book-title-text">
-                Dormire<br>è facile…<br>
-                <em>se sai come<br>farlo!</em>
-              </div>
-              <div class="book-deco"></div>
-              <div class="book-author-text">Roberto Boscia</div>
+              <img src="book_cover.jpg" alt="Dormire è facile se sai come farlo — Roberto Boscia">
             </div>
           </div>
         </div>
