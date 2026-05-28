@@ -3,1360 +3,883 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assetto Biologico™ — Scopri come funziona davvero il tuo corpo</title>
-
+  <title>Dormire è facile... se sai come farlo! — Roberto Boscia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
   <style>
     :root {
-      --petrol:      #0E2A36;
-      --slate:       #2F4652;
-      --slate-light: #3D5A6A;
-      --bg:          #F6F5F1;
-      --white:       #FFFFFF;
-      --green:       #6D8A73;
-      --amber:       #C88A2B;
-      --amber-h:     #A66E18;
-      --amber-dim:   #C9A64E;
-      --orange:      #B8772E;
-      --red-dim:     #8A3A34;
-      --text-d:      #F6F5F1;
-      --text-d2:     rgba(246,245,241,0.55);
-      --text-l:      #0E2A36;
-      --text-l2:     #3D5260;
-      --text-l3:     #7A8F98;
+      --petrol:#0E2A36; --slate:#2F4652; --bg:#F6F5F1; --white:#FFFFFF;
+      --green:#6D8A73; --amber:#C88A2B; --amber-h:#A66E18; --amber-dim:#C9A64E;
+      --text-d:#F6F5F1; --text-d2:rgba(246,245,241,0.55);
+      --text-l:#0E2A36; --text-l2:#3D5260; --text-l3:#7A8F98;
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text-l);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;pointer-events:none;z-index:9998;mix-blend-mode:overlay;}
+    .f-display{font-family:'Cormorant Garamond',serif;}
+    .dark-section{background:var(--petrol);color:var(--text-d);}
+    .dark-section .muted{color:var(--text-d2);}
+    .light-section{background:var(--bg);color:var(--text-l);}
+    .light-section .muted{color:var(--text-l3);}
+    .light-section .semi{color:var(--text-l2);}
+    .nav-wrap{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(14,42,54,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(246,245,241,.07);}
+    .nav-inner{max-width:1200px;margin:auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--text-d);display:flex;align-items:center;gap:10px;}
+    .pulse{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulseAnim 2.4s ease-in-out infinite;}
+    @keyframes pulseAnim{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(200,138,43,.5);}50%{opacity:.7;box-shadow:0 0 0 7px rgba(200,138,43,0);}}
+    .btn-amber{display:inline-flex;align-items:center;gap:9px;background:var(--amber);color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;padding:14px 28px;border-radius:4px;text-decoration:none;border:none;cursor:pointer;transition:background 220ms,transform 220ms,box-shadow 220ms;}
+    .btn-amber:hover{background:var(--amber-h);transform:translateY(-2px);box-shadow:0 16px 44px rgba(200,138,43,.32);}
+    .btn-amber.lg{font-size:17px;padding:18px 40px;}
+    .btn-ghost-d{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,245,241,.28);color:var(--text-d);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;padding:13px 26px;border-radius:4px;text-decoration:none;transition:background 220ms,border-color 220ms;}
+    .btn-ghost-d:hover{background:rgba(246,245,241,.06);border-color:rgba(246,245,241,.5);}
+    .badge-amber{display:inline-flex;align-items:center;gap:6px;background:rgba(200,138,43,.1);border:1px solid rgba(200,138,43,.28);color:var(--amber);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:'DM Sans',sans-serif;}
+    .badge-green{display:inline-flex;align-items:center;gap:6px;background:rgba(109,138,115,.09);border:1px solid rgba(109,138,115,.25);color:#4A6E52;font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:'DM Sans',sans-serif;}
+    .badge-green-d{display:inline-flex;align-items:center;gap:6px;background:rgba(109,138,115,.12);border:1px solid rgba(109,138,115,.3);color:var(--green);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:'DM Sans',sans-serif;}
+    .rule-d{height:1px;background:rgba(246,245,241,.1);}
+    .rule-l{height:1px;background:rgba(14,42,54,.1);}
+    .rule-amber{height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent);opacity:.4;}
+    .aline{display:block;width:32px;height:2px;background:var(--amber);border-radius:2px;margin-bottom:16px;}
+    .card-l{background:var(--white);border:1px solid rgba(14,42,54,.08);border-radius:8px;transition:border-color 280ms,transform 280ms,box-shadow 280ms;}
+    .card-l:hover{border-color:rgba(200,138,43,.25);transform:translateY(-3px);box-shadow:0 20px 50px rgba(14,42,54,.07);}
+    .card-d{background:rgba(255,255,255,.04);border:1px solid rgba(246,245,241,.08);border-radius:8px;transition:border-color 280ms,transform 280ms;}
+    .card-d:hover{border-color:rgba(200,138,43,.3);transform:translateY(-3px);}
+    .quote-l{border-left:3px solid var(--amber);padding-left:24px;}
+    .quote-d{border-left:3px solid var(--amber);padding-left:24px;}
+    .icon-box-l{width:44px;height:44px;border-radius:8px;background:rgba(14,42,54,.06);display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex-shrink:0;}
+    .check-icon{flex-shrink:0;margin-top:2px;}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;color:var(--text-d);}
+    .price{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;}
+    .reveal{opacity:0;transform:translateY(44px);}
+    @keyframes enterUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+    .e1{animation:enterUp .7s ease forwards .05s;opacity:0;}
+    .e2{animation:enterUp .7s ease forwards .2s;opacity:0;}
+    .e3{animation:enterUp .7s ease forwards .38s;opacity:0;}
+    .e4{animation:enterUp .7s ease forwards .54s;opacity:0;}
+    .e5{animation:enterUp .7s ease forwards .70s;opacity:0;}
+    .e6{animation:enterUp .7s ease forwards .86s;opacity:0;}
+    details summary{list-style:none;cursor:pointer;}
+    details summary::-webkit-details-marker{display:none;}
+    details .faq-arrow{transition:transform 200ms ease;}
+    details[open] .faq-arrow{transform:rotate(180deg);}
+    .sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(14,42,54,.97);backdrop-filter:blur(16px);border-top:1px solid rgba(200,138,43,.25);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;transform:translateY(100%);transition:transform 320ms ease;}
+    .sticky-bar.visible{transform:translateY(0);}
+    .sp{padding:96px 32px;}
+    .sp-sm{padding:72px 32px;}
+    .inner{max-width:1160px;margin:auto;}
+    .inner-md{max-width:800px;margin:auto;}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    /* Book mockup */
+    .book-wrap{perspective:900px;display:inline-block;}
+    .book-3d{display:flex;transform:rotateY(-20deg);transform-style:preserve-3d;filter:drop-shadow(-16px 16px 40px rgba(0,0,0,.5));transition:transform 400ms ease;}
+    .book-3d:hover{transform:rotateY(-8deg);}
+    .book-spine{width:28px;background:linear-gradient(to right,#061520,#0a2030);border-radius:3px 0 0 3px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-size:10px;font-weight:600;letter-spacing:.08em;color:rgba(200,138,43,.7);text-transform:uppercase;padding:16px 0;}
+    .book-front{width:200px;height:280px;background:linear-gradient(160deg,#0E2A36 0%,#152d3a 50%,#0a1e28 100%);border-radius:0 4px 4px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:24px 22px;border-left:1px solid rgba(200,138,43,.15);position:relative;overflow:hidden;}
+    .book-front::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--amber),transparent);}
+    .book-front::after{content:'';position:absolute;width:160px;height:160px;background:radial-gradient(circle,rgba(200,138,43,.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);}
+    .book-title-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.35;color:var(--text-d);position:relative;z-index:1;}
+    .book-title-text em{color:var(--amber);font-style:italic;}
+    .book-author-text{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dim);position:relative;z-index:1;}
+    .book-deco{width:40px;height:1px;background:var(--amber);opacity:.4;position:relative;z-index:1;}
 
-    body {
-      background: var(--bg);
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text-l);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Grain — very subtle */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.022;
-      pointer-events: none;
-      z-index: 9998;
-      mix-blend-mode: overlay;
-    }
-
-    /* Typography */
-    .f-display { font-family: 'Cormorant Garamond', serif; }
-
-    /* DARK sections */
-    .dark-section {
-      background: var(--petrol);
-      color: var(--text-d);
-    }
-    .dark-section .muted { color: var(--text-d2); }
-
-    /* LIGHT sections */
-    .light-section {
-      background: var(--bg);
-      color: var(--text-l);
-    }
-    .light-section .muted { color: var(--text-l3); }
-    .light-section .semi { color: var(--text-l2); }
-
-    /* NAV */
-    .nav-wrap {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(14,42,54,0.92);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(246,245,241,0.07);
-    }
-    .nav-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 32px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--text-d);
-      letter-spacing: 0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .pulse {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulseAnim 2.4s ease-in-out infinite;
-    }
-    @keyframes pulseAnim {
-      0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(109,138,115,.6); }
-      50%      { opacity:.7; box-shadow: 0 0 0 7px rgba(109,138,115,0); }
-    }
-
-    /* BUTTONS */
-    .btn-amber {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: var(--amber);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      padding: 14px 28px;
-      border-radius: 4px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 220ms, transform 220ms, box-shadow 220ms;
-      letter-spacing: 0.01em;
-    }
-    .btn-amber:hover {
-      background: var(--amber-h);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 44px rgba(200,138,43,0.32);
-    }
-    .btn-amber.lg { font-size: 17px; padding: 18px 40px; }
-
-    .btn-ghost-d {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(246,245,241,0.28);
-      color: var(--text-d);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      padding: 13px 26px;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: background 220ms, border-color 220ms;
-    }
-    .btn-ghost-d:hover {
-      background: rgba(246,245,241,0.06);
-      border-color: rgba(246,245,241,0.5);
-    }
-
-    /* BADGE */
-    .badge-green {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(109,138,115,0.12);
-      border: 1px solid rgba(109,138,115,0.3);
-      color: var(--green);
-      font-size: 11px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .badge-green.on-light {
-      background: rgba(109,138,115,0.09);
-      border-color: rgba(109,138,115,0.25);
-      color: #4A6E52;
-    }
-    .badge-amber {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(200,138,43,0.1);
-      border: 1px solid rgba(200,138,43,0.28);
-      color: var(--amber);
-      font-size: 11px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    /* RULE */
-    .rule-d {
-      height: 1px;
-      background: rgba(246,245,241,0.1);
-    }
-    .rule-l {
-      height: 1px;
-      background: rgba(14,42,54,0.1);
-    }
-    .rule-amber {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--amber), transparent);
-      opacity: 0.4;
-    }
-
-    /* ACCENT LINE */
-    .aline {
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--amber);
-      border-radius: 2px;
-      margin-bottom: 16px;
-    }
-    .aline-green {
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--green);
-      border-radius: 2px;
-      margin-bottom: 16px;
-    }
-
-    /* CARDS — light sections */
-    .card-l {
-      background: var(--white);
-      border: 1px solid rgba(14,42,54,0.08);
-      border-radius: 8px;
-      transition: border-color 280ms, transform 280ms, box-shadow 280ms;
-    }
-    .card-l:hover {
-      border-color: rgba(200,138,43,0.25);
-      transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(14,42,54,0.07);
-    }
-
-    /* CARDS — dark sections */
-    .card-d {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(246,245,241,0.08);
-      border-radius: 8px;
-      transition: border-color 280ms, transform 280ms;
-    }
-    .card-d:hover {
-      border-color: rgba(200,138,43,0.3);
-      transform: translateY(-3px);
-    }
-
-    /* QUOTE */
-    .quote-l { border-left: 3px solid var(--amber); padding-left: 24px; }
-    .quote-d { border-left: 3px solid var(--amber); padding-left: 24px; }
-
-    /* ICON BOX */
-    .icon-box-l {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      background: rgba(14,42,54,0.06);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
-      flex-shrink: 0;
-    }
-    .icon-box-d {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      background: rgba(246,245,241,0.07);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
-      flex-shrink: 0;
-    }
-
-    /* STEP BADGE */
-    .step-badge {
-      width: 52px; height: 52px;
-      border-radius: 8px;
-      border: 1px solid rgba(200,138,43,0.35);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
-      color: var(--amber);
-    }
-
-    /* CHECK / DOT list */
-    .check-icon { flex-shrink: 0; margin-top: 2px; }
-    .dot-amber { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 7px; }
-
-    /* STRIKE */
-    .strike { text-decoration: line-through; opacity: 0.38; }
-
-    /* STAT NUM */
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      line-height: 1;
-      color: var(--text-d);
-    }
-
-    /* PRICE */
-    .price {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      line-height: 1;
-      color: var(--text-l);
-    }
-
-    /* REVEAL animations */
-    .reveal { opacity: 0; transform: translateY(44px); }
-
-    /* Hero entrance */
-    @keyframes enterUp {
-      from { opacity: 0; transform: translateY(26px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .e1 { animation: enterUp .7s ease forwards .05s;  opacity: 0; }
-    .e2 { animation: enterUp .7s ease forwards .2s;   opacity: 0; }
-    .e3 { animation: enterUp .7s ease forwards .38s;  opacity: 0; }
-    .e4 { animation: enterUp .7s ease forwards .54s;  opacity: 0; }
-    .e5 { animation: enterUp .7s ease forwards .70s;  opacity: 0; }
-
-    /* FAQ accordion */
-    details summary { list-style: none; cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }
-    details .faq-arrow { transition: transform 200ms ease; }
-    details[open] .faq-arrow { transform: rotate(180deg); }
-
-    /* COMPENSATION SCALE */
-    .comp-scale {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .comp-seg {
-      height: 8px;
-      transition: transform 300ms;
-    }
-    .comp-seg:hover { transform: scaleY(1.6); }
-
-    /* STICKY BAR */
-    .sticky-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 99;
-      background: rgba(14,42,54,0.97);
-      backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(200,138,43,0.25);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      transform: translateY(100%);
-      transition: transform 320ms ease;
-    }
-    .sticky-bar.visible { transform: translateY(0); }
-    @media (max-width: 600px) {
-      .sticky-bar { flex-direction: column; padding: 12px 16px; }
-      .sticky-bar p { text-align: center; }
-    }
-
-    /* Section padding shorthand */
-    .sp { padding: 96px 32px; }
-    .sp-sm { padding: 72px 32px; }
-    .inner { max-width: 1160px; margin: auto; }
-    .inner-md { max-width: 800px; margin: auto; }
-    .inner-sm { max-width: 620px; margin: auto; }
-
-    @media (max-width: 768px) {
-      .sp { padding: 64px 20px; }
-      .sp-sm { padding: 52px 20px; }
-      .nav-inner { padding: 0 20px; }
+    @media(max-width:768px){
+      .sp{padding:64px 20px;}
+      .sp-sm{padding:52px 20px;}
+      .nav-inner{padding:0 20px;}
+      .hero-grid{grid-template-columns:1fr!important;}
+      .hero-book{display:none!important;}
+      .sticky-bar{flex-direction:column;padding:12px 16px;}
     }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════
-       NAV
-  ═══════════════════════════════════════ -->
-  <nav class="nav-wrap">
-    <div class="nav-inner">
-      <div class="nav-logo">
-        <div class="pulse"></div>
-        Assetto Biologico™
-      </div>
-      <a href="#prenota" class="btn-amber" style="padding:11px 22px;font-size:14px;">
-        Prenota — €297
-      </a>
+<!-- ══ NAV ══ -->
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="pulse"></div>
+      <span class="f-display" style="font-style:italic;">Dormire è facile…</span>
     </div>
-  </nav>
-
-
-  <!-- ══════════════════════════════════════
-       HERO — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 32px 80px;position:relative;overflow:hidden;">
-
-    <!-- Ambient radial glows -->
-    <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(109,138,115,0.1) 0%,transparent 70%);top:-200px;left:-200px;pointer-events:none;"></div>
-    <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(200,138,43,0.07) 0%,transparent 70%);bottom:-100px;right:-100px;pointer-events:none;"></div>
-
-    <div class="inner" style="position:relative;z-index:1;">
-
-      <div class="e1">
-        <p style="font-family:'DM Sans',sans-serif;font-size:clamp(14px,1.4vw,17px);font-weight:600;color:var(--amber);letter-spacing:0.01em;line-height:1.6;max-width:760px;">
-          <span style="color:#fff;">ATTENZIONE:</span> Se hai tra i 40 e i 55 anni e negli ultimi 24 mesi senti di aver perso energia, focus e spinta mentale… questa potrebbe essere la pagina più importante che leggerai quest'anno
-        </p>
-      </div>
-
-      <h1 class="e2 f-display" style="font-size:clamp(36px,5.5vw,78px);font-weight:400;line-height:1.15;color:var(--text-d);margin-top:28px;max-width:860px;">
-        Se ti svegli già stanco e fatichi ad arrivare lucido fino a sera…<br>
-        <em style="color:var(--amber);">è il segnale che la tua batteria è già in modalità risparmio</em>
-      </h1>
-
-      <p class="e3 muted" style="font-size:clamp(16px,1.8vw,20px);line-height:1.75;margin-top:28px;max-width:580px;">
-        In un'analisi integrata di 6 sistemi biologici, leggiamo HRV, cortisolo, circolazione e recupero dallo stress come un sistema unico — non come parametri isolati. Ottieni una lettura chiara di dove stai perdendo coordinazione biologica e un piano su cosa fare adesso.
-      </p>
-
-      <div class="e4" style="margin-top:32px;display:flex;flex-direction:column;gap:10px;max-width:560px;">
-        <div style="display:flex;gap:10px;align-items:flex-start;">
-          <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <p class="muted" style="font-size:15px;">Esami nella norma ma ti senti peggio di 5 anni fa? Esattamente il caso per cui esiste questa analisi.</p>
-        </div>
-        <div style="display:flex;gap:10px;align-items:flex-start;">
-          <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <p class="muted" style="font-size:15px;">Non è biohacking, non è coaching, non è wellness. È un'analisi biologica con dati oggettivi e un piano operativo.</p>
-        </div>
-      </div>
-
-      <div class="e4" style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;">
-        <a href="#prenota" class="btn-amber lg">
-          Ottieni la tua analisi biologica
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#come-funziona" class="btn-ghost-d">Come funziona</a>
-      </div>
-
-      <div class="e5" style="margin-top:64px;">
-        <div class="rule-d"></div>
-        <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:48px;">
-          <div>
-            <div style="display:flex;align-items:baseline;line-height:1;">
-              <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="97">0</div>
-              <span class="stat-num" style="font-size:clamp(44px,6vw,72px);">%</span>
-            </div>
-            <p class="muted" style="font-size:13px;margin-top:12px;">di chi l'ha provato dice:<br>"gli esami erano normali,<br>ma i sintomi no"</p>
-          </div>
-          <div>
-            <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="3">0</div>
-            <p class="muted" style="font-size:13px;margin-top:12px;">consulenze integrate<br>incluse nel percorso</p>
-          </div>
-          <div>
-            <div class="stat-num" style="font-size:clamp(44px,6vw,72px);">€297</div>
-            <p class="muted" style="font-size:13px;margin-top:12px;">accesso completo<br>alla valutazione</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       LA SCENA — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner-md">
-
-      <div class="reveal">
-        <span class="aline"></span>
-        <h2 class="f-display" style="font-size:clamp(30px,4.5vw,56px);font-weight:400;line-height:1.3;color:var(--petrol);">
-          "Faccio già tutto nel modo giusto.<br>Eppure qualcosa non torna."
-        </h2>
-      </div>
-
-      <div class="reveal" style="margin-top:36px;max-width:640px;">
-        <p class="semi" style="font-size:17px;line-height:1.85;">
-          Dormi 7–8 ore. Mangi bene. Ti alleni. Fai le cose "come si deve". Eppure verso le 16 il cervello rallenta, la mattina ti svegli già senza vero margine, e per restare allo stesso livello devi spingere sempre di più.
-        </p>
-        <p style="font-size:17px;line-height:1.85;margin-top:16px;color:var(--petrol);">
-          Non è un crollo improvviso. <strong>È qualcosa di più sottile e molto più pericoloso.</strong>
-        </p>
-      </div>
-
-      <div class="reveal" style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
-        <div class="card-l" style="padding:28px;">
-          <p class="semi" style="font-size:15px;line-height:1.8;">Vai dal medico. Gli esami escono nella norma. Il medico dice che stai bene. Tu stesso ti dici:</p>
-          <p style="font-size:16px;font-style:italic;color:var(--petrol);margin-top:14px;font-family:'Cormorant Garamond',serif;font-size:20px;">"Forse è solo stress. Forse è l'età."</p>
-        </div>
-        <div class="card-l" style="padding:28px;">
-          <p class="semi" style="font-size:15px;line-height:1.8;">Ma quella spiegazione non ti convince fino in fondo. Perché tu non ti senti malato.</p>
-          <p style="font-size:16px;font-weight:600;color:var(--petrol);margin-top:14px;">Ti senti meno te stesso. E c'è una differenza enorme.</p>
-        </div>
-      </div>
-
-      <div class="reveal" style="margin-top:48px;">
-        <div class="quote-l">
-          <p class="f-display" style="font-size:clamp(20px,3vw,32px);color:var(--petrol);line-height:1.5;font-weight:400;">
-            "Continuo a funzionare. Ma ho la sensazione costante di essere sempre un gradino sotto rispetto a come ero."
-          </p>
-          <p class="muted" style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin-top:12px;">— Giorgio, agente immobiliare, 46 anni</p>
-        </div>
-      </div>
-
-      <div class="reveal" style="margin-top:36px;max-width:620px;">
-        <p class="semi" style="font-size:17px;line-height:1.85;">
-          Il problema non è che sei malato. Il problema è che il tuo corpo sta compensando invece di recuperare — e la medicina standard non ha gli strumenti per vederlo finché non diventa una patologia conclamata.
-        </p>
-        <p style="font-size:17px;line-height:1.85;margin-top:14px;color:var(--petrol);">
-          <strong>Assetto Biologico™ legge esattamente quello che gli esami standard non vedono.</strong>
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       IL PROBLEMA — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" style="background:#EEF0EC;padding-top:0;">
-    <div class="inner">
-
-      <div class="reveal" style="text-align:center;padding-top:96px;margin-bottom:56px;">
-        <span class="badge-amber">Il problema invisibile</span>
-        <h2 class="f-display" style="font-size:clamp(30px,5vw,68px);font-weight:400;line-height:1.1;color:var(--petrol);margin-top:20px;">
-          La frase più pericolosa<br>che senti dopo i 45 anni?
-        </h2>
-        <p class="f-display" style="font-size:clamp(22px,3.5vw,44px);font-style:italic;color:var(--amber);margin-top:8px;">
-          "È tutto nella norma."
-        </p>
-        <p class="semi" style="font-size:17px;max-width:560px;margin:20px auto 0;line-height:1.7;">
-          Il check-up standard analizza parametri isolati e cerca patologie conclamate. Guarda HRV, cortisolo, circolazione e stress come elementi separati, non come un unico sistema. Il declino biologico inizia prima che la medicina lo rilevi. E spesso lo senti già addosso.
-        </p>
-      </div>
-
-      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-
-        <div class="card-l" style="padding:32px;">
-          <div class="icon-box-l">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h3 class="f-display" style="font-size:22px;color:var(--petrol);margin-bottom:10px;">Energia instabile</h3>
-          <p class="semi" style="font-size:14px;line-height:1.75;">Cali netti nel pomeriggio. Caffeina come carburante di default. Bisogno continuo di stimoli per restare sul pezzo.</p>
-        </div>
-
-        <div class="card-l" style="padding:32px;">
-          <div class="icon-box-l">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3 class="f-display" style="font-size:22px;color:var(--petrol);margin-bottom:10px;">Recupero che non basta</h3>
-          <p class="semi" style="font-size:14px;line-height:1.75;">Dormi 7–8 ore. Ma la mattina è come se la notte non bastasse a ricaricare davvero. Risvegli già pesanti.</p>
-        </div>
-
-        <div class="card-l" style="padding:32px;">
-          <div class="icon-box-l">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
-          </div>
-          <h3 class="f-display" style="font-size:22px;color:var(--petrol);margin-bottom:10px;">Lucidità altalenante</h3>
-          <p class="semi" style="font-size:14px;line-height:1.75;">La testa si appanna. Meno pazienza, meno margine mentale. Per restare allo stesso livello devi spingere sempre di più.</p>
-        </div>
-
-      </div>
-
-      <div class="reveal" style="text-align:center;margin-top:56px;">
-        <p class="f-display" style="font-size:clamp(20px,3vw,34px);line-height:1.55;color:var(--petrol);max-width:640px;margin:auto;">
-          Il decadimento biologico non arriva all'improvviso.<br>
-          <em style="color:var(--amber);">Ti consuma lentamente. In silenzio.</em><br>
-          E quando gli esami standard lo vedono…<br>spesso sei già in ritardo.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       LIVELLI DI COMPENSAZIONE — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(200,138,43,0.07) 0%,transparent 65%);top:-100px;right:-150px;pointer-events:none;"></div>
-
-    <div class="inner" style="position:relative;z-index:1;">
-
-      <div class="reveal" style="text-align:center;margin-bottom:64px;">
-<h2 class="f-display" style="font-size:clamp(28px,4.5vw,60px);font-weight:400;line-height:1.2;color:var(--text-d);margin-top:20px;">
-          A che livello stai<br>operando davvero?
-        </h2>
-        <p class="muted" style="font-size:17px;max-width:500px;margin:16px auto 0;line-height:1.7;">
-          Il corpo non crolla all'improvviso. Scende lentamente attraverso quattro stati — quasi sempre senza che tu te ne accorga.
-        </p>
-      </div>
-
-      <div class="reveal">
-
-        <!-- Scale bar -->
-        <div class="comp-scale" style="margin-bottom:12px;">
-          <div class="comp-seg" style="background:#6D8A73;"></div>
-          <div class="comp-seg" style="background:#C9A64E;"></div>
-          <div class="comp-seg" style="background:#B8772E;"></div>
-          <div class="comp-seg" style="background:#8A3A34;"></div>
-        </div>
-
-        <!-- Labels -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;">
-
-          <div style="padding:24px 20px;background:rgba(109,138,115,0.12);border:1px solid rgba(109,138,115,0.2);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#6D8A73;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#A8C4AC;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Recupero reale</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Il sistema si ricarica davvero. Energia stabile. Mente pulita. Margine presente.</p>
-          </div>
-
-          <div style="padding:24px 20px;background:rgba(201,166,78,0.08);border:1px solid rgba(201,166,78,0.18);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#C9A64E;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#C9A64E;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Compensazione funzionale</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Funzioni ancora bene. Ma stai attingendo alle riserve senza rendertene conto.</p>
-          </div>
-
-          <div style="padding:24px 20px;background:rgba(184,119,46,0.08);border:1px solid rgba(184,119,46,0.18);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#B8772E;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#D4904A;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Sovraccarico adattato</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Il corpo regge ma in modalità emergenza. Hai troppo addosso. Non ti stai riprendendo.</p>
-          </div>
-
-          <div style="padding:24px 20px;background:rgba(138,58,52,0.1);border:1px solid rgba(138,58,52,0.22);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#8A3A34;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#C06A64;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Performance artificiale</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Vai avanti solo con stimoli. Gli esami sembrano ok. Il corpo sta già pagando.</p>
-          </div>
-
-        </div>
-
-        <!-- Indicator -->
-        <div style="margin-top:40px;text-align:center;">
-          <p class="muted" style="font-size:15px;line-height:1.7;max-width:520px;margin:auto;">
-            La maggior parte delle persone ad alte prestazioni vive tra il terzo e il quarto livello per mesi — talvolta anni — senza saperlo.<br>
-            <span style="color:var(--text-d);">Assetto Biologico™ misura esattamente dove sei.</span>
-          </p>
-        </div>
-
-        <div style="margin-top:48px;text-align:center;">
-          <a href="#prenota" class="btn-amber lg">Scopri a che livello sei — €297
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       CASO STUDIO — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner">
-
-      <div class="reveal" style="margin-bottom:16px;">
-        <span class="aline"></span>
-        <p style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--amber);">Caso reale</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:start;">
-
-        <div class="reveal">
-          <h2 class="f-display" style="font-size:clamp(28px,4vw,52px);font-weight:400;line-height:1.2;color:var(--petrol);">
-            Andrea, 47 anni.<br>Manager. Esami perfetti.
-          </h2>
-
-          <div style="margin-top:28px;display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Alimentazione corretta. Allenamento costante.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Check-up annuali. Risultati nella norma.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">7 ore di sonno. Tutto apparentemente "ok".</p>
-            </div>
-          </div>
-
-          <div style="margin-top:28px;">
-            <p class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Eppure ogni giorno:</p>
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">Verso le 16 il cervello rallentava</p>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">Sonno leggero. Risvegli pesanti.</p>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">Bisogno continuo di "riaccendersi"</p>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">HRV compromessa · Cortisolo alterato</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="semi" style="font-size:16px;line-height:1.75;margin-top:24px;">
-            Pensava fosse il prezzo inevitabile del suo lavoro.<br>
-            <strong style="color:var(--petrol);">Non lo era.</strong>
-          </p>
-        </div>
-
-        <div class="reveal">
-          <div class="card-l" style="padding:36px;border-color:rgba(200,138,43,0.22);">
-            <span class="aline-green"></span>
-            <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#4A6E52;margin-bottom:18px;">Dopo la lettura integrata</p>
-            <div class="quote-l">
-              <p class="f-display" style="font-size:clamp(20px,2.8vw,28px);color:var(--petrol);line-height:1.5;font-weight:400;">
-                "Adesso capisco perché mi sento così."
-              </p>
-            </div>
-
-            <div style="margin-top:28px;">
-              <p class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;">Primi cambiamenti notati:</p>
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Mente più stabile nel pomeriggio</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Risvegli meno pesanti</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Meno bisogno di stimoli per restare operativo</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Maggiore lucidità decisionale</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Sensazione di avere finalmente margine</p>
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(14,42,54,0.07);">
-              <p style="font-size:15px;color:#4A6E52;line-height:1.65;">
-                "La cosa che ho notato per prima non era 'più energia'. Era non dover più lottare contro me stesso per funzionare bene."
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:48px;text-align:center;">
-          <a href="#prenota" class="btn-amber lg">Voglio la mia analisi biologica — €297
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <p class="muted" style="font-size:13px;margin-top:10px;">Garanzia rimborso se non ottieni una lettura chiara</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       IL MECCANISMO — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(109,138,115,0.09) 0%,transparent 70%);bottom:-150px;left:-100px;pointer-events:none;"></div>
-
-    <div class="inner" style="position:relative;z-index:1;">
-
-      <div class="reveal" style="text-align:center;margin-bottom:56px;">
-        <h2 class="f-display" style="font-size:clamp(28px,5vw,68px);font-weight:400;line-height:1.1;color:var(--text-d);margin-top:20px;">
-          Non sei stanco perché stai invecchiando.
-        </h2>
-        <p class="f-display" style="font-size:clamp(18px,3vw,36px);font-style:italic;color:var(--amber);line-height:1.4;margin-top:10px;">
-          Ti senti così perché il tuo corpo<br>sta perdendo coordinazione biologica…<br>e nessuno l'ha ancora misurata.
-        </p>
-      </div>
-
-      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
-
-        <div class="card-d" style="padding:32px;">
-          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber-dim);margin-bottom:16px;">La medicina tradizionale</p>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Analizza parametri isolati</p>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Cerca malattie conclamate</p>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Interviene quando il danno ha un nome</p>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Produce referti, non letture integrate</p>
-            </div>
-          </div>
-          <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(246,245,241,0.06);">
-            <p style="font-size:16px;color:var(--text-d);">"Tutto nella norma."</p>
-            <p class="muted" style="font-size:14px;margin-top:4px;">Ma il corpo racconta altro.</p>
-          </div>
-        </div>
-
-        <div class="card-d" style="padding:32px;border-color:rgba(200,138,43,0.2);">
-          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#A8D4B0;margin-bottom:16px;">Assetto Biologico™</p>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Collega HRV, cortisolo, perfusione e recupero</p>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Intercetta squilibri anni prima della patologia</p>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Vede il corpo come sistema unico, non a pezzi</p>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Trasforma sensazioni vaghe in dati interpretabili</p>
-            </div>
-          </div>
-          <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(200,138,43,0.15);">
-            <p style="font-size:16px;color:var(--amber);">Non del corpo da referto.<br><span style="color:#F6F5F1;">Del corpo reale.</span></p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       COSA ANALIZZA — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" id="come-funziona">
-    <div class="inner">
-
-      <div class="reveal" style="text-align:center;margin-bottom:52px;">
-        <span class="badge-green on-light">6 sistemi · Una lettura unica</span>
-        <h2 class="f-display" style="font-size:clamp(28px,4.5vw,62px);font-weight:400;color:var(--petrol);margin-top:18px;">
-          Cosa analizza Assetto Biologico™
-        </h2>
-        <p class="semi" style="font-size:17px;max-width:460px;margin:16px auto 0;line-height:1.7;">
-          Non misura solo dati. Individua come i tuoi sistemi stanno cooperando — o smettendo di farlo.
-        </p>
-      </div>
-
-      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;">
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Sistema Nervoso &amp; Recupero</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">HRV · Equilibrio simpatico/parasimpatico · Stress fisiologico · Recupero autonomico</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Da solo, un'analisi seria dell'HRV e dello stato del sistema nervoso in un centro performance può costare centinaia di euro. Perché qui non stai misurando "come ti senti". Stai misurando quanto il tuo corpo è davvero sotto pressione… anche quando continui a funzionare.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Ritmo Biologico</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Ritmo circadiano · Cortisolo · Sincronizzazione energetica nelle 24 ore</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">La maggior parte degli uomini over 40 pensa di essere "solo stanco". In realtà vive completamente fuori sincronizzazione biologica da anni. E questo distrugge focus, recupero, energia mentale e performance quotidiana.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Circolazione &amp; Perfusione</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Perfusione periferica · Pulse Transit Time · Efficienza circolatoria</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Capisci se il tuo sistema sta distribuendo energia e ossigeno in modo efficiente… oppure se stai guidando il tuo corpo col freno a mano tirato.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Metabolismo &amp; Struttura</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Composizione corporea · Densità ossea · Stato della membrana cellulare</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Non parliamo del numerino sulla bilancia. Parliamo di capire cosa sta succedendo davvero alla tua struttura biologica mentre continui a lavorare, decidere, performare.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Equilibrio Cellulare</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Acqua extracellulare · Matrice extracellulare · Minerali · Potassio</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">La maggior parte dei check-up tradizionali non arriva nemmeno qui. Eppure è spesso il livello dove iniziano i primi segnali di crollo energetico e infiammazione silenziosa.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;border-color:rgba(138,58,52,0.2);">
-          <div class="icon-box-l" style="background:rgba(138,58,52,0.07);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A34" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Predictive Health™</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Stress · energia cellulare · equilibrio neuro-ormonale · capacità di recupero</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">La maggior parte dei check-up tradizionali si ferma ai valori "normali". Non intercetta ciò che succede prima del calo: quando il sistema inizia a perdere margine, e la performance quotidiana diventa sempre più costosa da sostenere.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;border-color:rgba(200,138,43,0.22);">
-          <div class="icon-box-l" style="background:rgba(200,138,43,0.08);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Lettura Integrata</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Correlazione di tutti i parametri · Interpretazione sistemica · Piano operativo</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Il valore vero non è avere dei dati. È capire cosa significano insieme. Un parametro isolato racconta poco. Il pattern completo racconta come stai davvero funzionando oggi… e dove stai perdendo energia, recupero e performance senza accorgertene.</p>
-        </div>
-
-      </div>
-
-      <!-- Price justification block -->
-      <div class="reveal" style="margin-top:56px;">
-        <div class="card-l" style="padding:40px;border-color:rgba(200,138,43,0.3);background:rgba(200,138,43,0.03);">
-          <h3 class="f-display" style="font-size:clamp(22px,3vw,34px);color:var(--petrol);font-weight:400;margin-bottom:20px;">Tutto questo a €297?</h3>
-          <p class="semi" style="font-size:16px;line-height:1.8;margin-bottom:16px;">Un imprenditore spende più di così per una cena mediocre o per due ore di consulenza qualunque. Qui stai comprando qualcosa di molto più raro: una fotografia concreta di come il tuo corpo sta reggendo anni di stress, responsabilità e pressione continua.</p>
-          <p class="semi" style="font-size:16px;line-height:1.8;margin-bottom:16px;">Per molti uomini, il problema non è che stanno invecchiando. È che stanno guidando un sistema scarico senza averlo mai davvero analizzato.</p>
-          <p style="font-size:16px;line-height:1.8;color:var(--petrol);font-weight:500;">€297 non è il costo dell'analisi. È probabilmente il prezzo più basso che pagherai prima che stanchezza, calo di lucidità e stress inizino a presentarti un conto molto più alto.</p>
-          <div style="margin-top:28px;">
-            <a href="#prenota" class="btn-amber lg">Prenota adesso — €297
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       COME FUNZIONA — light slightly tinted
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" style="background:#EEF0EC;">
-    <div class="inner-md">
-
-      <div class="reveal" style="margin-bottom:52px;">
-        <span class="aline"></span>
-        <h2 class="f-display" style="font-size:clamp(28px,4.5vw,60px);font-weight:400;color:var(--petrol);">Come funziona</h2>
-      </div>
-
-      <p class="reveal semi" style="font-size:16px;line-height:1.7;margin-bottom:44px;max-width:640px;">Ecco esattamente cosa succede dal momento in cui prenoti — senza sorprese, senza aspettare settimane.</p>
-
-      <div style="display:flex;flex-direction:column;gap:40px;">
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">1</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Prenoti → entro 24 ore ricevi le istruzioni</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Dopo la prenotazione, entro 24 ore lavorative ricevi una mail con le istruzioni per la prima consulenza: cosa monitorare nei giorni precedenti, cosa portare, cosa aspettarti. Nessuna attesa indefinita.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">2</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Prima consulenza: 60–90 minuti di analisi completa</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Non un check-up di 10 minuti: una sessione di 60–90 minuti in cui misuriamo HRV, composizione cellulare, cortisolo, perfusione periferica e ritmi biologici. Raccogliamo tutto quello che serve per leggere il tuo corpo come sistema unico — non a parametri isolati.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">3</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Entro 5 giorni lavorativi: report + piano operativo</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Non ricevi un referto. Ricevi una lettura integrata di come il tuo corpo sta gestendo energia, recupero e pressione — con priorità chiare e indicazioni precise su cosa fare, in che ordine e da dove iniziare. Una risposta, non dati grezzi.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">4</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Follow-up a 3 settimane: verifica e aggiustamento</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Vediamo insieme cosa è cambiato nel corpo dopo le prime indicazioni operative. Aggiustiamo il percorso in base ai dati reali — non alle impressioni. Se qualcosa non sta funzionando, lo correggiamo qui.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">5</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Follow-up a 6 settimane: lettura finale e direzione</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">La verifica finale. Misuriamo i cambiamenti rispetto al baseline iniziale, vediamo dove il sistema biologico ha risposto e definiamo cosa fare da qui in avanti. Non ti lasciamo da soli dopo la prima consulenza.</p>
-          </div>
-        </div>
-
-        <div style="margin-top:48px;text-align:center;">
-          <a href="#prenota" class="btn-amber lg">Inizia adesso — €297
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <p class="semi" style="font-size:13px;margin-top:10px;">5 sessioni incluse · Garanzia rimborso</p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       COSA NON È — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner-md">
-      <div class="reveal">
-        <div class="card-l" style="padding:40px 44px;border-color:rgba(200,138,43,0.18);">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;">
-
-            <div>
-              <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--amber);margin-bottom:18px;">NON è</p>
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Un trattamento medico</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Motivazione o mindset coaching</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">L'ennesimo protocollo biohacking</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Integratori casuali o vitamine</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Dashboard con dati senza contesto</p></div>
-              </div>
-            </div>
-
-            <div>
-              <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:#4A6E52;margin-bottom:18px;">È</p>
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">Una lettura integrata di come stai funzionando adesso</p>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">Un sistema di intelligence biologica personale</p>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">La risposta al "non so cosa ho" con dati obiettivi</p>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">Il modo per agire prima che il declino diventi visibile</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       GARANZIA — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp-sm" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(109,138,115,0.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
-    <div class="inner reveal" style="position:relative;z-index:1;max-width:720px;margin:auto;text-align:center;">
-
-      <div style="margin-bottom:32px;padding:12px 24px;background:rgba(200,138,43,0.1);border:1px solid rgba(200,138,43,0.3);border-radius:6px;display:inline-block;">
-        <p style="font-size:14px;color:var(--amber-dim);font-weight:500;">Se al termine della prima consulenza non ottieni una lettura chiara, ti rimborsiamo tutto — senza domande.</p>
-      </div>
-
-      <div style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;border:2px solid rgba(200,138,43,0.5);margin-bottom:28px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-
-      <h2 class="f-display" style="font-size:clamp(26px,4vw,52px);font-weight:400;color:var(--text-d);line-height:1.2;margin-bottom:20px;">
-        Garanzia di lettura chiara — o rimborso totale
-      </h2>
-
-      <p class="muted" style="font-size:17px;line-height:1.8;max-width:560px;margin:0 auto 28px;">
-        Se al termine della prima consulenza non ottieni una lettura chiara e specifica di come il tuo corpo sta gestendo energia e recupero — ti rimborsiamo l'intero importo di €297. Senza domande, senza procedure.
-      </p>
-
-      <p style="font-size:15px;color:var(--text-d);opacity:0.65;font-style:italic;">
-        Non è un'offerta per tutti. È una garanzia per chi vuole certezze prima di investire.
-      </p>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       PRICING — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" id="prenota" style="background:#EEF0EC;">
-    <div class="inner">
-
-      <div class="reveal" style="text-align:center;margin-bottom:40px;">
-        <span class="badge-amber">Accesso alla valutazione</span>
-        <h2 class="f-display" style="font-size:clamp(28px,4.5vw,62px);font-weight:400;color:var(--petrol);margin-top:16px;">
-          Assetto Biologico™
-        </h2>
-        <p class="semi" style="font-size:17px;max-width:460px;margin:14px auto 0;line-height:1.7;">
-          Non è pensato per chi vuole "curiosare".<br>
-          È per chi ha iniziato a percepire una differenza reale e vuole capire perché.
-        </p>
-      </div>
-
-      <div class="reveal" style="max-width:580px;margin:auto;">
-        <div class="card-l" style="padding:48px;border-color:rgba(200,138,43,0.25);">
-
-          <div style="margin-bottom:24px;padding:14px 18px;background:rgba(200,138,43,0.07);border:1px solid rgba(200,138,43,0.2);border-radius:6px;">
-            <p style="font-size:14px;color:var(--petrol);line-height:1.6;"><strong>Tutto incluso:</strong> prima consulenza + analisi completa + report + piano operativo + 2 follow-up.</p>
-          </div>
-          <div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:36px;">
-            <span class="price" style="font-size:clamp(56px,8vw,80px);color:var(--petrol);">€297</span>
-            <span class="muted" style="padding-bottom:14px;font-size:15px;">accesso completo</span>
-          </div>
-
-          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:36px;">
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">60 minuti di colloquio — non un check-up di 10 minuti. Tempo vero per leggere il tuo corpo davvero.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">6 sistemi biologici correlati tra loro — quello che nessun esame standard fa mai.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Report con priorità chiare: non dati grezzi, ma risposte su cosa fare e da dove iniziare.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Piano operativo concreto: azioni specifiche, non consigli generici su dieta e stile di vita.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:var(--petrol);"><strong>2 follow-up inclusi</strong> a 3 e 6 settimane — non ti lasciamo da solo dopo la prima sessione.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <p style="font-size:15px;color:var(--petrol);"><strong>Garanzia rimborso totale</strong> — se al termine della prima consulenza non ottieni una lettura chiara.</p>
-            </div>
-          </div>
-
-          <a href="mailto:info@assettobiologico.it" class="btn-amber lg" style="width:100%;justify-content:center;">
-            Prenota adesso — €297
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-
-          <p class="muted" style="font-size:13px;text-align:center;margin-top:16px;line-height:1.6;color:var(--text-l3);">
-            Lettura chiara garantita — o rimborso totale senza domande.
-          </p>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       FAQ — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner-md">
-
-      <div class="reveal" style="margin-bottom:44px;">
-        <span class="aline"></span>
-        <h2 class="f-display" style="font-size:clamp(26px,4vw,54px);font-weight:400;color:var(--petrol);">Domande frequenti</h2>
-      </div>
-
-      <div class="reveal" style="display:flex;flex-direction:column;gap:10px;">
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>Ho già fatto un check-up di recente e va tutto bene. Perché dovrei fare anche questo?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">Esatto — ed è precisamente il problema. Il check-up standard analizza parametri isolati e cerca patologie conclamate. Guarda HRV, cortisolo, circolazione e stress come elementi separati, non come un unico sistema. Il declino biologico inizia prima che la medicina lo rilevi. Se li hai fatti e sei qui lo stesso, è perché una parte di te sa già che la risposta non è in quel referto.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>€297 per una consulenza mi sembra tanto. Come lo giustifico?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">€297 include prima consulenza di 60–90 minuti, analisi integrata di 6 sistemi biologici, report con interpretazione e piano operativo, più 2 consulenze di follow-up a 3 e 6 settimane. Non è una visita — è un percorso. E c'è la garanzia rimborso totale se al termine della prima consulenza non ottieni una lettura chiara. Il rischio è azzerato.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>E se scopro qualcosa che non posso risolvere o che mi spaventa?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">Accade il contrario. Quando capisci esattamente cosa sta succedendo nel tuo corpo, smetti di vivere nell'incertezza diffusa che è molto più logorante. La chiarezza riduce l'ansia, non la aumenta. Non ricevi dati grezzi che ti lasciano a interpretare — ricevi una lettura chiara con indicazioni precise su cosa fare. Sapere è sempre meglio di intuire.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>Non è biohacking o una di quelle cose da wellness estremo?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">No. Non c'è nessun protocollo biohacking, nessun integratore casuale, nessuna dashboard con dati senza contesto. È un'analisi biologica con strumenti di misurazione oggettivi — HRV, bioimpedenza, variabilità del cortisolo — letta come sistema integrato e tradotta in un piano operativo concreto. Non devi sapere cos'è l'HRV per beneficiarne. Devi solo voler capire cosa sta succedendo nel tuo corpo.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>Sostituisce i miei esami clinici o il rapporto con il mio medico?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">No, e non lo pretende. Assetto Biologico™ non è un servizio medico e non diagnostica patologie. Aggiunge una dimensione che gli esami standard non vedono: come i tuoi sistemi biologici stanno cooperando o smettendo di farlo. È complementare — non alternativo — e in alcuni casi porta a informazioni utili anche per il tuo medico.</p>
-            </div>
-          </details>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       CTA FINALE — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp" style="text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(200,138,43,0.07) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
-
-    <div class="inner reveal" style="position:relative;z-index:1;max-width:760px;">
-      <div class="rule-amber" style="margin-bottom:64px;"></div>
-
-      <h2 class="f-display" style="font-size:clamp(28px,5.5vw,72px);font-weight:400;line-height:1.1;color:var(--text-d);">
-        Tra i 40 e i 55 anni<br>
-        esiste <em style="color:var(--amber);">una fase pericolosa.</em>
-      </h2>
-
-      <p class="muted" style="font-size:18px;line-height:1.75;max-width:520px;margin:28px auto 0;">
-        Non sei malato abbastanza per essere trattato. Ma non sei più efficiente abbastanza per sentirti davvero te stesso. È lì che il declino accelera in silenzio — e tu continui a spingere senza capire dove stai perdendo.
-      </p>
-
-      <p style="font-size:18px;color:var(--amber);margin-top:20px;line-height:1.5;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.5vw,28px);">
-        Adesso puoi sapere esattamente dove.
-      </p>
-
-      <div style="margin-top:44px;">
-        <a href="#prenota" class="btn-amber lg">
-          Prenota adesso — €297
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <p class="muted" style="font-size:13px;margin-top:16px;">
-          Check-up biologico avanzato · 3 sessioni · Garanzia Zero Rischi
-        </p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       FOOTER — dark petrol
-  ═══════════════════════════════════════ -->
-  <footer class="dark-section" style="padding:36px 32px;border-top:1px solid rgba(246,245,241,0.06);">
-    <div class="inner" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;">
-      <div class="nav-logo">
-        <div class="pulse"></div>
-        Assetto Biologico™
-      </div>
-      <p class="muted" style="font-size:12px;text-align:right;">
-        Analisi biologica integrata · Non sostituisce esami clinici · Non è un servizio medico
-      </p>
-    </div>
-  </footer>
-
-
-  <!-- STICKY BAR -->
-  <div class="sticky-bar" id="stickyBar">
-    <p style="color:var(--text-d2);font-size:14px;line-height:1.4;">Analisi biologica integrata · 5 sessioni · Garanzia rimborso</p>
-    <a href="#prenota" class="btn-amber" style="white-space:nowrap;flex-shrink:0;">
-      Prenota — €297
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <a href="#ordina" class="btn-amber" style="padding:11px 22px;font-size:14px;">
+      Ordina il libro — €29,90
     </a>
   </div>
+</nav>
 
 
-  <!-- ══════════════════════════════════════
-       SCRIPTS
-  ═══════════════════════════════════════ -->
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
+<!-- ══ HERO ══ -->
+<section class="dark-section" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 32px 80px;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(200,138,43,.08) 0%,transparent 70%);top:-200px;right:-150px;pointer-events:none;"></div>
+  <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(109,138,115,.07) 0%,transparent 70%);bottom:-100px;left:-100px;pointer-events:none;"></div>
 
-    // Scroll reveal
-    gsap.utils.toArray('.reveal').forEach(el => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 48 },
-        {
-          opacity: 1, y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
-    });
+  <div class="inner" style="position:relative;z-index:1;">
+    <div class="hero-grid" style="display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center;">
 
-    // Counter animation
-    function animateCount(el, target, dur) {
-      const t0 = performance.now();
-      (function tick(now) {
-        const p = Math.min((now - t0) / dur, 1);
-        const e = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(e * target);
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = target;
-      })(t0);
-    }
-    document.querySelectorAll('[data-count]').forEach(el => {
-      ScrollTrigger.create({
-        trigger: el, start: 'top 90%', once: true,
-        onEnter: () => animateCount(el, +el.dataset.count, 1400)
-      });
-    });
+      <div>
+        <div class="e1">
+          <p style="font-size:clamp(13px,1.3vw,16px);font-weight:600;color:var(--amber);line-height:1.6;max-width:640px;">
+            <span style="color:#fff;">ATTENZIONE:</span> Se usi la sveglia come clacson di guerra ogni mattina, ti svegli stanco dopo ore di sonno, o pensi che dormire poco sia il prezzo del successo… quello che stai per leggere cambierà per sempre il tuo rapporto con il sonno.
+          </p>
+        </div>
 
-    // Sticky bar — show after hero
-    const stickyBar = document.getElementById('stickyBar');
-    const hero = document.querySelector('section.dark-section');
+        <h1 class="e2 f-display" style="font-size:clamp(38px,5.5vw,80px);font-weight:400;line-height:1.1;color:var(--text-d);margin-top:28px;">
+          Dormire è facile…<br>
+          <em style="color:var(--amber);">se sai come farlo!</em>
+        </h1>
+
+        <p class="e3 muted" style="font-size:clamp(16px,1.8vw,20px);line-height:1.75;margin-top:24px;max-width:560px;">
+          Il sistema completo, scientifico e testato per ottimizzare ogni ora di sonno, svegliarti riposato ogni mattina e trasformare il sonno nel tuo più potente strumento di performance — senza farmaci, senza rituali assurdi.
+        </p>
+
+        <div class="e4" style="margin-top:28px;display:flex;flex-direction:column;gap:8px;max-width:520px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="muted" style="font-size:15px;">14 capitoli + capitolo bonus su sonno e diabete</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="muted" style="font-size:15px;">Strategie scientificamente provate, subito applicabili</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="muted" style="font-size:15px;">Dal ritmo circadiano al biohacking del sonno profondo</p>
+          </div>
+        </div>
+
+        <div class="e5" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+          <a href="#ordina" class="btn-amber lg">
+            Ordina il libro — €29,90
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#scopri" class="btn-ghost-d">Scopri di più</a>
+        </div>
+      </div>
+
+      <div class="e6 hero-book" style="display:flex;flex-direction:column;align-items:center;gap:24px;">
+        <div class="book-wrap">
+          <div class="book-3d">
+            <div class="book-spine">BOSCIA</div>
+            <div class="book-front">
+              <div class="book-title-text">
+                Dormire<br>è facile…<br>
+                <em>se sai come<br>farlo!</em>
+              </div>
+              <div class="book-deco"></div>
+              <div class="book-author-text">Roberto Boscia</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="price f-display" style="font-size:52px;color:var(--text-d);">€29,90</div>
+          <p class="muted" style="font-size:13px;margin-top:4px;">+ spese di spedizione</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="e5" style="margin-top:72px;">
+      <div class="rule-d"></div>
+      <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:48px;">
+        <div>
+          <div style="display:flex;align-items:baseline;line-height:1;">
+            <div class="stat-num" style="font-size:clamp(40px,5vw,64px);" data-count="14">0</div>
+          </div>
+          <p class="muted" style="font-size:13px;margin-top:12px;">capitoli + 1 bonus<br>su ogni aspetto del sonno</p>
+        </div>
+        <div>
+          <div style="display:flex;align-items:baseline;line-height:1;">
+            <div class="stat-num" style="font-size:clamp(40px,5vw,64px);" data-count="70">0</div>
+            <span class="stat-num" style="font-size:clamp(40px,5vw,64px);">M</span>
+          </div>
+          <p class="muted" style="font-size:13px;margin-top:12px;">di persone negli USA<br>con problemi di sonno</p>
+        </div>
+        <div>
+          <div style="display:flex;align-items:baseline;line-height:1;">
+            <div class="stat-num" style="font-size:clamp(40px,5vw,64px);" data-count="84">0</div>
+            <span class="stat-num" style="font-size:clamp(40px,5vw,64px);">%</span>
+          </div>
+          <p class="muted" style="font-size:13px;margin-top:12px;">aumento rischio Alzheimer<br>con uso prolungato di sonniferi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ LA SCENA ══ -->
+<section class="light-section sp" id="scopri">
+  <div class="inner-md">
+    <div class="reveal">
+      <span class="aline"></span>
+      <h2 class="f-display" style="font-size:clamp(28px,4.5vw,56px);font-weight:400;line-height:1.3;color:var(--petrol);">
+        Ti riconosci in qualcuna<br>di queste situazioni?
+      </h2>
+    </div>
+
+    <div class="reveal" style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+      <div class="card-l" style="padding:28px;">
+        <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h3 class="f-display" style="font-size:21px;color:var(--petrol);margin-bottom:10px;">Sveglie multiple ogni mattina</h3>
+        <p class="semi" style="font-size:14px;line-height:1.75;">Tre sveglie a 5 minuti l'una dall'altra. Ti svegli in modalità fight-or-flight, inondato di adrenalina, e lo chiami routine mattutina.</p>
+      </div>
+      <div class="card-l" style="padding:28px;">
+        <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3 class="f-display" style="font-size:21px;color:var(--petrol);margin-bottom:10px;">Crollo pomeridiano fisso</h3>
+        <p class="semi" style="font-size:14px;line-height:1.75;">Verso le 14-16 il cervello si spegne. La soluzione è il terzo caffè. Di notte poi fai fatica ad addormentarti. Il ciclo si ripete ogni giorno.</p>
+      </div>
+      <div class="card-l" style="padding:28px;">
+        <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <h3 class="f-display" style="font-size:21px;color:var(--petrol);margin-bottom:10px;">Dipendenza dalla caffeina</h3>
+        <p class="semi" style="font-size:14px;line-height:1.75;">Senza caffè sei uno zombie. Hai costruito una tolleranza tale che non funziona quasi più, ma smettere significa mal di testa per giorni.</p>
+      </div>
+      <div class="card-l" style="padding:28px;">
+        <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3 class="f-display" style="font-size:21px;color:var(--petrol);margin-bottom:10px;">"L'élite dorme poco"</h3>
+        <p class="semi" style="font-size:14px;line-height:1.75;">Obama, Trump, Martha Stewart dormono 4-5 ore. Ci hai provato anche tu. Dopo qualche giorno: memoria calante, umore instabile, performance al ribasso.</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:44px;">
+      <div class="quote-l">
+        <p class="f-display" style="font-size:clamp(20px,3vw,32px);color:var(--petrol);line-height:1.5;font-weight:400;">
+          "Se vuoi uccidere qualcuno velocemente,<br>togli il sonno."
+        </p>
+        <p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:12px;color:var(--text-l3);">— Robb Wolf, autore de "La Paleo Dieta"</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:32px;max-width:620px;">
+      <p class="semi" style="font-size:17px;line-height:1.85;">
+        Non è colpa tua. <strong style="color:var(--petrol);">Nessuno ti ha mai insegnato come funziona davvero il sonno.</strong> L'industria farmaceutica ci ha convinto che basta una pillola. La cultura produttivista ci dice che dormire poco è una virtù. Entrambe le cose sono false — e costose.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ IL MECCANISMO ══ -->
+<section class="dark-section sp" style="position:relative;overflow:hidden;">
+  <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(200,138,43,.08) 0%,transparent 65%);top:-100px;right:-150px;pointer-events:none;"></div>
+  <div class="inner" style="position:relative;z-index:1;">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <span class="badge-amber">Il problema e la soluzione</span>
+      <h2 class="f-display" style="font-size:clamp(28px,5vw,68px);font-weight:400;line-height:1.1;color:var(--text-d);margin-top:20px;">
+        L'industria del sonno vale<br>
+        <em style="color:var(--amber);">1,6 miliardi di dollari.</em>
+      </h2>
+      <p class="muted" style="font-size:17px;max-width:540px;margin:16px auto 0;line-height:1.75;">
+        E nessuno di quei soldi va verso una vera soluzione. 38 milioni di prescrizioni solo per lo Zolpidem in un anno. Ma i sonniferi non ti fanno dormire: ti stordiscono.
+      </p>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+      <div class="card-d" style="padding:32px;">
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:rgba(200,138,43,.7);margin-bottom:16px;">Il problema</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;margin-top:3px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <p style="font-size:15px;color:var(--text-d);">I sonniferi ti rendono incoscienti, non ti fanno dormire davvero</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;margin-top:3px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <p style="font-size:15px;color:var(--text-d);">La cultura della produttività ha reso il sonno un lusso colpevole</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;margin-top:3px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <p style="font-size:15px;color:var(--text-d);">Nessuno insegna la biologia del sonno: ritmo circadiano, fasi, ormoni</p>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding:16px;background:rgba(138,58,52,.15);border-radius:6px;border:1px solid rgba(138,58,52,.3);">
+          <p style="font-size:14px;color:var(--text-d);line-height:1.65;">Uso prolungato di benzodiazepine: <strong style="color:#e07070;">+84% rischio Alzheimer.</strong> Eppure le prescrivono ancora come caramelle.</p>
+        </div>
+      </div>
+      <div class="card-d" style="padding:32px;border-color:rgba(200,138,43,.2);">
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#A8D4B0;margin-bottom:16px;">La soluzione</p>
+        <p class="muted" style="font-size:15px;line-height:1.8;margin-bottom:16px;">Il sonno non è un interruttore on/off. È un sistema biologico preciso, governato da ritmi circadiani, ormoni, onde cerebrali e cicli precisi.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:8px;">
+            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p style="font-size:15px;color:#E8F0EA;">Capire il ritmo circadiano significa controllare energia e recupero</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p style="font-size:15px;color:#E8F0EA;">Ottimizzare le fasi del sonno trasforma ogni ora in recupero reale</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p style="font-size:15px;color:#E8F0EA;">Il biohacking del sonno è accessibile a chiunque conosca il sistema</p>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(200,138,43,.15);">
+          <p style="font-size:16px;color:var(--amber);font-style:italic;font-family:'Cormorant Garamond',serif;">Chi conosce le regole del gioco dorme meglio, recupera meglio e performa meglio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ BULLET POINTS ══ -->
+<section class="light-section sp" style="background:#EEF0EC;">
+  <div class="inner">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <span class="badge-green">Ecco cosa scoprirai</span>
+      <h2 class="f-display" style="font-size:clamp(28px,4.5vw,62px);font-weight:400;color:var(--petrol);margin-top:18px;">
+        All'interno del libro troverai…
+      </h2>
+      <p class="semi" style="font-size:17px;max-width:500px;margin:14px auto 0;line-height:1.7;">
+        Ogni capitolo è progettato per darti un vantaggio concreto e misurabile sul tuo sonno.
+      </p>
+    </div>
+
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;">
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">1</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Ecco perché ti svegli stanco anche dopo 8 ore di sonno</strong> — il meccanismo biologico preciso che blocca il vero recupero e come correggerlo</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">2</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>L'errore n°1 dell'élite insonne</strong> — cosa stanno sacrificando Obama, Trump e Martha Stewart (dormendo 4-5 ore) in termini di memoria, creatività e salute</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">3</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>La verità sull'industria dei sonniferi</strong> — 38 milioni di prescrizioni in un anno: perché ti stordiscono ma non ti fanno dormire davvero, e il rischio che nessuno ti dice</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">4</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Il metodo più semplice per resettare il ritmo circadiano</strong> — anche se sei un nottambulo cronico, lavori in turni o hai appena cambiato fuso orario</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">5</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>I 7 passi cruciali per padroneggiare il sonnellino</strong> — come trasformarlo da abitudine pigra a strumento di performance usato dagli atleti d'élite, con il timing esatto</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">6</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Cracca il codice del sonno profondo</strong> — tutto quello che devi sapere per aumentare le tue percentuali di NREM e svegliarti ogni mattina completamente ricaricato</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">7</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Il protocollo anti jet-lag in meno di 24 ore</strong> — le strategie esatte per sincronizzare il corpo a un nuovo fuso orario senza farmaci e senza perdere giorni di produttività</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">8</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Il segreto della caffeina strategica</strong> — perché berla appena svegli è il momento PEGGIORE, l'orario preciso per massimizzarne i benefici e come evitare la dipendenza</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">9</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Il composto naturale ed economico</strong> che può aiutarti a dormire meno senza pagarne le conseguenze biologiche — probabilmente ce l'hai già in dispensa in questo momento</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">10</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>La connessione nascosta tra sonno e sistema immunitario</strong> — perché anche una sola notte di 4 ore apre le porte a infezioni, infiammazione e malattie cardiovascolari</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">11</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Come usare la luce per riprogrammare il tuo orologio biologico</strong> — lunghezza d'onda, timing preciso e strumenti pratici per quando il sole non è disponibile</p>
+        </div>
+      </div>
+
+      <div class="card-l" style="padding:24px 28px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(200,138,43,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--amber);">12</div>
+          <p style="font-size:15px;color:var(--petrol);line-height:1.7;"><strong>Le onde cerebrali del campione</strong> — come usare frequenze sonore binaurali per indurti nel sonno profondo in pochi minuti, anche nelle notti più difficili</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reveal" style="text-align:center;margin-top:52px;">
+      <a href="#ordina" class="btn-amber lg">
+        Voglio il libro — €29,90
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ AUTORITÀ ══ -->
+<section class="dark-section sp" style="position:relative;overflow:hidden;">
+  <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(109,138,115,.08) 0%,transparent 70%);bottom:-100px;left:-100px;pointer-events:none;"></div>
+  <div class="inner" style="position:relative;z-index:1;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center;">
+      <div class="reveal">
+        <div style="width:80px;height:80px;border-radius:50%;background:rgba(200,138,43,.15);border:2px solid rgba(200,138,43,.3);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <span class="aline"></span>
+        <h2 class="f-display" style="font-size:clamp(28px,4vw,52px);font-weight:400;color:var(--text-d);line-height:1.2;">
+          Chi è<br><em style="color:var(--amber);">Roberto Boscia</em>
+        </h2>
+      </div>
+      <div class="reveal">
+        <p style="font-size:17px;line-height:1.85;color:var(--text-d);margin-bottom:20px;">
+          Roberto Boscia è autore, ricercatore e appassionato di biohacking applicato alla performance umana. Ha studiato per anni la scienza del sonno, traducendo ricerche scientifiche internazionali in strategie pratiche applicabili da chiunque.
+        </p>
+        <p class="muted" style="font-size:16px;line-height:1.85;margin-bottom:24px;">
+          <em>"Dormire è facile... se sai come farlo!"</em> è il risultato di anni di studio, sperimentazione personale e consultazione delle più autorevoli ricerche pubblicate su <em>Nature</em>, <em>Science Advances</em> e <em>Neurology</em>.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;">
+            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="muted" style="font-size:14px;">Autore di "Dormire è facile... se sai come farlo!"</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="muted" style="font-size:14px;">Appassionato di biohacking e ottimizzazione della performance</p>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="muted" style="font-size:14px;">[Aggiungi qui la tua bio, credenziali o numero di lettori]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CAPITOLI ══ -->
+<section class="light-section sp">
+  <div class="inner">
+    <div class="reveal" style="text-align:center;margin-bottom:52px;">
+      <span class="aline" style="margin:0 auto 16px;"></span>
+      <h2 class="f-display" style="font-size:clamp(26px,4vw,54px);font-weight:400;color:var(--petrol);">Cosa contiene il libro</h2>
+      <p class="semi" style="font-size:16px;max-width:440px;margin:14px auto 0;line-height:1.7;">14 capitoli + 1 bonus: dalla teoria al biohacking pratico.</p>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;">
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">00</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">L'industria del sonno</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Perché la società moderna ci ha rubato il sonno</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">01</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">L'élite degli insonni</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Perché uscire da questo club esclusivo (e costoso)</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">02</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Il ritmo circadiano delle 24 ore</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Cortisolo, melatonina, ormoni: il tuo orologio interno</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">03</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Onde cerebrali, genetica e fasi del sonno</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">NREM, REM, delta, alpha: cosa succede mentre dormi</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">04</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">10 consigli per conquistare il sonnellino</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">La scienza della siesta e come sfruttarla al massimo</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">05</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Dormire in viaggio e vincere il jet lag</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Il protocollo completo per chi si muove spesso</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">06</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Ri-regolare i ritmi circadiani</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Come correggere anni di sonno caotico</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">07</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">L'arte di dominare il pisolino</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">7 passi cruciali per dormire come un campione</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">08</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">La "terrificante condizione" del sonno</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Sonno, sistema immunitario e riparazione cellulare</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">09</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Cracca il codice del sonno profondo</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Biohacking per aumentare il sonno NREM</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">10–11</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Ambiente, luci, suoni e strumenti</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Temperatura, onde binaurali, messa a terra, maschere</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">12–13</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">Gli integratori del sonno</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Melatonina, magnesio, creatina: cosa funziona davvero</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:var(--white);border:1px solid rgba(14,42,54,.07);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">14</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">La caffeina strategica</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">Come usarla (e non abusarne) per massimizzarne i benefici</p></div>
+      </div>
+
+      <div style="display:flex;gap:14px;padding:18px 20px;background:rgba(200,138,43,.06);border:1px solid rgba(200,138,43,.3);border-radius:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--amber);flex-shrink:0;line-height:1.2;">★</span>
+        <div><p style="font-size:14px;font-weight:600;color:var(--petrol);">BONUS: Sonno e diabete</p><p style="font-size:12px;color:var(--text-l3);margin-top:3px;">La connessione scientifica tra qualità del sonno e glicemia</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ OBIEZIONI ══ -->
+<section class="light-section sp" style="background:#EEF0EC;">
+  <div class="inner-md">
+    <div class="reveal" style="margin-bottom:48px;">
+      <span class="aline"></span>
+      <h2 class="f-display" style="font-size:clamp(26px,4vw,54px);font-weight:400;color:var(--petrol);">Hai qualche dubbio?</h2>
+      <p class="semi" style="font-size:16px;margin-top:12px;line-height:1.7;">Le domande più comuni — con le risposte oneste.</p>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:16px;">
+
+      <div class="card-l" style="padding:32px 36px;">
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px;">Obiezione n°1</p>
+        <h3 style="font-size:19px;font-weight:600;color:var(--petrol);margin-bottom:12px;">"Ho già letto altri libri sul sonno, non sarà diverso"</h3>
+        <p class="semi" style="font-size:15px;line-height:1.8;">La maggior parte dei libri sul sonno ti dice "dormi 8 ore, stacca il telefono". Questo libro parte dalla biologia: ritmo circadiano, fasi NREM e REM, biohacking degli integratori, onde binaurali, messa a terra. Non è un libro di buone intenzioni — è un sistema scientifico che puoi iniziare ad applicare stanotte.</p>
+      </div>
+
+      <div class="card-l" style="padding:32px 36px;">
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px;">Obiezione n°2</p>
+        <h3 style="font-size:19px;font-weight:600;color:var(--petrol);margin-bottom:12px;">"Prendo i sonniferi e funzionano bene per me"</h3>
+        <p class="semi" style="font-size:15px;line-height:1.8;">I sonniferi ti rendono incoscienti. Il vero sonno ristoratore è completamente diverso: durante il sonno profondo il cervello attiva il sistema glinfatico per rimuovere le tossine, consolida i ricordi, ripara il DNA. Nessun farmaco replica questo processo. Il libro ti offre alternative naturali molto più efficaci — senza effetti collaterali.</p>
+      </div>
+
+      <div class="card-l" style="padding:32px 36px;">
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px;">Obiezione n°3</p>
+        <h3 style="font-size:19px;font-weight:600;color:var(--petrol);margin-bottom:12px;">"Dormire poco è questione di carattere, ci si abitua"</h3>
+        <p class="semi" style="font-size:15px;line-height:1.8;">La privazione del sonno non è una virtù: è un danno biologico misurabile. Anche solo una notte di 4 ore aumenta i marcatori infiammatori, riduce le cellule natural killer del sistema immunitario e compromette memoria e creatività. L'élite insonne non è immune — sta sacrificando qualcosa. Lo scopri nel Capitolo 1.</p>
+      </div>
+
+      <div class="card-l" style="padding:32px 36px;">
+        <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:10px;">Obiezione n°4</p>
+        <h3 style="font-size:19px;font-weight:600;color:var(--petrol);margin-bottom:12px;">"Non ho tempo per implementare protocolli complicati"</h3>
+        <p class="semi" style="font-size:15px;line-height:1.8;">Il libro è strutturato per ordine di impatto. Puoi iniziare con una sola cosa — come cambiare l'orario in cui bevi il caffè — e già sentire una differenza reale. Le strategie avanzate ci sono, ma non devi fare tutto insieme. Ogni capitolo è autonomo: applica quello che ti serve adesso.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ TESTIMONIANZE ══ -->
+<section class="dark-section sp" style="position:relative;overflow:hidden;">
+  <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(200,138,43,.06) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="inner" style="position:relative;z-index:1;">
+    <div class="reveal" style="text-align:center;margin-bottom:52px;">
+      <span class="badge-green-d">Chi ha già letto il libro</span>
+      <h2 class="f-display" style="font-size:clamp(26px,4vw,54px);font-weight:400;color:var(--text-d);margin-top:18px;">Cosa dicono i lettori</h2>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+
+      <div class="card-d" style="padding:32px;">
+        <div style="display:flex;gap:3px;margin-bottom:16px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="quote-d"><p style="font-size:16px;color:var(--text-d);line-height:1.7;font-style:italic;">"[Inserisci testimonianza reale di un lettore]"</p></div>
+        <p class="muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:16px;">— [Nome Cognome], [Professione]</p>
+      </div>
+
+      <div class="card-d" style="padding:32px;">
+        <div style="display:flex;gap:3px;margin-bottom:16px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="quote-d"><p style="font-size:16px;color:var(--text-d);line-height:1.7;font-style:italic;">"[Inserisci testimonianza reale di un lettore]"</p></div>
+        <p class="muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:16px;">— [Nome Cognome], [Professione]</p>
+      </div>
+
+      <div class="card-d" style="padding:32px;">
+        <div style="display:flex;gap:3px;margin-bottom:16px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#C88A2B"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="quote-d"><p style="font-size:16px;color:var(--text-d);line-height:1.7;font-style:italic;">"[Inserisci testimonianza reale di un lettore]"</p></div>
+        <p class="muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:16px;">— [Nome Cognome], [Professione]</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ OFFERTA ══ -->
+<section class="light-section sp" id="ordina" style="background:#EEF0EC;">
+  <div class="inner">
+    <div class="reveal" style="text-align:center;margin-bottom:44px;">
+      <span class="badge-amber">Riepilogo offerta</span>
+      <h2 class="f-display" style="font-size:clamp(26px,4.5vw,58px);font-weight:400;color:var(--petrol);margin-top:16px;">
+        Lascia che ti mostri tutto quello che ricevi
+      </h2>
+    </div>
+
+    <div class="reveal" style="max-width:600px;margin:auto;">
+      <div class="card-l" style="padding:48px;border-color:rgba(200,138,43,.25);">
+
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:36px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:16px;background:rgba(109,138,115,.06);border:1px solid rgba(109,138,115,.15);border-radius:6px;">
+            <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <p style="font-size:15px;font-weight:600;color:var(--petrol);">Il libro "Dormire è facile... se sai come farlo!"</p>
+              <p style="font-size:13px;color:var(--text-l3);margin-top:4px;">14 capitoli — dalla teoria al biohacking pratico del sonno</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;padding:16px;background:rgba(200,138,43,.06);border:1px solid rgba(200,138,43,.2);border-radius:6px;">
+            <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <p style="font-size:15px;font-weight:600;color:var(--petrol);">BONUS: Capitolo extra "Sonno e Diabete"</p>
+              <p style="font-size:13px;color:var(--text-l3);margin-top:4px;">La connessione scientifica tra sonno e glicemia — gratis con il libro</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(14,42,54,.08);">
+          <div style="display:flex;align-items:flex-end;gap:12px;">
+            <span class="price f-display" style="font-size:clamp(56px,8vw,80px);color:var(--petrol);">€29,90</span>
+            <span style="padding-bottom:16px;font-size:15px;color:var(--text-l3);">+ spedizione</span>
+          </div>
+        </div>
+
+        <a href="#" class="btn-amber lg" style="width:100%;justify-content:center;">
+          Ordina il libro adesso
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <p style="font-size:13px;text-align:center;margin-top:16px;line-height:1.6;color:var(--text-l3);">
+          Pagamento sicuro · Spedizione in 3–5 giorni lavorativi
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FAQ ══ -->
+<section class="light-section sp">
+  <div class="inner-md">
+    <div class="reveal" style="margin-bottom:44px;">
+      <span class="aline"></span>
+      <h2 class="f-display" style="font-size:clamp(26px,4vw,54px);font-weight:400;color:var(--petrol);">Domande frequenti</h2>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:10px;">
+
+      <div class="card-l" style="overflow:hidden;">
+        <details>
+          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
+            <span>Il libro è disponibile anche in formato ebook?</span>
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div style="padding:0 28px 22px;">
+            <p class="semi" style="font-size:15px;line-height:1.8;">[Inserisci qui la risposta: disponibile in ebook, prezzo e come ottenerlo]</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card-l" style="overflow:hidden;">
+        <details>
+          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
+            <span>In quanto tempo arriva il libro fisico?</span>
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div style="padding:0 28px 22px;">
+            <p class="semi" style="font-size:15px;line-height:1.8;">[Inserisci tempi di spedizione e corriere utilizzato]</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card-l" style="overflow:hidden;">
+        <details>
+          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
+            <span>Come ricevo il capitolo bonus "Sonno e Diabete"?</span>
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div style="padding:0 28px 22px;">
+            <p class="semi" style="font-size:15px;line-height:1.8;">[Inserisci: il bonus è incluso fisicamente nel libro / in PDF via email / accessibile con link nel libro]</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card-l" style="overflow:hidden;">
+        <details>
+          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
+            <span>I costi di spedizione sono inclusi nel prezzo?</span>
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div style="padding:0 28px 22px;">
+            <p class="semi" style="font-size:15px;line-height:1.8;">[Inserisci politica di spedizione: costo, corriere, eventuali soglie per spedizione gratuita]</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card-l" style="overflow:hidden;">
+        <details>
+          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
+            <span>Cosa rende questo libro diverso dagli altri sul sonno?</span>
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div style="padding:0 28px 22px;">
+            <p class="semi" style="font-size:15px;line-height:1.8;">Non troverai "dormi 8 ore e vai a letto presto". Questo libro parte dalla biologia: ritmo circadiano, fasi NREM e REM, biohacking degli integratori, onde binaurali, messa a terra, caffeina strategica. 14 capitoli di strategie scientificamente provate che puoi applicare subito, in ordine di priorità.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card-l" style="overflow:hidden;">
+        <details>
+          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
+            <span>È adatto anche a chi non ha gravi problemi di sonno?</span>
+            <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div style="padding:0 28px 22px;">
+            <p class="semi" style="font-size:15px;line-height:1.8;">Sì. Il 63% delle persone dichiara di non dormire abbastanza — e la maggior parte non lo sa. Potresti pensare di dormire bene ma perdere sonno profondo, REM o recupero ormonale senza accorgertene. Il libro è utile sia per chi soffre di insonnia, sia per chi vuole portare la qualità del sonno a un livello superiore.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CTA FINALE ══ -->
+<section class="dark-section sp" style="text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(200,138,43,.07) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="inner reveal" style="position:relative;z-index:1;max-width:760px;">
+    <div class="rule-amber" style="margin-bottom:64px;"></div>
+    <h2 class="f-display" style="font-size:clamp(28px,5.5vw,72px);font-weight:400;line-height:1.1;color:var(--text-d);">
+      Il sonno è l'investimento<br>
+      <em style="color:var(--amber);">con il ROI più alto della tua vita.</em>
+    </h2>
+    <p class="muted" style="font-size:18px;line-height:1.75;max-width:520px;margin:28px auto 0;">
+      Ogni ora di sonno ottimizzato si moltiplica in energia, lucidità, sistema immunitario, creatività, longevità. Non esiste nessuna pillola, nessun integratore, nessun hack che si avvicini alla potenza del sonno fatto bene.
+    </p>
+    <p class="f-display" style="font-style:italic;font-size:clamp(18px,2.5vw,28px);color:var(--amber);margin-top:20px;line-height:1.5;">
+      Dormire è facile... se sai come farlo.
+    </p>
+    <div style="margin-top:44px;">
+      <a href="#ordina" class="btn-amber lg">
+        Ordina il libro — €29,90
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="muted" style="font-size:13px;margin-top:16px;">14 capitoli + bonus · Roberto Boscia</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══ -->
+<footer class="dark-section" style="padding:36px 32px;border-top:1px solid rgba(246,245,241,.06);">
+  <div class="inner" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;">
+    <div class="nav-logo">
+      <div class="pulse"></div>
+      <span class="f-display" style="font-style:italic;">Dormire è facile…</span>
+    </div>
+    <p class="muted" style="font-size:12px;text-align:right;">© 2024 Roberto Boscia · Tutti i diritti riservati</p>
+  </div>
+</footer>
+
+
+<!-- ══ STICKY BAR ══ -->
+<div class="sticky-bar" id="stickyBar">
+  <p style="color:var(--text-d2);font-size:14px;line-height:1.4;">"Dormire è facile... se sai come farlo!" · Roberto Boscia</p>
+  <a href="#ordina" class="btn-amber" style="white-space:nowrap;flex-shrink:0;">
+    Ordina — €29,90
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 48 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+      }
+    );
+  });
+
+  function animateCount(el, target, dur) {
+    const t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(e * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    })(t0);
+  }
+  document.querySelectorAll('[data-count]').forEach(el => {
     ScrollTrigger.create({
-      trigger: hero, start: 'bottom top',
-      onEnter: () => stickyBar.classList.add('visible'),
-      onLeaveBack: () => stickyBar.classList.remove('visible')
+      trigger: el, start: 'top 90%', once: true,
+      onEnter: () => animateCount(el, +el.dataset.count, 1400)
     });
+  });
 
-    // Parallax glows on dark sections
-    document.querySelectorAll('.dark-section > div[style*="radial-gradient"]').forEach((glow, i) => {
-      gsap.to(glow, {
-        y: i % 2 === 0 ? -80 : 80,
-        ease: 'none',
-        scrollTrigger: { trigger: glow.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1.5 }
-      });
+  const stickyBar = document.getElementById('stickyBar');
+  ScrollTrigger.create({
+    trigger: document.querySelector('section.dark-section'),
+    start: 'bottom top',
+    onEnter: () => stickyBar.classList.add('visible'),
+    onLeaveBack: () => stickyBar.classList.remove('visible')
+  });
+
+  document.querySelectorAll('.dark-section > div[style*="radial-gradient"]').forEach((glow, i) => {
+    gsap.to(glow, {
+      y: i % 2 === 0 ? -80 : 80, ease: 'none',
+      scrollTrigger: { trigger: glow.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1.5 }
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
