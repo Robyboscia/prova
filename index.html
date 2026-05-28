@@ -113,11 +113,33 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
         <h1 class="hl-xl mt-3 mb-5" id="hero-h1" style="opacity:0;transform:translateY(25px)">
           Quando spegni la luce,<br><em class="serif-italic text-grad">inizia la riunione.</em>
         </h1>
-        <p id="hero-sub" style="opacity:0;transform:translateY(20px);font-size:1rem;color:#5e7a96;margin-bottom:2rem;line-height:1.8;max-width:520px">
-          Il tuo corpo è esausto. Ma la testa non si ferma. Mail. Decisioni. Pensieri a ciclo continuo.<br>
-          <strong style="color:#0d1a2e;font-weight:600">Non è debolezza — è un meccanismo biologico che non si attiva.</strong>
-          Mental Pro lo riattiva.
+        <p id="hero-sub" style="opacity:0;transform:translateY(20px);font-size:1rem;color:#5e7a96;margin-bottom:1.5rem;line-height:1.8;max-width:520px">
+          Il tuo corpo è esausto. Ma la testa non si ferma. Mail. Decisioni. Riunioni di domani. Quella cosa che hai detto. Quella che non hai detto.<br><br>
+          Non riesci ad addormentarti. O ti addormenti, ma ti svegli alle 3 con la mente già in moto. Oppure dormi 8 ore e ti alzi come se non avessi dormito affatto.<br><br>
+          <strong style="color:#0d1a2e;font-weight:600">Non è colpa tua. Non è stress "generico". È un meccanismo neurochimico preciso che non si attiva — e che si può correggere.</strong>
         </p>
+        <!-- Pain points list -->
+        <div style="margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.6rem;opacity:0;transform:translateY(20px)" id="hero-pain">
+          <div style="display:flex;align-items:flex-start;gap:0.65rem;font-size:0.9rem;color:#5e7a96">
+            <span style="color:#dc3c3c;flex-shrink:0;margin-top:2px">✗</span>
+            <span>Hai provato tisane, melatonina, mascherine. Funzionano poco o niente.</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.65rem;font-size:0.9rem;color:#5e7a96">
+            <span style="color:#dc3c3c;flex-shrink:0;margin-top:2px">✗</span>
+            <span>La mattina ti svegli già stanco. La stanchezza si accumula settimana dopo settimana.</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.65rem;font-size:0.9rem;color:#5e7a96">
+            <span style="color:#dc3c3c;flex-shrink:0;margin-top:2px">✗</span>
+            <span>Sai che dovresti dormire. Ma appena spegni la luce, la testa non si spegne.</span>
+          </div>
+        </div>
+        <!-- Solution statement -->
+        <div style="background:rgba(23,87,194,0.06);border-left:3px solid #1757c2;border-radius:0 12px 12px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;opacity:0;transform:translateY(20px)" id="hero-solution">
+          <p style="font-size:0.95rem;color:#0d1a2e;line-height:1.7;font-weight:500">
+            Mental Pro interviene sul meccanismo neurochimico che regola il passaggio veglia→sonno. Non ti sedazione. Ti <em style="font-family:'Fraunces',Georgia,serif;color:#1757c2">riattiva</em> qualcosa che il tuo corpo sa già fare — ma ha smesso di fare.
+          </p>
+          <div style="margin-top:0.65rem;font-size:0.78rem;color:#5e7a96">— Roberto Boscia, Farmacista · 20 anni di ricerca sul sonno</div>
+        </div>
         <div class="flex flex-wrap gap-3 mb-8" id="hero-cta" style="opacity:0;transform:translateY(20px)">
           <a href="#pricing" class="btn-primary" style="font-size:1rem;padding:1rem 2.25rem">
             Spegni la Riunione Stanotte
@@ -753,7 +775,9 @@ gsap.timeline({delay:0.3})
   .to('#hero-label',{opacity:1,y:0,duration:.7,ease:'power2.out'})
   .to('#hero-h1',{opacity:1,y:0,duration:.9,ease:'power2.out'},'-=.4')
   .to('#hero-sub',{opacity:1,y:0,duration:.7,ease:'power2.out'},'-=.5')
-  .to('#hero-cta',{opacity:1,y:0,duration:.7,ease:'power2.out'},'-=.4')
+  .to('#hero-pain',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.3')
+  .to('#hero-solution',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.2')
+  .to('#hero-cta',{opacity:1,y:0,duration:.7,ease:'power2.out'},'-=.3')
   .to('#hero-stats',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.3')
   .to('#hero-img',{opacity:1,y:0,duration:.9,ease:'back.out(1.3)'},'-=.8');
 
