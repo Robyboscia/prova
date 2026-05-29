@@ -177,7 +177,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 
 <!-- ===== NAV ===== -->
 <div id="urgency-bar">
-  <span id="urgency-bar-timer">⏱ I bonus scadono tra: <span class="timer-digits" id="timer-top">--:--:--</span> &nbsp;·&nbsp; <a href="#pricing">Prendi i bonus →</a></span>
+  <span id="urgency-bar-timer">⏱ Gli extra esclusivi scadono tra: <span class="timer-digits" id="timer-top">--:--:--</span> &nbsp;·&nbsp; <a href="#pricing">Prendi i bonus →</a></span>
   <span id="urgency-bar-expired" style="display:none">⚠️ Il periodo bonus è scaduto — i prodotti sono ancora disponibili</span>
 </div>
 <nav class="nav-blur fixed top-0 left-0 right-0 z-50 py-3 px-4 md:px-6">
@@ -276,12 +276,12 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
       <h2 class="hl-lg mt-3" style="color:#0d1a2e">Ecco il suo segreto</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-      <div class="card p-6 fade-up">
+      <div class="bonus-item card p-6 fade-up">
         <div style="font-size:1.8rem;margin-bottom:0.75rem">😴</div>
         <h3 class="hl-md mb-2" style="color:#0d1a2e">Gli altri lavorano sul problema sbagliato</h3>
         <p style="color:#3d5a76;font-size:0.92rem;line-height:1.7">Sonniferi, tisane, mascherine. Tutti agiscono sul sintomo. Nessuno aggredisce la causa: il tuo sistema nervoso è incastrato in modalità "allerta".</p>
       </div>
-      <div class="card p-6 fade-up" style="border-color:rgba(23,87,194,.3)">
+      <div class="bonus-item card p-6 fade-up" style="border-color:rgba(23,87,194,.3)">
         <div style="font-size:1.8rem;margin-bottom:0.75rem">✨</div>
         <h3 class="hl-md mb-2" style="color:#1757c2">Incredibilmente semplice</h3>
         <p style="color:#3d5a76;font-size:0.92rem;line-height:1.7">Mental Pro agisce sul meccanismo neurochimico che regola il passaggio veglia→sonno. Un misurino la sera. Il tuo cervello impara di nuovo a "staccare".</p>
@@ -397,7 +397,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
     </div>
     <!-- Cards: stack on mobile, 3-col on lg -->
     <div id="urgency-pricing" style="background:rgba(23,87,194,.05);border:1px dashed rgba(23,87,194,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
-      🎁 <strong>Bonus inclusi</strong> per le prossime <strong class="timer-digits" id="timer-pricing" style="color:#1757c2">--:--:--</strong> — poi scompaiono
+      🎁 <strong>Extra esclusivi inclusi</strong> per le prossime <strong class="timer-digits" id="timer-pricing" style="color:#1757c2">--:--:--</strong> — poi non saranno più inclusi
     </div>
     <div id="bonus-expired-notice" style="background:rgba(180,30,30,.05);border:1px dashed rgba(180,30,30,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
       ⚠️ Il periodo bonus è scaduto — i prodotti sono ancora disponibili senza i bonus aggiuntivi.
@@ -412,7 +412,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem">
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">1 confezione (30 giorni)</span></div>
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">Garanzia 60 giorni</span></div>
-          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
+          <div style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#1757c2">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(23,87,194,.07);border:1px solid rgba(23,87,194,.2);border-radius:50px;font-size:0.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1757c2;margin-bottom:.2rem">BONUS STARTER PACK</div>
@@ -433,7 +433,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
         <div style="font-size:0.75rem;color:rgba(255,255,255,.6);margin-bottom:1.25rem">3 confezioni · 180 giorni · €39/unità</div>
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem">
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#a0d4ff">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,.9)">3 confezioni (180 giorni)</span></div>
-          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
+          <div style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#a0d4ff">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.72);border-radius:50px;font-size:0.65rem;font-weight:700;text-transform:uppercase;color:#fff;margin-bottom:.2rem">BONUS STARTER PACK</div>
@@ -461,7 +461,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
         <div style="font-size:0.75rem;color:#3d5a76;margin-bottom:1.25rem">6 confezioni · 360 giorni · €41,50/unità</div>
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem">
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">6 confezioni (360 giorni)</span></div>
-          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
+          <div style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#1757c2">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(23,87,194,.07);border:1px solid rgba(23,87,194,.2);border-radius:50px;font-size:0.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1757c2;margin-bottom:.2rem">BONUS STARTER PACK</div>
@@ -494,7 +494,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 </section>
 
 <!-- ===== BONUSES ===== -->
-<section class="bonus-item relative py-16 md:py-20 px-4 md:px-6" style="background:#f0f7ff">
+<section class="relative py-16 md:py-20 px-4 md:px-6" style="background:#f0f7ff">
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-10 fade-up">
       <span class="section-label">Bonus Inclusi</span>
@@ -522,7 +522,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
       </div>
     </div>
     <!-- Advanced Bundle -->
-    <div class="card p-6 fade-up" style="border-color:rgba(255,193,7,.4);background:linear-gradient(135deg,rgba(255,248,220,.4),rgba(255,255,255,.8))">
+    <div class="bonus-item card p-6 fade-up" style="border-color:rgba(255,193,7,.4);background:linear-gradient(135deg,rgba(255,248,220,.4),rgba(255,255,255,.8))">
       <div style="display:inline-flex;align-items:center;gap:6px;padding:.25rem .85rem;background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.35);border-radius:50px;font-size:0.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b8860b;margin-bottom:.5rem">★ EBOOK BUNDLE AVANZATO</div>
       <p style="font-size:0.82rem;color:#3d5a76;margin-bottom:1rem">Incluso a partire dal bundle Circadian Balance (3 confezioni o più)</p>
       <div style="display:grid;grid-template-columns:1fr;gap:0.85rem" class="md:grid-cols-3">
