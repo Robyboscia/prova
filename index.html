@@ -915,5 +915,81 @@ function toggleFaq(btn){
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+<style>
+#sp-popup{position:fixed;bottom:80px;left:16px;z-index:999;max-width:280px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,26,46,.14);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;transform:translateX(-320px);transition:transform .45s cubic-bezier(.34,1.26,.64,1);pointer-events:none}
+#sp-popup.show{transform:translateX(0)}
+.sp-icon{width:38px;height:38px;background:linear-gradient(135deg,#0f3f8c,#1757c2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.sp-text{line-height:1.35}
+.sp-name{font-size:.78rem;font-weight:700;color:#0d1a2e}
+.sp-detail{font-size:.72rem;color:#3d5a76;margin-top:.1rem}
+.sp-time{font-size:.65rem;color:#a0b4c8;margin-top:.2rem}
+</style>
+
+<div id="sp-popup" aria-live="polite" aria-atomic="true">
+  <div class="sp-icon">🛒</div>
+  <div class="sp-text">
+    <div class="sp-name" id="sp-name"></div>
+    <div class="sp-detail" id="sp-detail"></div>
+    <div class="sp-time" id="sp-time"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var events=[
+    {name:"Marco R.",city:"Milano",product:"Bundle Circadian Balance",min:2},
+    {name:"Giulia T.",city:"Roma",product:"Starter — 1 confezione",min:5},
+    {name:"Luca B.",city:"Torino",product:"Bundle Circadian Balance",min:8},
+    {name:"Federica M.",city:"Bologna",product:"Sleep Elite — 6 confezioni",min:3},
+    {name:"Andrea C.",city:"Napoli",product:"Bundle Circadian Balance",min:11},
+    {name:"Valentina S.",city:"Firenze",product:"Starter — 1 confezione",min:1},
+    {name:"Davide P.",city:"Venezia",product:"Bundle Circadian Balance",min:14},
+    {name:"Sara L.",city:"Genova",product:"Sleep Elite — 6 confezioni",min:6},
+    {name:"Matteo F.",city:"Palermo",product:"Bundle Circadian Balance",min:9},
+    {name:"Chiara N.",city:"Verona",product:"Starter — 1 confezione",min:4},
+    {name:"Roberto G.",city:"Bari",product:"Bundle Circadian Balance",min:7},
+    {name:"Elena V.",city:"Brescia",product:"Sleep Elite — 6 confezioni",min:2},
+    {name:"Simone A.",city:"Catania",product:"Bundle Circadian Balance",min:13},
+    {name:"Martina D.",city:"Padova",product:"Starter — 1 confezione",min:3},
+    {name:"Francesco E.",city:"Trieste",product:"Bundle Circadian Balance",min:10}
+  ];
+  var popup=document.getElementById('sp-popup');
+  var elName=document.getElementById('sp-name');
+  var elDetail=document.getElementById('sp-detail');
+  var elTime=document.getElementById('sp-time');
+  var idx=Math.floor(Math.random()*events.length);
+  var showing=false;
+
+  function timeLabel(min){
+    if(min<2)return'1 minuto fa';
+    if(min<60)return min+' minuti fa';
+    return Math.floor(min/60)+' ore fa';
+  }
+
+  function show(){
+    var e=events[idx];
+    idx=(idx+1)%events.length;
+    elName.textContent=e.name+' da '+e.city;
+    elDetail.textContent='ha acquistato: '+e.product;
+    elTime.textContent=timeLabel(e.min);
+    popup.classList.add('show');
+    showing=true;
+    setTimeout(hide,4500);
+  }
+
+  function hide(){
+    popup.classList.remove('show');
+    showing=false;
+    /* next popup: random 18-35 seconds */
+    var delay=18000+Math.random()*17000;
+    setTimeout(show,delay);
+  }
+
+  /* First popup: after 8-14 seconds */
+  setTimeout(show,8000+Math.random()*6000);
+})();
+</script>
+
 </body>
 </html>
