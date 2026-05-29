@@ -50,8 +50,7 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
 .faq-icon{transition:transform .3s ease}
 .faq-icon.rotated{transform:rotate(45deg)}
 
-/* Animations */
-.fade-up{opacity:0;transform:translateY(35px)}
+/* Animations — see also @keyframes fadeUp below */
 
 /* Sticky bar */
 .sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);border-top:1px solid rgba(23,87,194,.18);backdrop-filter:blur(16px);padding:0.85rem 1.25rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 30px rgba(23,87,194,.12)}
@@ -123,6 +122,20 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 .bonuses-expired #bonus-expired-notice{display:block!important}
 .bonuses-expired #urgency-bar-timer{display:none}
 .bonuses-expired #urgency-bar-expired{display:inline!important}
+
+/* Hero sequence — pure CSS, no JS layout reads */
+@keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
+#hero-label{animation:fadeUp .7s ease .3s both}
+#hero-h1{animation:fadeUp .9s ease .55s both}
+#hero-sub{animation:fadeUp .7s ease .85s both}
+#hero-pain{animation:fadeUp .6s ease 1.1s both}
+#hero-solution{animation:fadeUp .6s ease 1.25s both}
+#hero-cta{animation:fadeUp .7s ease 1.4s both}
+#hero-stats{animation:fadeUp .6s ease 1.55s both}
+#hero-img{animation:fadeUp .9s ease .45s both}
+/* Scroll fade-up: add .revealed via IntersectionObserver */
+.fade-up{opacity:0;transform:translateY(35px);transition:opacity .75s ease,transform .75s ease}
+.fade-up.revealed{opacity:1;transform:none}
 </style>
 </head>
 <body>
@@ -871,32 +884,13 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 
-  // ── Hero sequence: CSS-driven with staggered animation-delay ──────────────
-  var heroEls=[
-    {id:'hero-label', delay:0.3},
-    {id:'hero-h1',    delay:0.6},
-    {id:'hero-sub',   delay:0.9},
-    {id:'hero-pain',  delay:1.1},
-    {id:'hero-solution',delay:1.25},
-    {id:'hero-cta',   delay:1.4},
-    {id:'hero-stats', delay:1.55},
-    {id:'hero-img',   delay:0.5}
-  ];
-  heroEls.forEach(function(item){
-    var el=document.getElementById(item.id);
-    if(!el)return;
-    el.style.transition='opacity .7s ease '+item.delay+'s, transform .7s ease '+item.delay+'s';
-    el.style.opacity='1';
-    el.style.transform='translateY(0)';
-  });
+  // Hero sequence handled entirely by CSS @keyframes fadeUp
 
   // ── Scroll fade-up via IntersectionObserver ───────────────────────────────
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
-        e.target.style.transition='opacity .7s ease, transform .7s ease';
-        e.target.style.opacity='1';
-        e.target.style.transform='translateY(0)';
+        e.target.classList.add('revealed');
         io.unobserve(e.target);
       }
     });
