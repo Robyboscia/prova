@@ -14,6 +14,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif;overflow-x:hidden;line-height:1.65}
+#urgency-bar+nav{margin-top:0}/* bar is above fixed nav */
 
 /* Typography — mobile base, scale up */
 .hl-xl{font-family:'Fraunces',Georgia,serif;font-size:clamp(2.2rem,8vw,5rem);line-height:1.06;letter-spacing:-0.025em;font-weight:400}
@@ -107,11 +108,75 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
   .md\:py-24{padding-top:6rem;padding-bottom:6rem}
 }
 @media(min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Timer urgency bar */
+#urgency-bar{background:linear-gradient(90deg,#0f3f8c,#1757c2);color:#fff;text-align:center;padding:.5rem 1rem;font-size:.8rem;font-weight:600;position:sticky;top:0;z-index:201}
+#urgency-bar a{color:#a0d4ff;text-decoration:underline}
+.timer-digits{font-variant-numeric:tabular-nums;letter-spacing:.04em;font-weight:700}
+/* Bonus expiry */
+.bonuses-expired .bonus-item{display:none!important}
+.bonuses-expired #urgency-pricing{display:none!important}
+#bonus-expired-notice{display:none}
+.bonuses-expired #bonus-expired-notice{display:block!important}
+.bonuses-expired #urgency-bar-timer{display:none}
+.bonuses-expired #urgency-bar-expired{display:inline!important}
 </style>
 </head>
 <body>
 
+<script>
+(function(){
+  var KEY='mp_bonus_deadline';
+  var DURATION=72*60*60*1000;
+  var deadline=parseInt(localStorage.getItem(KEY)||'0');
+  if(!deadline||deadline<Date.now()){
+    deadline=Date.now()+DURATION;
+    localStorage.setItem(KEY,deadline);
+  }
+
+  function fmt(ms){
+    if(ms<=0)return'00:00:00';
+    var h=Math.floor(ms/3600000);
+    var m=Math.floor((ms%3600000)/60000);
+    var s=Math.floor((ms%60000)/1000);
+    return(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  }
+
+  function setExpired(){
+    document.body.classList.add('bonuses-expired');
+    ['timer-top','timer-pricing','timer-sticky'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el)el.textContent='Scaduto';
+    });
+    var st=document.getElementById('sticky-timer');
+    if(st)st.style.color='#999';
+  }
+
+  function tick(){
+    var left=deadline-Date.now();
+    if(left<=0){setExpired();return;}
+    var str=fmt(left);
+    ['timer-top','timer-pricing','timer-sticky'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el)el.textContent=str;
+    });
+    setTimeout(tick,1000);
+  }
+
+  if(deadline<=Date.now()){
+    document.addEventListener('DOMContentLoaded',setExpired);
+  } else {
+    document.addEventListener('DOMContentLoaded',tick);
+  }
+})();
+</script>
+
+
 <!-- ===== NAV ===== -->
+<div id="urgency-bar">
+  <span id="urgency-bar-timer">⏱ I bonus scadono tra: <span class="timer-digits" id="timer-top">--:--:--</span> &nbsp;·&nbsp; <a href="#pricing">Prendi i bonus →</a></span>
+  <span id="urgency-bar-expired" style="display:none">⚠️ Il periodo bonus è scaduto — i prodotti sono ancora disponibili</span>
+</div>
 <nav class="nav-blur fixed top-0 left-0 right-0 z-50 py-3 px-4 md:px-6">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
     <div class="flex items-center gap-2">
@@ -328,6 +393,12 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
       <p style="color:#3d5a76;margin-top:0.75rem;font-size:0.92rem">Garanzia 60 giorni su tutti gli ordini. Spedizione gratuita da 3 confezioni.</p>
     </div>
     <!-- Cards: stack on mobile, 3-col on lg -->
+    <div id="urgency-pricing" style="background:rgba(23,87,194,.05);border:1px dashed rgba(23,87,194,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
+      🎁 <strong>Bonus inclusi</strong> per le prossime <strong class="timer-digits" id="timer-pricing" style="color:#1757c2">--:--:--</strong> — poi scompaiono
+    </div>
+    <div id="bonus-expired-notice" style="background:rgba(180,30,30,.05);border:1px dashed rgba(180,30,30,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
+      ⚠️ Il periodo bonus è scaduto — i prodotti sono ancora disponibili senza i bonus aggiuntivi.
+    </div>
     <div style="display:grid;grid-template-columns:1fr;gap:1.25rem" class="lg:grid-cols-3">
 
       <!-- Tier 1 -->
@@ -338,7 +409,7 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem">
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">1 confezione (30 giorni)</span></div>
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">Garanzia 60 giorni</span></div>
-          <div style="display:flex;gap:0.65rem;align-items:center">
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#1757c2">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(23,87,194,.07);border:1px solid rgba(23,87,194,.2);border-radius:50px;font-size:0.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1757c2;margin-bottom:.2rem">BONUS STARTER PACK</div>
@@ -359,21 +430,21 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
         <div style="font-size:0.75rem;color:rgba(255,255,255,.6);margin-bottom:1.25rem">3 confezioni · 180 giorni · €39/unità</div>
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem">
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#a0d4ff">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,.9)">3 confezioni (180 giorni)</span></div>
-          <div style="display:flex;gap:0.65rem;align-items:center">
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#a0d4ff">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.72);border-radius:50px;font-size:0.65rem;font-weight:700;text-transform:uppercase;color:#fff;margin-bottom:.2rem">BONUS STARTER PACK</div>
               <div style="font-size:0.8rem;color:rgba(255,255,255,.7)">Guida + Anti-Risveglio + Checklist</div>
             </div>
           </div>
-          <div style="display:flex;gap:0.65rem;align-items:center">
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#a0d4ff">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);border-radius:50px;font-size:0.65rem;font-weight:700;text-transform:uppercase;color:#ffd700;margin-bottom:.2rem">★ EBOOK BUNDLE AVANZATO</div>
               <div style="font-size:0.8rem;color:rgba(255,255,255,.7)">Jet Lag + Bio-Ice Hack + Lontano da Casa</div>
             </div>
           </div>
-          <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#a0d4ff">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,.9)">Videocorso "Protocollo 3:30" (1h)</span></div>
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center"><span style="color:#a0d4ff">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,.9)">Videocorso "Protocollo 3:30" (1h)</span></div>
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#a0d4ff">✓</span><span style="font-size:0.85rem;color:rgba(255,255,255,.9)">Spedizione gratuita inclusa</span></div>
         </div>
         <a href="#" class="btn-primary" style="width:100%;justify-content:center;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.5);color:#fff;box-shadow:none">Attiva il tuo sistema →</a>
@@ -387,29 +458,29 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
         <div style="font-size:0.75rem;color:#3d5a76;margin-bottom:1.25rem">6 confezioni · 360 giorni · €41,50/unità</div>
         <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem">
           <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">6 confezioni (360 giorni)</span></div>
-          <div style="display:flex;gap:0.65rem;align-items:center">
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#1757c2">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(23,87,194,.07);border:1px solid rgba(23,87,194,.2);border-radius:50px;font-size:0.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1757c2;margin-bottom:.2rem">BONUS STARTER PACK</div>
               <div style="font-size:0.8rem;color:#3d5a76">Guida + Anti-Risveglio + Checklist</div>
             </div>
           </div>
-          <div style="display:flex;gap:0.65rem;align-items:center">
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center">
             <span style="color:#1757c2">✓</span>
             <div>
               <div style="display:inline-flex;align-items:center;gap:5px;padding:.2rem .7rem;background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.3);border-radius:50px;font-size:0.65rem;font-weight:700;text-transform:uppercase;color:#b8860b;margin-bottom:.2rem">★ EBOOK BUNDLE AVANZATO</div>
               <div style="font-size:0.8rem;color:#3d5a76">Jet Lag + Bio-Ice Hack + Lontano da Casa</div>
             </div>
           </div>
-          <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">Videocorso "Protocollo 3:30" (1h)</span></div>
-          <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span>
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">Videocorso "Protocollo 3:30" (1h)</span></div>
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span>
             <div class="flex flex-col">
               <span style="font-size:0.85rem;color:#3d5470">Libro incluso:</span>
               <em style="font-size:0.8rem;color:#1757c2;font-family:'Fraunces',Georgia,serif">Dormire è facile... se sai come farlo</em>
               <span style="font-size:0.72rem;color:#3d5a76">Roberto Boscia — €29,90 di valore</span>
             </div>
           </div>
-          <div style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">Sleep Personality Test</span></div>
+          <div class="bonus-item" style="display:flex;gap:0.65rem;align-items:center"><span style="color:#1757c2">✓</span><span style="font-size:0.85rem;color:#3d5470">Sleep Personality Test</span></div>
         </div>
         <a href="#" class="btn-primary" style="width:100%;justify-content:center">Attiva livello Elite →</a>
       </div>
@@ -420,7 +491,7 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
 </section>
 
 <!-- ===== BONUSES ===== -->
-<section class="relative py-16 md:py-20 px-4 md:px-6" style="background:#f0f7ff">
+<section class="bonus-item relative py-16 md:py-20 px-4 md:px-6" style="background:#f0f7ff">
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-10 fade-up">
       <span class="section-label">Bonus Inclusi</span>
