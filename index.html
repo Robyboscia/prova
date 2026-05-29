@@ -871,39 +871,70 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.timeline({delay:0.3})
-  .to('#hero-label',{opacity:1,y:0,duration:.7,ease:'power2.out'})
-  .to('#hero-h1',{opacity:1,y:0,duration:.9,ease:'power2.out'},'-=.4')
-  .to('#hero-sub',{opacity:1,y:0,duration:.7,ease:'power2.out'},'-=.5')
-  .to('#hero-pain',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.3')
-  .to('#hero-solution',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.2')
-  .to('#hero-cta',{opacity:1,y:0,duration:.7,ease:'power2.out'},'-=.3')
-  .to('#hero-stats',{opacity:1,y:0,duration:.6,ease:'power2.out'},'-=.3')
-  .to('#hero-img',{opacity:1,y:0,duration:.9,ease:'back.out(1.3)'},'-=.8');
-
-gsap.utils.toArray('.fade-up').forEach(el=>{
-  gsap.fromTo(el,{opacity:0,y:35},{opacity:1,y:0,duration:.8,ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}
+  // ── Hero sequence: CSS-driven with staggered animation-delay ──────────────
+  var heroEls=[
+    {id:'hero-label', delay:0.3},
+    {id:'hero-h1',    delay:0.6},
+    {id:'hero-sub',   delay:0.9},
+    {id:'hero-pain',  delay:1.1},
+    {id:'hero-solution',delay:1.25},
+    {id:'hero-cta',   delay:1.4},
+    {id:'hero-stats', delay:1.55},
+    {id:'hero-img',   delay:0.5}
+  ];
+  heroEls.forEach(function(item){
+    var el=document.getElementById(item.id);
+    if(!el)return;
+    el.style.transition='opacity .7s ease '+item.delay+'s, transform .7s ease '+item.delay+'s';
+    el.style.opacity='1';
+    el.style.transform='translateY(0)';
   });
-});
 
-function makeCounter(id,target,suffix){
-  const el=document.getElementById(id);if(!el)return;
-  const obj={val:0};
-  gsap.to(obj,{val:target,duration:2.2,ease:'power2.out',
-    onUpdate(){el.textContent=Math.round(obj.val)+(suffix||'')},
-    scrollTrigger:{trigger:el,start:'top 80%',toggleActions:'play none none none'}
-  });
-}
-makeCounter('counter-78',78,'%');
-makeCounter('counter-60',60,'');
+  // ── Scroll fade-up via IntersectionObserver ───────────────────────────────
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.transition='opacity .7s ease, transform .7s ease';
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-up').forEach(function(el){io.observe(el);});
 
-ScrollTrigger.create({
-  trigger:'#hero-cta',start:'bottom top',
-  onEnter:()=>document.getElementById('stickyBar').classList.add('visible'),
-  onLeaveBack:()=>document.getElementById('stickyBar').classList.remove('visible')
-});
+  // ── Counters: count up when visible ──────────────────────────────────────
+  function animateCounter(id,target,suffix){
+    var el=document.getElementById(id);
+    if(!el)return;
+    var done=false;
+    var cio=new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting&&!done){
+        done=true;cio.disconnect();
+        var start=Date.now(),dur=2000,from=0;
+        (function tick(){
+          var p=Math.min(1,(Date.now()-start)/dur);
+          var ease=p<1?1-Math.pow(1-p,3):1;
+          el.textContent=Math.round(from+(target-from)*ease)+(suffix||'');
+          if(p<1)requestAnimationFrame(tick);
+        })();
+      }
+    },{threshold:0.5});
+    cio.observe(el);
+  }
+  animateCounter('counter-78',78,'%');
+  animateCounter('counter-60',60,'');
+
+  // ── Sticky bar: show after hero CTA leaves viewport ───────────────────────
+  var heroCta=document.getElementById('hero-cta');
+  var stickyBar=document.getElementById('stickyBar');
+  if(heroCta&&stickyBar){
+    var sio=new IntersectionObserver(function(entries){
+      stickyBar.classList.toggle('visible',!entries[0].isIntersecting);
+    },{threshold:0});
+    sio.observe(heroCta);
+  }
+
 });
 </script>
 <script>
@@ -916,8 +947,6 @@ function toggleFaq(btn){
   if(!isOpen){answer.classList.add('open');icon.classList.add('rotated');}
 }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
 <style>
 #sp-popup{position:fixed;bottom:80px;left:16px;z-index:999;max-width:280px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,26,46,.14);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;transform:translateX(-320px);transition:transform .45s cubic-bezier(.34,1.26,.64,1);pointer-events:none}
