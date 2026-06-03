@@ -52,7 +52,9 @@ nav.nav-blur{top:40px!important}
 .faq-icon.rotated{transform:rotate(45deg)}
 .sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);border-top:1px solid rgba(23,87,194,.18);backdrop-filter:blur(16px);padding:0.85rem 1.25rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 30px rgba(23,87,194,.12)}
 .sticky-bar.visible{transform:translateY(0)}
-.testi-card{background:#fff;border:1px solid rgba(23,87,194,.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.testi-col{column-count:1;column-gap:1.25rem}
+@media(min-width:768px){.testi-col{column-count:2}}
+.testi-card{background:#fff;border:1px solid rgba(23,87,194,.12);border-radius:20px;overflow:hidden;display:inline-block;width:100%;margin-bottom:1.25rem;break-inside:avoid;vertical-align:top}
 .g-ring{width:130px;height:130px;border:2px solid rgba(23,87,194,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(23,87,194,.05) 0%,transparent 70%)}
 .fixed{position:fixed}.relative{position:relative}
 .top-0{top:0}.left-0{left:0}.right-0{right:0}
@@ -686,8 +688,7 @@ nav.nav-blur{top:40px!important}
       <h2 class="hl-lg mt-3" style="color:#0d1a2e">Non sono storie inventate.<br><em class="serif-italic text-blue">Sono screenshot.</em></h2>
       <p style="font-size:0.9rem;color:#3d5a76;margin-top:.75rem">Facebook, Messenger, email, SMS. Persone reali che hanno scritto spontaneamente.</p>
     </div>
-    <!-- Mobile: single column. Desktop: grid -->
-    <div style="display:grid;grid-template-columns:1fr;gap:1.25rem;align-items:start" class="md:grid-cols-2">
+    <div class="testi-col">
 
       <!-- Card 1: Vittoria Facebook -->
       <div class="testi-card fade-up">
@@ -741,11 +742,9 @@ nav.nav-blur{top:40px!important}
         <img loading="lazy" src="images/testi_facebook.jpg" alt="Testimonianza Facebook" style="width:100%;display:block" width="640" height="528">
       </div>
 
-    </div>
-
-    <!-- Card 5: Sabrina Email - full width -->
-    <div class="testi-card fade-up" style="margin-top:1.25rem">
-      <div style="display:flex;flex-direction:column;md:flex-row">
+      <!-- Card 5: Sabrina Email -->
+      <div class="testi-card fade-up">
+      <div style="display:flex;flex-direction:column">
         <div style="padding:1rem 1rem .85rem;flex:1">
           <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
             <div style="width:8px;height:8px;border-radius:50%;background:#ea4335"></div>
@@ -764,10 +763,10 @@ nav.nav-blur{top:40px!important}
           </div>
           <p style="font-size:0.78rem;color:#3d5a76;font-style:italic">— Sabrina Pisoni, email dicembre 2018</p>
         </div>
-        
       </div>
     </div>
 
+    </div><!-- /testi-col -->
   </div>
 </section>
 
