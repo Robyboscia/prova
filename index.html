@@ -26,10 +26,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif;overflow-x:hidden;line-height:1.65}
-#urgency-bar+nav{margin-top:0}/* bar is above fixed nav */
-
-/* Typography — mobile base, scale up */
+body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif;overflow-x:hidden;line-height:1.65;padding-top:80px}
 .hl-xl{font-family:'Fraunces',Georgia,serif;font-size:clamp(2.2rem,8vw,5rem);line-height:1.06;letter-spacing:-0.025em;font-weight:400}
 .hl-lg{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.7rem,5vw,3rem);line-height:1.12;letter-spacing:-0.02em;font-weight:400}
 .hl-md{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.25rem,3.5vw,1.9rem);line-height:1.2;font-weight:400}
@@ -37,106 +34,60 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
 .text-blue{color:#1757c2}
 .text-grad{background:linear-gradient(135deg,#0f3f8c 0%,#3d9df3 55%,#1757c2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .section-label{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1757c2}
-
-/* Buttons */
 .btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#0f3f8c,#1757c2,#3d9df3);background-size:200%;color:#fff;font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;padding:1rem 2rem;border-radius:50px;border:none;cursor:pointer;text-decoration:none;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 28px rgba(23,87,194,.3);white-space:nowrap}
 .btn-primary:hover{transform:scale(1.03) translateY(-2px);box-shadow:0 10px 45px rgba(23,87,194,.45)}
 .btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:#1757c2;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.9rem;padding:0.75rem 1.5rem;border-radius:50px;border:1.5px solid rgba(23,87,194,.35);cursor:pointer;text-decoration:none;transition:border-color .3s,background .3s;white-space:nowrap}
 .btn-ghost:hover{border-color:#1757c2;background:rgba(23,87,194,.06)}
-
-/* Nav */
 .nav-blur{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(240,247,255,.92);border-bottom:1px solid rgba(23,87,194,.12)}
-
-/* Cards */
+nav.nav-blur{top:40px!important}
 .card{background:#fff;border:1px solid rgba(23,87,194,.12);border-radius:20px;transition:transform .3s,box-shadow .3s}
 .card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(23,87,194,.1)}
-
-/* Pricing */
 .price-card{background:#fff;border:1px solid rgba(23,87,194,.14);border-radius:24px;padding:1.75rem;transition:transform .3s,box-shadow .3s}
 .price-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(23,87,194,.12)}
 .price-featured{background:linear-gradient(145deg,#1757c2,#0f3f8c);border:none;border-radius:24px;padding:1.75rem;box-shadow:0 20px 60px rgba(23,87,194,.35);transition:transform .3s;color:#fff}
 .price-featured:hover{transform:translateY(-6px)}
-
-/* FAQ */
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
 .faq-answer.open{max-height:500px}
 .faq-icon{transition:transform .3s ease}
 .faq-icon.rotated{transform:rotate(45deg)}
-
-/* Animations — see also @keyframes fadeUp below */
-
-/* Sticky bar */
 .sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);border-top:1px solid rgba(23,87,194,.18);backdrop-filter:blur(16px);padding:0.85rem 1.25rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 30px rgba(23,87,194,.12)}
 .sticky-bar.visible{transform:translateY(0)}
-
-/* Timeline ghost number */
-.time-ghost{font-family:'Fraunces',Georgia,serif;font-size:clamp(3.5rem,10vw,9rem);font-weight:300;color:rgba(23,87,194,.04);line-height:1;user-select:none;pointer-events:none}
-
-/* Testi cards */
 .testi-card{background:#fff;border:1px solid rgba(23,87,194,.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
-
-/* Guarantee ring */
 .g-ring{width:130px;height:130px;border:2px solid rgba(23,87,194,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(23,87,194,.05) 0%,transparent 70%)}
-
-/* glow decorations */
-.glow{position:absolute;border-radius:50%;pointer-events:none}
-
-/* ── Tailwind replacements ── */
 .fixed{position:fixed}.relative{position:relative}
 .top-0{top:0}.left-0{left:0}.right-0{right:0}
 .z-50{z-index:50}.overflow-hidden{overflow:hidden}
 .flex{display:flex}.grid{display:grid}.flex-col{flex-direction:column}
 .flex-wrap{flex-wrap:wrap}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}
-.items-center{align-items:center}.justify-between{justify-content:space-between}
-.justify-center{justify-content:center}
+.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
 .gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}
-.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}
-.text-center{text-align:center}
-.mx-auto{margin-left:auto;margin-right:auto}
-.mt-3{margin-top:0.75rem}
+.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}.mt-3{margin-top:0.75rem}
 .mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}
 .mb-5{margin-bottom:1.25rem}.mb-8{margin-bottom:2rem}.mb-10{margin-bottom:2.5rem}
 .p-0{padding:0}.p-4{padding:1rem}.p-6{padding:1.5rem}
-.px-4{padding-left:1rem;padding-right:1rem}
-.py-3{padding-top:0.75rem;padding-bottom:0.75rem}
-.py-16{padding-top:4rem;padding-bottom:4rem}
-.py-20{padding-top:5rem;padding-bottom:5rem}
+.px-4{padding-left:1rem;padding-right:1rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}
+.py-16{padding-top:4rem;padding-bottom:4rem}.py-20{padding-top:5rem;padding-bottom:5rem}
 .pb-16{padding-bottom:4rem}.pt-24{padding-top:6rem}
-.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}
-.max-w-5xl{max-width:64rem}.max-w-6xl{max-width:72rem}
-.md\:block{display:block}
+.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-5xl{max-width:64rem}.max-w-6xl{max-width:72rem}
 @media(min-width:640px){.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(min-width:768px){
-  .md\:flex-row{flex-direction:row}
-  .md\:flex-1{flex:1 1 0%}
-  .md\:flex-shrink-0{flex-shrink:0}
-  .md\:items-center{align-items:center}
-  .md\:gap-16{gap:4rem}
-  .md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .md\:mb-0{margin-bottom:0}
-  .md\:px-6{padding-left:1.5rem;padding-right:1.5rem}
-  .md\:py-20{padding-top:5rem;padding-bottom:5rem}
-  .md\:py-24{padding-top:6rem;padding-bottom:6rem}
+.md\:block{display:block!important}.md\:flex-row{flex-direction:row}.md\:flex-1{flex:1 1 0%}
+.md\:flex-shrink-0{flex-shrink:0}.md\:items-center{align-items:center}.md\:gap-16{gap:4rem}
+.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.md\:mb-0{margin-bottom:0}.md\:px-6{padding-left:1.5rem;padding-right:1.5rem}
+.md\:py-20{padding-top:5rem;padding-bottom:5rem}.md\:py-24{padding-top:6rem;padding-bottom:6rem}
 }
 @media(min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-
-nav.nav-blur{top:40px!important}
-body{padding-top:80px}/* urgency(40)+nav(40) */
-/* Timer urgency bar */
 #urgency-bar{background:linear-gradient(90deg,#0f3f8c,#1757c2);color:#fff;text-align:center;padding:.5rem 1rem;font-size:.8rem;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:202}
 #urgency-bar a{color:#a0d4ff;text-decoration:underline}
 .timer-digits{font-variant-numeric:tabular-nums;letter-spacing:.04em;font-weight:700}
-/* Bonus expiry */
 .bonuses-expired .bonus-item{display:none!important}
 .bonuses-expired #urgency-pricing{display:none!important}
 #bonus-expired-notice{display:none}
 .bonuses-expired #bonus-expired-notice{display:block!important}
 .bonuses-expired #urgency-bar-timer{display:none}
 .bonuses-expired #urgency-bar-expired{display:inline!important}
-
-/* Hero sequence — pure CSS, no JS layout reads */
 @keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
 #hero-label{animation:fadeUp .7s ease .3s both}
 #hero-h1{animation:fadeUp .9s ease .55s both}
@@ -146,9 +97,13 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 #hero-cta{animation:fadeUp .7s ease 1.4s both}
 #hero-stats{animation:fadeUp .6s ease 1.55s both}
 #hero-img{animation:fadeUp .9s ease .45s both}
-/* Scroll fade-up: add .revealed via IntersectionObserver */
 .fade-up{opacity:0;transform:translateY(35px);transition:opacity .75s ease,transform .75s ease}
 .fade-up.revealed{opacity:1;transform:none}
+#sp-popup{position:fixed;bottom:80px;left:16px;z-index:999;max-width:280px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,26,46,.14);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;transform:translateX(-320px);transition:transform .45s cubic-bezier(.34,1.26,.64,1);pointer-events:none}
+#sp-popup.show{transform:translateX(0)}
+.sp-icon{width:38px;height:38px;background:linear-gradient(135deg,#0f3f8c,#1757c2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.sp-text{line-height:1.35}.sp-name{font-size:.78rem;font-weight:700;color:#0d1a2e}
+.sp-detail{font-size:.72rem;color:#3d5a76;margin-top:.1rem}.sp-time{font-size:.65rem;color:#a0b4c8;margin-top:.2rem}
 </style>
 </head>
 <body>
@@ -226,19 +181,19 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
     <div class="flex flex-col md:flex-row md:items-center md:gap-16">
       <!-- Text -->
       <div class="md:flex-1 mb-10 md:mb-0">
-        <div id="hero-label" style="opacity:0;transform:translateY(20px)">
+        <div id="hero-label">
           <span class="section-label">Integratore per il Sonno</span>
         </div>
-        <h1 class="hl-xl mt-3 mb-5" id="hero-h1" style="opacity:0;transform:translateY(25px)">
+        <h1 class="hl-xl mt-3 mb-5" id="hero-h1">
           Quando spegni la luce,<br><em class="serif-italic text-grad">inizia la riunione.</em>
         </h1>
-        <p id="hero-sub" style="opacity:0;transform:translateY(20px);font-size:1rem;color:#3d5a76;margin-bottom:1.5rem;line-height:1.8;max-width:520px">
+        <p id="hero-sub" style="font-size:1rem;color:#3d5a76;margin-bottom:1.5rem;line-height:1.8;max-width:520px">
           Il tuo corpo è esausto. Ma la testa non si ferma. Mail. Decisioni. Riunioni di domani. Quella cosa che hai detto. Quella che non hai detto.<br><br>
           Non riesci ad addormentarti. O ti addormenti, ma ti svegli alle 3 con la mente già in moto. Oppure dormi 8 ore e ti alzi come se non avessi dormito affatto.<br><br>
           <strong style="color:#0d1a2e;font-weight:600">Non è colpa tua. Non è stress "generico". È un meccanismo neurochimico preciso che non si attiva — e che si può correggere.</strong>
         </p>
         <!-- Pain points list -->
-        <div style="margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.6rem;opacity:0;transform:translateY(20px)" id="hero-pain">
+        <div style="margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.6rem" id="hero-pain">
           <div style="display:flex;align-items:flex-start;gap:0.65rem;font-size:0.9rem;color:#3d5a76">
             <span style="color:#dc3c3c;flex-shrink:0;margin-top:2px">✗</span>
             <span>Hai provato tisane, melatonina, mascherine. Funzionano poco o niente.</span>
@@ -253,12 +208,12 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
           </div>
         </div>
         <!-- Solution statement -->
-        <div style="background:rgba(23,87,194,0.06);border-left:3px solid #1757c2;border-radius:0 12px 12px 0;padding:1rem 1.25rem;margin-bottom:1.75rem;opacity:0;transform:translateY(20px)" id="hero-solution">
+        <div style="background:rgba(23,87,194,0.06);border-left:3px solid #1757c2;border-radius:0 12px 12px 0;padding:1rem 1.25rem;margin-bottom:1.75rem" id="hero-solution">
           <p style="font-size:0.95rem;color:#0d1a2e;line-height:1.7;font-weight:500">
             Mental Pro interviene sul meccanismo neurochimico che regola il passaggio veglia→sonno. Non ti seda. Ti <em style="font-family:'Fraunces',Georgia,serif;color:#1757c2">riattiva</em> qualcosa che il tuo corpo sa già fare — ma ha smesso di fare.
           </p>
         </div>
-        <div class="flex flex-wrap gap-3 mb-8" id="hero-cta" style="opacity:0;transform:translateY(20px)">
+        <div class="flex flex-wrap gap-3 mb-8" id="hero-cta">
           <a href="#pricing" class="btn-primary" style="font-size:1rem;padding:1rem 2.25rem">
             Spegni la Riunione Stanotte
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -266,7 +221,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
           <a href="#mechanism" class="btn-ghost">Come funziona</a>
         </div>
         <!-- Stats -->
-        <div class="flex flex-wrap gap-6" id="hero-stats" style="opacity:0;transform:translateY(15px)">
+        <div class="flex flex-wrap gap-6" id="hero-stats">
           <div class="flex items-center gap-3">
             <div style="font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:400;color:#1757c2" id="counter-78">0%</div>
             <div style="font-size:0.78rem;color:#3d5a76;line-height:1.4">dorme meglio<br>entro 14 giorni</div>
@@ -284,7 +239,7 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
         </div>
       </div>
       <!-- Product image -->
-      <div class="flex justify-center md:flex-shrink-0" id="hero-img" style="opacity:0;transform:translateY(20px)">
+      <div class="flex justify-center md:flex-shrink-0" id="hero-img">
         <div style="position:relative;display:inline-block">
           <img loading="eager" src="images/product.webp" alt="Mental Pro™ — integratore in polvere" style="width:min(280px,80vw);height:auto;filter:drop-shadow(0 30px 60px rgba(23,87,194,.2));border-radius:12px;display:block" width="490" height="490" fetchpriority="high">
           <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);background:#1757c2;color:#fff;font-size:0.65rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:50px;white-space:nowrap;letter-spacing:0.08em">FORMULA AVANZATA</div>
@@ -930,34 +885,27 @@ body{padding-top:80px}/* urgency(40)+nav(40) */
 </div>
 
 <script>
+function toggleFaq(btn){
+  var answer=btn.nextElementSibling,icon=btn.querySelector('.faq-icon'),isOpen=answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer').forEach(function(a){a.classList.remove('open');});
+  document.querySelectorAll('.faq-icon').forEach(function(i){i.classList.remove('rotated');});
+  if(!isOpen){answer.classList.add('open');icon.classList.add('rotated');}
+}
 document.addEventListener("DOMContentLoaded",function(){
-
-  // Hero sequence handled entirely by CSS @keyframes fadeUp
-
-  // ── Scroll fade-up via IntersectionObserver ───────────────────────────────
   var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        e.target.classList.add('revealed');
-        io.unobserve(e.target);
-      }
-    });
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');io.unobserve(e.target);}});
   },{threshold:0.12});
   document.querySelectorAll('.fade-up').forEach(function(el){io.observe(el);});
-
-  // ── Counters: count up when visible ──────────────────────────────────────
   function animateCounter(id,target,suffix){
-    var el=document.getElementById(id);
-    if(!el)return;
+    var el=document.getElementById(id);if(!el)return;
     var done=false;
     var cio=new IntersectionObserver(function(entries){
       if(entries[0].isIntersecting&&!done){
         done=true;cio.disconnect();
-        var start=Date.now(),dur=2000,from=0;
+        var start=Date.now(),dur=2000;
         (function tick(){
-          var p=Math.min(1,(Date.now()-start)/dur);
-          var ease=p<1?1-Math.pow(1-p,3):1;
-          el.textContent=Math.round(from+(target-from)*ease)+(suffix||'');
+          var p=Math.min(1,(Date.now()-start)/dur),ease=p<1?1-Math.pow(1-p,3):1;
+          el.textContent=Math.round(target*ease)+(suffix||'');
           if(p<1)requestAnimationFrame(tick);
         })();
       }
@@ -966,39 +914,12 @@ document.addEventListener("DOMContentLoaded",function(){
   }
   animateCounter('counter-78',78,'%');
   animateCounter('counter-60',60,'');
-
-  // ── Sticky bar: show after hero CTA leaves viewport ───────────────────────
-  var heroCta=document.getElementById('hero-cta');
-  var stickyBar=document.getElementById('stickyBar');
+  var heroCta=document.getElementById('hero-cta'),stickyBar=document.getElementById('stickyBar');
   if(heroCta&&stickyBar){
-    var sio=new IntersectionObserver(function(entries){
-      stickyBar.classList.toggle('visible',!entries[0].isIntersecting);
-    },{threshold:0});
-    sio.observe(heroCta);
+    new IntersectionObserver(function(entries){stickyBar.classList.toggle('visible',!entries[0].isIntersecting);},{threshold:0}).observe(heroCta);
   }
-
 });
 </script>
-<script>
-function toggleFaq(btn){
-  const answer=btn.nextElementSibling;
-  const icon=btn.querySelector('.faq-icon');
-  const isOpen=answer.classList.contains('open');
-  document.querySelectorAll('.faq-answer').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.classList.remove('rotated'));
-  if(!isOpen){answer.classList.add('open');icon.classList.add('rotated');}
-}
-</script>
-
-<style>
-#sp-popup{position:fixed;bottom:80px;left:16px;z-index:999;max-width:280px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,26,46,.14);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;transform:translateX(-320px);transition:transform .45s cubic-bezier(.34,1.26,.64,1);pointer-events:none}
-#sp-popup.show{transform:translateX(0)}
-.sp-icon{width:38px;height:38px;background:linear-gradient(135deg,#0f3f8c,#1757c2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
-.sp-text{line-height:1.35}
-.sp-name{font-size:.78rem;font-weight:700;color:#0d1a2e}
-.sp-detail{font-size:.72rem;color:#3d5a76;margin-top:.1rem}
-.sp-time{font-size:.65rem;color:#a0b4c8;margin-top:.2rem}
-</style>
 
 <div id="sp-popup" aria-live="polite" aria-atomic="true">
   <div class="sp-icon">🛒</div>
