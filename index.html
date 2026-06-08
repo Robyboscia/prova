@@ -143,6 +143,8 @@
       background: rgba(14,42,54,0.92);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(246,245,241,0.07);
+      contain: layout paint;
+      will-change: transform;
     }
     .nav-inner {
       max-width: 1200px;
@@ -446,6 +448,7 @@
       .pulse { animation: none !important; }
     }
   </style>
+  <noscript><style>.reveal{opacity:1!important;transform:none!important;}</style></noscript>
 </head>
 <body>
 
