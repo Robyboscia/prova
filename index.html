@@ -196,7 +196,7 @@ body{background:#f0f7ff;color:#0d1a2e;font-family:'Manrope',system-ui,sans-serif
 .btn-primary:hover{transform:scale(1.03) translateY(-2px);box-shadow:0 10px 45px rgba(23,87,194,.45)}
 .btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:#1757c2;font-family:'Manrope',sans-serif;font-weight:600;font-size:0.9rem;padding:0.75rem 1.5rem;border-radius:50px;border:1.5px solid rgba(23,87,194,.35);cursor:pointer;text-decoration:none;transition:border-color .3s,background .3s;white-space:nowrap}
 .btn-ghost:hover{border-color:#1757c2;background:rgba(23,87,194,.06)}
-.nav-blur{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(240,247,255,.92);border-bottom:1px solid rgba(23,87,194,.12)}
+.nav-blur{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(240,247,255,.92);border-bottom:1px solid rgba(23,87,194,.12);contain:layout paint;will-change:transform}
 nav.nav-blur{top:40px!important}
 .card{background:#fff;border:1px solid rgba(23,87,194,.12);border-radius:20px;transition:transform .3s,box-shadow .3s}
 .card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(23,87,194,.1)}
@@ -208,7 +208,7 @@ nav.nav-blur{top:40px!important}
 .faq-answer.open{max-height:500px}
 .faq-icon{transition:transform .3s ease}
 .faq-icon.rotated{transform:rotate(45deg)}
-.sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);border-top:1px solid rgba(23,87,194,.18);backdrop-filter:blur(16px);padding:0.85rem 1.25rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 30px rgba(23,87,194,.12)}
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);border-top:1px solid rgba(23,87,194,.18);backdrop-filter:blur(16px);padding:0.85rem 1.25rem;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 30px rgba(23,87,194,.12);contain:layout paint;will-change:transform}
 .sticky-bar.visible{transform:translateY(0)}
 .testi-col{column-count:1;column-gap:1.25rem}
 @media(min-width:768px){.testi-col{column-count:2}}
@@ -239,7 +239,7 @@ nav.nav-blur{top:40px!important}
 .md\:py-20{padding-top:5rem;padding-bottom:5rem}.md\:py-24{padding-top:6rem;padding-bottom:6rem}
 }
 @media(min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
-#urgency-bar{background:linear-gradient(90deg,#0f3f8c,#1757c2);color:#fff;text-align:center;padding:.5rem 1rem;font-size:.8rem;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:202}
+#urgency-bar{background:linear-gradient(90deg,#0f3f8c,#1757c2);color:#fff;text-align:center;padding:.5rem 1rem;font-size:.8rem;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:202;contain:layout paint;will-change:transform}
 #urgency-bar a{color:#a0d4ff;text-decoration:underline}
 .timer-digits{font-variant-numeric:tabular-nums;letter-spacing:.04em;font-weight:700}
 .bonuses-expired .bonus-item{display:none!important}
@@ -260,13 +260,21 @@ nav.nav-blur{top:40px!important}
 #hero-img{animation:fadeUp .9s ease .45s both}
 .fade-up{opacity:0;transform:translateY(35px);transition:opacity .75s ease,transform .75s ease}
 .fade-up.revealed{opacity:1;transform:none}
-#sp-popup{position:fixed;bottom:80px;left:16px;z-index:999;max-width:280px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,26,46,.14);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;transform:translateX(-320px);transition:transform .45s cubic-bezier(.34,1.26,.64,1);pointer-events:none}
+#sp-popup{position:fixed;bottom:80px;left:16px;z-index:999;max-width:280px;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(13,26,46,.14);padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;transform:translateX(-320px);transition:transform .45s cubic-bezier(.34,1.26,.64,1);pointer-events:none;will-change:transform}
 #sp-popup.show{transform:translateX(0)}
 .sp-icon{width:38px;height:38px;background:linear-gradient(135deg,#0f3f8c,#1757c2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
 .sp-text{line-height:1.35}.sp-name{font-size:.78rem;font-weight:700;color:#0d1a2e}
 .sp-detail{font-size:.72rem;color:#3d5a76;margin-top:.1rem}.sp-time{font-size:.65rem;color:#a0b4c8;margin-top:.2rem}
-@media(prefers-reduced-motion:reduce){.fade-up{opacity:1;transform:none}.fade-up.revealed{opacity:1;transform:none}.btn-primary,.btn-ghost,.card,.price-card,.price-featured{transition:none}}
+@media(prefers-reduced-motion:reduce){
+.fade-up{opacity:1!important;transform:none!important}
+.fade-up.revealed{opacity:1!important;transform:none!important}
+#hero-label,#hero-h1,#hero-sub,#hero-sub2,#hero-pain,#hero-solution,#hero-cta,#hero-stats,#hero-img{animation:none!important;opacity:1!important;transform:none!important}
+.btn-primary,.btn-ghost,.card,.price-card,.price-featured{transition:none!important}
+.sticky-bar,.sticky-bar.visible{transition:none!important}
+#sp-popup{transition:none!important}
+}
 </style>
+<noscript><style>.fade-up{opacity:1!important;transform:none!important}#hero-label,#hero-h1,#hero-sub,#hero-sub2,#hero-pain,#hero-solution,#hero-cta,#hero-stats,#hero-img{animation:none!important;opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
@@ -532,7 +540,7 @@ nav.nav-blur{top:40px!important}
           <div style="color:#f59e0b;font-size:0.8rem;margin-bottom:.35rem">★★★★★</div>
           <p style="font-size:0.88rem;font-family:'Fraunces',Georgia,serif;font-style:italic;color:#0d1a2e;line-height:1.55">"Da quando prendo Mentalpro le cose stanno migliorando visibilmente. Sono soddisfatta, la vita migliora."</p>
         </div>
-        <img loading="lazy" src="images/testi_vittoria.jpg" alt="Testimonianza Vittoria Draghi Facebook" style="width:100%;display:block" width="414" height="298">
+        <img loading="lazy" decoding="async" src="images/testi_vittoria.jpg" alt="Testimonianza Vittoria Draghi Facebook" style="width:100%;display:block" width="414" height="298">
       </div>
 
       <!-- Card 2: SMS -->
@@ -545,7 +553,7 @@ nav.nav-blur{top:40px!important}
           <div style="color:#f59e0b;font-size:0.8rem;margin-bottom:.35rem">★★★★★</div>
           <p style="font-size:0.88rem;font-family:'Fraunces',Georgia,serif;font-style:italic;color:#0d1a2e;line-height:1.55">"Già dalla prima notte i risultati sono eccellenti."</p>
         </div>
-        <img loading="lazy" src="images/testi_sms.jpg" alt="Testimonianza SMS" style="width:100%;display:block" width="526" height="935">
+        <img loading="lazy" decoding="async" src="images/testi_sms.jpg" alt="Testimonianza SMS" style="width:100%;display:block" width="526" height="935">
       </div>
 
       <!-- Card 3: Elisabetta Messenger -->
@@ -558,7 +566,7 @@ nav.nav-blur{top:40px!important}
           <div style="color:#f59e0b;font-size:0.8rem;margin-bottom:.35rem">★★★★★</div>
           <p style="font-size:0.88rem;font-family:'Fraunces',Georgia,serif;font-style:italic;color:#0d1a2e;line-height:1.55">"In 10 anni è l'unico integratore che REALMENTE MI HA AIUTATO."</p>
         </div>
-        <img loading="lazy" src="images/testi_messenger.jpg" alt="Testimonianza Elisabetta Bonato Messenger" style="width:100%;display:block" width="835" height="233">
+        <img loading="lazy" decoding="async" src="images/testi_messenger.jpg" alt="Testimonianza Elisabetta Bonato Messenger" style="width:100%;display:block" width="835" height="233">
       </div>
 
       <!-- Card 4: Facebook tiroide -->
@@ -571,7 +579,7 @@ nav.nav-blur{top:40px!important}
           <div style="color:#f59e0b;font-size:0.8rem;margin-bottom:.35rem">★★★★★</div>
           <p style="font-size:0.88rem;font-family:'Fraunces',Georgia,serif;font-style:italic;color:#0d1a2e;line-height:1.55">"Già dopo pochi giorni ho notato che mi addormento meglio. La qualità del mio sonno è migliorata notevolmente."</p>
         </div>
-        <img loading="lazy" src="images/testi_facebook.jpg" alt="Testimonianza Facebook" style="width:100%;display:block" width="640" height="528">
+        <img loading="lazy" decoding="async" src="images/testi_facebook.jpg" alt="Testimonianza Facebook" style="width:100%;display:block" width="640" height="528">
       </div>
 
       <!-- Card 5: Sabrina Email -->
@@ -888,7 +896,7 @@ nav.nav-blur{top:40px!important}
     <div class="flex flex-col md:flex-row md:items-center gap-8 fade-up">
       <!-- Book cover -->
       <div class="flex justify-center md:flex-shrink-0">
-        <img loading="lazy" src="images/book_cover.webp" alt="Dormire è facile se sai come farlo" style="width:min(180px,50vw);height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(23,87,194,.2),0 4px 12px rgba(0,0,0,.1);display:block" width="1860" height="1240">
+        <img loading="lazy" decoding="async" src="images/book_cover.webp" alt="Dormire è facile se sai come farlo" style="width:min(180px,50vw);height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(23,87,194,.2),0 4px 12px rgba(0,0,0,.1);display:block" width="1860" height="1240">
       </div>
       <!-- Text -->
       <div>
@@ -926,7 +934,7 @@ nav.nav-blur{top:40px!important}
       <!-- Photo -->
       <div class="flex justify-center md:flex-shrink-0">
         <div style="position:relative;display:inline-block">
-          <img loading="lazy" src="images/roberto.webp" alt="Roberto Boscia — Farmacista" style="width:min(200px,60vw);height:min(200px,60vw);object-fit:cover;object-position:center top;border-radius:20px;box-shadow:0 20px 60px rgba(23,87,194,.18),0 4px 16px rgba(0,0,0,.08);display:block" width="1024" height="1535">
+          <img loading="lazy" decoding="async" src="images/roberto.webp" alt="Roberto Boscia — Farmacista" style="width:min(200px,60vw);height:min(200px,60vw);object-fit:cover;object-position:center top;border-radius:20px;box-shadow:0 20px 60px rgba(23,87,194,.18),0 4px 16px rgba(0,0,0,.08);display:block" width="1024" height="1535">
           <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);background:#1757c2;color:#fff;font-size:0.62rem;font-weight:700;padding:.28rem .8rem;border-radius:50px;white-space:nowrap;letter-spacing:.08em">20 anni di esperienza</div>
         </div>
       </div>
