@@ -1362,5 +1362,31 @@ document.addEventListener("DOMContentLoaded",function(){
 })();
 </script>
 
+<!-- Google Analytics 4 — caricamento differito dopo prima interazione utente -->
+<script>
+(function(){
+  var loaded=false;
+  function loadGA(){
+    if(loaded)return; loaded=true;
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-F5N0FTWSCL';
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag=gtag;
+    gtag('js',new Date());
+    gtag('config','G-F5N0FTWSCL',{
+      'anonymize_ip':true,
+      'cookie_flags':'SameSite=None;Secure'
+    });
+  }
+  ['click','scroll','keydown','touchstart'].forEach(function(e){
+    document.addEventListener(e,loadGA,{once:true,passive:true});
+  });
+  setTimeout(loadGA,3000);
+})();
+</script>
+
 </body>
 </html>
