@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+<channel>
+<title>Mental Pro™</title>
+<link>https://mentalpro.it/</link>
+<description>Feed prodotti Mental Pro™ per Google Merchant Center</description>
+
+<item>
+  <g:id>mentalpro-1</g:id>
+  <title>Mental Pro™ — 1 Confezione (30 giorni)</title>
+  <description>L'integratore in polvere che spegne la riunione mentale notturna. Formula con Inositolo, Magnesio Bisglicinato, Taurina e Glicina. Garanzia rimborso 60 giorni.</description>
+  <link>https://mentalpro.it/</link>
+  <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
+  <g:condition>new</g:condition>
+  <g:availability>in stock</g:availability>
+  <g:price>47.00 EUR</g:price>
+  <g:brand>Mental Pro</g:brand>
+  <g:mpn>MENTALPRO-1</g:mpn>
+  <g:identifier_exists>no</g:identifier_exists>
+  <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Vitamins &amp; Supplements</g:google_product_category>
+</item>
+
+<item>
+  <g:id>mentalpro-3</g:id>
+  <title>Mental Pro™ — 3 Confezioni (90 giorni)</title>
+  <description>Bundle Sleep Elite: 3 confezioni Mental Pro™, 90 giorni di trattamento. Garanzia rimborso 180 giorni. Risparmio rispetto al singolo pacco.</description>
+  <link>https://mentalpro.it/</link>
+  <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
+  <g:condition>new</g:condition>
+  <g:availability>in stock</g:availability>
+  <g:price>117.00 EUR</g:price>
+  <g:brand>Mental Pro</g:brand>
+  <g:mpn>MENTALPRO-3</g:mpn>
+  <g:identifier_exists>no</g:identifier_exists>
+  <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Vitamins &amp; Supplements</g:google_product_category>
+</item>
+
+<item>
+  <g:id>mentalpro-6</g:id>
+  <title>Mental Pro™ — 6 Confezioni (180 giorni)</title>
+  <description>Bundle massimo risparmio: 6 confezioni Mental Pro™, 180 giorni di trattamento. Garanzia rimborso 180 giorni.</description>
+  <link>https://mentalpro.it/</link>
+  <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
+  <g:condition>new</g:condition>
+  <g:availability>in stock</g:availability>
+  <g:price>249.00 EUR</g:price>
+  <g:brand>Mental Pro</g:brand>
+  <g:mpn>MENTALPRO-6</g:mpn>
+  <g:identifier_exists>no</g:identifier_exists>
+  <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Vitamins &amp; Supplements</g:google_product_category>
+</item>
+
+</channel>
+</rss>
