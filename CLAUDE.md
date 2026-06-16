@@ -67,13 +67,13 @@ git worktree add /tmp/gh-pages-wt gh-pages
 ### Tool esterni verificati
 - **Google Search Console**: verificato, sitemap elaborata, 1 pagina indicizzata
 - **Bing Webmaster Tools**: verificato via import GSC, sitemap inviata manualmente
+- **Google Business Profile**: scheda "Mental Pro" creata e in verifica
 
 ## Da fare (non ancora implementato)
 
 1. **Cookie consent banner** — obbligatorio GDPR/Garante per GA4
 2. **Privacy Policy** — `/privacy-policy.html` (footer punta a `href="#"`)
 3. **Termini di Servizio** — stesso problema footer
-4. **Google Business Profile** — scheda brand su Google Maps (richiede verifica manuale lato utente, non automatizzabile)
 5. **Google Merchant Center** — free listings su Google Shopping, richiede account verificato + feed prodotti XML/CSV (`/product-feed.xml` da generare una volta verificato l'account)
 6. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
 7. **Meta Pixel** — se si fanno campagne Facebook/Instagram
