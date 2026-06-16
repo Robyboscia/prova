@@ -53,9 +53,10 @@ git worktree add /tmp/gh-pages-wt gh-pages
 - `robots.txt` e `sitemap.xml` presenti e corretti
 
 ### Analytics & Tracking
-- GA4 Measurement ID: `G-F5N0FTWSCL`
-- Caricamento differito: si attiva al primo evento utente oppure dopo 3 secondi
-- `anonymize_ip: true`, `cookie_flags: SameSite=None;Secure`
+- GA4 Measurement ID: `G-F5N0FTWSCL` — caricamento differito (primo evento utente o 3s), `anonymize_ip: true`, `cookie_flags: SameSite=None;Secure`
+- Microsoft Clarity: `x7x1upcqtp` — stesso pattern di caricamento differito di GA4
+- Google Tag Manager: `GTM-NF8SMQR8` — script in `<head>` (il più in alto possibile), noscript subito dopo `<body>`. GA4 e Clarity NON sono ancora migrati dentro GTM, restano script separati nell'HTML
+- `product:price:amount` (47.00) e `product:price:currency` (EUR) in Open Graph per condivisioni social con prezzo
 
 ### Favicon & Icone
 - `favicon.ico` (32×32), `favicon.svg`, `apple-touch-icon.png` (180×180)
@@ -71,10 +72,12 @@ git worktree add /tmp/gh-pages-wt gh-pages
 1. **Cookie consent banner** — obbligatorio GDPR/Garante per GA4
 2. **Privacy Policy** — `/privacy-policy.html` (footer punta a `href="#"`)
 3. **Termini di Servizio** — stesso problema footer
-4. **Google Business Profile** — scheda brand su Google Maps
-5. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
-6. **Meta Pixel** — se si fanno campagne Facebook/Instagram
-7. **OG image** — il file esiste (`images/og-image.jpg`, 1200×630) ma non è mai stata testata la condivisione social
+4. **Google Business Profile** — scheda brand su Google Maps (richiede verifica manuale lato utente, non automatizzabile)
+5. **Google Merchant Center** — free listings su Google Shopping, richiede account verificato + feed prodotti XML/CSV (`/product-feed.xml` da generare una volta verificato l'account)
+6. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
+7. **Meta Pixel** — se si fanno campagne Facebook/Instagram
+8. **OG image** — il file esiste (`images/og-image.jpg`, 1200×630) ma non è mai stata testata la condivisione social
+9. **Migrare GA4 e Clarity dentro GTM** — opzionale, per gestirli da dashboard senza toccare il codice
 
 ## Note tecniche
 
