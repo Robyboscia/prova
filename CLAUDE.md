@@ -53,9 +53,10 @@ git worktree add /tmp/gh-pages-wt gh-pages
 - `robots.txt` e `sitemap.xml` presenti e corretti
 
 ### Analytics & Tracking
-- GA4 Measurement ID: `G-F5N0FTWSCL` — caricamento differito (primo evento utente o 3s), `anonymize_ip: true`, `cookie_flags: SameSite=None;Secure`
-- Microsoft Clarity: `x7x1upcqtp` — stesso pattern di caricamento differito di GA4
-- Google Tag Manager: `GTM-NF8SMQR8` — script in `<head>` (il più in alto possibile), noscript subito dopo `<body>`. GA4 e Clarity NON sono ancora migrati dentro GTM, restano script separati nell'HTML
+- Google Tag Manager: `GTM-NF8SMQR8` — script in `<head>` (il più in alto possibile), noscript subito dopo `<body>`
+- GA4 e Microsoft Clarity sono gestiti DENTRO GTM (non più script standalone nell'HTML): tag "GA4 Config" (Google Tag, ID `G-F5N0FTWSCL`, con parametri evento condiviso `anonymize_ip: true` e `cookie_flags: SameSite=None;Secure`) e tag "Clarity" (HTML personalizzato, project ID `x7x1upcqtp`)
+- Trigger comune: evento custom `deferred_tracking_load`, pushato nel dataLayer da uno script in `index.html` al primo evento utente (click/scroll/keydown/touchstart) oppure dopo 3s di timeout
+- Per modificare/aggiungere tag (es. Meta Pixel) si lavora da dashboard GTM, non nel codice
 - `product:price:amount` (47.00) e `product:price:currency` (EUR) in Open Graph per condivisioni social con prezzo
 
 ### Favicon & Icone
@@ -77,7 +78,6 @@ git worktree add /tmp/gh-pages-wt gh-pages
 6. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
 7. **Meta Pixel** — se si fanno campagne Facebook/Instagram
 8. **OG image** — il file esiste (`images/og-image.jpg`, 1200×630) ma non è mai stata testata la condivisione social
-9. **Migrare GA4 e Clarity dentro GTM** — opzionale, per gestirli da dashboard senza toccare il codice
 
 ## Note tecniche
 
