@@ -1379,48 +1379,19 @@ document.addEventListener("DOMContentLoaded",function(){
 })();
 </script>
 
-<!-- Google Analytics 4 — caricamento differito dopo prima interazione utente -->
+<!-- Trigger differito per GTM: attiva i tag GA4 e Clarity gestiti dalla dashboard GTM -->
 <script>
 (function(){
-  var loaded=false;
-  function loadGA(){
-    if(loaded)return; loaded=true;
-    var s=document.createElement('script');
-    s.async=true;
-    s.src='https://www.googletagmanager.com/gtag/js?id=G-F5N0FTWSCL';
-    document.head.appendChild(s);
+  var fired=false;
+  function fireDeferred(){
+    if(fired)return; fired=true;
     window.dataLayer=window.dataLayer||[];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag=gtag;
-    gtag('js',new Date());
-    gtag('config','G-F5N0FTWSCL',{
-      'anonymize_ip':true,
-      'cookie_flags':'SameSite=None;Secure'
-    });
+    window.dataLayer.push({'event':'deferred_tracking_load'});
   }
   ['click','scroll','keydown','touchstart'].forEach(function(e){
-    document.addEventListener(e,loadGA,{once:true,passive:true});
+    document.addEventListener(e,fireDeferred,{once:true,passive:true});
   });
-  setTimeout(loadGA,3000);
-})();
-</script>
-
-<!-- Microsoft Clarity — caricamento differito dopo prima interazione utente -->
-<script>
-(function(){
-  var loaded=false;
-  function loadClarity(){
-    if(loaded)return; loaded=true;
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "x7x1upcqtp");
-  }
-  ['click','scroll','keydown','touchstart'].forEach(function(e){
-    document.addEventListener(e,loadClarity,{once:true,passive:true});
-  });
-  setTimeout(loadClarity,3000);
+  setTimeout(fireDeferred,3000);
 })();
 </script>
 
