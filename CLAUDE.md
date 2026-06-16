@@ -80,7 +80,7 @@ git worktree add /tmp/gh-pages-wt gh-pages
 ## Da fare (non ancora implementato)
 
 1. **Sostituire banner cookie e privacy/termini placeholder con iubenda** — appena pronto l'account
-2. **Google Merchant Center** — free listings su Google Shopping, richiede account verificato + feed prodotti XML/CSV (`/product-feed.xml` da generare una volta verificato l'account)
+2. **Google Merchant Center** — account creato, in corso aggiunta prodotti (manuale, 3 varianti) + feed `/product-feed.xml` già pubblicato come backup/aggiornamento automatico
 3. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
 4. **Meta Pixel** — se si fanno campagne Facebook/Instagram
 5. **OG image** — il file esiste (`images/og-image.jpg`, 1200×630) ma non è mai stata testata la condivisione social
