@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NF8SMQR8');</script>
+<!-- Google Tag Manager — caricato solo dopo consenso cookie (vedi banner a fine pagina) -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function mpLoadGTM(){
+  if(window.mpGtmLoaded)return; window.mpGtmLoaded=true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NF8SMQR8');
+}
+if(localStorage.getItem('mp_cookie_consent')==='accepted'){ mpLoadGTM(); }
+</script>
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1253,8 +1260,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span style="font-family:'Fraunces',Georgia,serif;font-size:1rem;color:rgba(255,255,255,.8)">Mental<strong>Pro</strong><sup style="font-size:.6em;color:#3d9df3">™</sup></span>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:1.25rem">
-      <a href="#" style="font-size:.78rem;color:rgba(255,255,255,.75);text-decoration:none">Privacy Policy</a>
-      <a href="#" style="font-size:.78rem;color:rgba(255,255,255,.75);text-decoration:none">Termini di Servizio</a>
+      <a href="/privacy-policy.html" style="font-size:.78rem;color:rgba(255,255,255,.75);text-decoration:none">Privacy Policy</a>
+      <a href="/termini-di-servizio.html" style="font-size:.78rem;color:rgba(255,255,255,.75);text-decoration:none">Termini di Servizio</a>
       <a href="#" style="font-size:.78rem;color:rgba(255,255,255,.75);text-decoration:none">Contatti</a>
     </div>
     <div style="font-size:.72rem;color:rgba(255,255,255,.72)">© 2024 Mental Pro™. Tutti i diritti riservati.</div>
@@ -1392,6 +1399,35 @@ document.addEventListener("DOMContentLoaded",function(){
     document.addEventListener(e,fireDeferred,{once:true,passive:true});
   });
   setTimeout(fireDeferred,3000);
+})();
+</script>
+
+<!-- Cookie consent banner — GDPR/Garante. Placeholder in attesa di sostituzione con iubenda -->
+<div id="mp-cookie-banner" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#0d1b2a;color:#fff;padding:1rem 1.25rem;font-family:Inter,Arial,sans-serif;font-size:0.85rem;line-height:1.5;box-shadow:0 -4px 20px rgba(0,0,0,.25)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between">
+    <p style="margin:0;flex:1 1 320px">
+      Usiamo cookie tecnici e di analisi (Google Analytics, Microsoft Clarity) per migliorare il sito. Puoi accettare o rifiutare i cookie non essenziali. Leggi la <a href="/privacy-policy.html" style="color:#7fb1ff;text-decoration:underline">Privacy Policy</a>.
+    </p>
+    <div style="display:flex;gap:0.5rem;flex-shrink:0">
+      <button id="mp-cookie-reject" style="background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;padding:0.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:0.85rem">Rifiuta</button>
+      <button id="mp-cookie-accept" style="background:#1757c2;border:none;color:#fff;padding:0.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:600">Accetta</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var consent=localStorage.getItem('mp_cookie_consent');
+  var banner=document.getElementById('mp-cookie-banner');
+  if(!consent){ banner.style.display='block'; }
+  document.getElementById('mp-cookie-accept').addEventListener('click',function(){
+    localStorage.setItem('mp_cookie_consent','accepted');
+    banner.style.display='none';
+    mpLoadGTM();
+  });
+  document.getElementById('mp-cookie-reject').addEventListener('click',function(){
+    localStorage.setItem('mp_cookie_consent','rejected');
+    banner.style.display='none';
+  });
 })();
 </script>
 
