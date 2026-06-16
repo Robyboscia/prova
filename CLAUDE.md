@@ -25,6 +25,8 @@ git worktree add /tmp/gh-pages-wt gh-pages
 | `/tmp/gh-pages-wt/robots.txt` | Disallows index-v1 e assetto-biologico |
 | `/tmp/gh-pages-wt/sitemap.xml` | Solo https://mentalpro.it/ |
 | `/tmp/gh-pages-wt/site.webmanifest` | PWA manifest con icone e colori brand |
+| `/tmp/gh-pages-wt/privacy-policy.html` | Placeholder GDPR (`noindex`) — in attesa di testo definitivo da iubenda |
+| `/tmp/gh-pages-wt/termini-di-servizio.html` | Placeholder T&C (`noindex`) — in attesa di testo definitivo da iubenda |
 
 ## Brand & colori
 
@@ -59,6 +61,12 @@ git worktree add /tmp/gh-pages-wt gh-pages
 - Per modificare/aggiungere tag (es. Meta Pixel) si lavora da dashboard GTM, non nel codice
 - `product:price:amount` (47.00) e `product:price:currency` (EUR) in Open Graph per condivisioni social con prezzo
 
+### Cookie consent (GDPR)
+- Banner custom in fondo pagina (Accetta/Rifiuta) — placeholder in attesa di iubenda
+- GTM si carica solo dopo consenso esplicito (`localStorage.mp_cookie_consent === 'accepted'`), funzione `mpLoadGTM()` definita in `<head>`
+- Rifiuto blocca caricamento GTM/GA4/Clarity per quel browser
+- Quando arriva iubenda: sostituire banner custom con script iubenda e aggiornare testo privacy-policy.html / termini-di-servizio.html
+
 ### Favicon & Icone
 - `favicon.ico` (32×32), `favicon.svg`, `apple-touch-icon.png` (180×180)
 - `icon-192.png`, `icon-512.png` per Android/PWA
@@ -71,13 +79,11 @@ git worktree add /tmp/gh-pages-wt gh-pages
 
 ## Da fare (non ancora implementato)
 
-1. **Cookie consent banner** — obbligatorio GDPR/Garante per GA4
-2. **Privacy Policy** — `/privacy-policy.html` (footer punta a `href="#"`)
-3. **Termini di Servizio** — stesso problema footer
-5. **Google Merchant Center** — free listings su Google Shopping, richiede account verificato + feed prodotti XML/CSV (`/product-feed.xml` da generare una volta verificato l'account)
-6. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
-7. **Meta Pixel** — se si fanno campagne Facebook/Instagram
-8. **OG image** — il file esiste (`images/og-image.jpg`, 1200×630) ma non è mai stata testata la condivisione social
+1. **Sostituire banner cookie e privacy/termini placeholder con iubenda** — appena pronto l'account
+2. **Google Merchant Center** — free listings su Google Shopping, richiede account verificato + feed prodotti XML/CSV (`/product-feed.xml` da generare una volta verificato l'account)
+3. **GA4 eventi conversione** — click CTA, scroll depth, tempo pagina
+4. **Meta Pixel** — se si fanno campagne Facebook/Instagram
+5. **OG image** — il file esiste (`images/og-image.jpg`, 1200×630) ma non è mai stata testata la condivisione social
 
 ## Note tecniche
 
