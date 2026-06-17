@@ -1,1435 +1,511 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assetto Biologico™ — Scopri come funziona davvero il tuo corpo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Mandaliti — Chef a Domicilio</title>
 
-  <link rel="preload" href="./fonts/rP2Hp2ywxg089UriCZOIHQ.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#EAE6DF',
+            'cream-light': '#F2EFE9',
+            brown: '#1C1008',
+            'brown-dark': '#3D1F0F',
+            gold: '#B8960A',
+            'gold-light': '#C9A825',
+          },
+          fontFamily: {
+            display: ['Cormorant Garamond', 'serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
-    /* ── Self-hosted fonts (no CDN round-trips) ── */
-    @font-face {
-      font-family: 'Cormorant Garamond';
-      font-style: normal;
-      font-weight: 300 600;
-      font-display: swap;
-      src: url('./fonts/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2') format('woff2');
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-    @font-face {
-      font-family: 'Cormorant Garamond';
-      font-style: normal;
-      font-weight: 300 600;
-      font-display: swap;
-      src: url('./fonts/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2') format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    @font-face {
-      font-family: 'Cormorant Garamond';
-      font-style: italic;
-      font-weight: 300 600;
-      font-display: swap;
-      src: url('./fonts/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtGmSq17w.woff2') format('woff2');
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-    @font-face {
-      font-family: 'Cormorant Garamond';
-      font-style: italic;
-      font-weight: 300 600;
-      font-display: swap;
-      src: url('./fonts/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtImSo.woff2') format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    @font-face {
-      font-family: 'DM Sans';
-      font-style: normal;
-      font-weight: 300 500;
-      font-display: swap;
-      src: url('./fonts/rP2Hp2ywxg089UriCZ2IHSeH.woff2') format('woff2');
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-    @font-face {
-      font-family: 'DM Sans';
-      font-style: normal;
-      font-weight: 300 500;
-      font-display: swap;
-      src: url('./fonts/rP2Hp2ywxg089UriCZOIHQ.woff2') format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    @font-face {
-      font-family: 'DM Sans';
-      font-style: italic;
-      font-weight: 300 500;
-      font-display: swap;
-      src: url('./fonts/rP2Fp2ywxg089UriCZa4ET-DNl0.woff2') format('woff2');
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-    @font-face {
-      font-family: 'DM Sans';
-      font-style: italic;
-      font-weight: 300 500;
-      font-display: swap;
-      src: url('./fonts/rP2Fp2ywxg089UriCZa4Hz-D.woff2') format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
-    :root {
-      --petrol:      #0E2A36;
-      --slate:       #2F4652;
-      --slate-light: #3D5A6A;
-      --bg:          #F6F5F1;
-      --white:       #FFFFFF;
-      --green:       #6D8A73;
-      --amber:       #C88A2B;
-      --amber-h:     #A66E18;
-      --amber-dim:   #C9A64E;
-      --orange:      #B8772E;
-      --red-dim:     #8A3A34;
-      --text-d:      #F6F5F1;
-      --text-d2:     rgba(246,245,241,0.55);
-      --text-l:      #0E2A36;
-      --text-l2:     #3D5260;
-      --text-l3:     #7A8F98;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background-color: #EAE6DF; color: #1C1008; }
 
-    body {
-      background: var(--bg);
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text-l);
-      overflow-x: clip;
-      -webkit-font-smoothing: antialiased;
-    }
+    .font-display { font-family: 'Cormorant Garamond', serif; }
 
-    /* Grain — very subtle */
-    body::after {
+    .bg-depth::before {
       content: '';
-      position: fixed;
+      position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.022;
+      background:
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(184,150,10,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 85% 75%, rgba(61,31,15,0.06) 0%, transparent 70%);
       pointer-events: none;
-      z-index: 9998;
-      mix-blend-mode: overlay;
     }
 
-    /* Typography */
-    .f-display { font-family: 'Cormorant Garamond', serif; }
-
-    /* DARK sections */
-    .dark-section {
-      background: var(--petrol);
-      color: var(--text-d);
-    }
-    .dark-section .muted { color: var(--text-d2); }
-
-    /* LIGHT sections */
-    .light-section {
-      background: var(--bg);
-      color: var(--text-l);
-    }
-    .light-section .muted { color: var(--text-l3); }
-    .light-section .semi { color: var(--text-l2); }
-
-    /* NAV */
-    .nav-wrap {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(14,42,54,0.92);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(246,245,241,0.07);
-    }
-    .nav-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 32px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--text-d);
-      letter-spacing: 0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .pulse {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulseAnim 2.4s ease-in-out infinite;
-    }
-    @keyframes pulseAnim {
-      0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(109,138,115,.6); }
-      50%      { opacity:.7; box-shadow: 0 0 0 7px rgba(109,138,115,0); }
-    }
-
-    /* BUTTONS */
-    .btn-amber {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: var(--amber);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      padding: 14px 28px;
-      border-radius: 4px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 220ms, transform 220ms, box-shadow 220ms;
-      letter-spacing: 0.01em;
-    }
-    .btn-amber:hover {
-      background: var(--amber-h);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 44px rgba(200,138,43,0.32);
-    }
-    .btn-amber.lg { font-size: 17px; padding: 18px 40px; }
-
-    .btn-ghost-d {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(246,245,241,0.28);
-      color: var(--text-d);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 400;
-      padding: 13px 26px;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: background 220ms, border-color 220ms;
-    }
-    .btn-ghost-d:hover {
-      background: rgba(246,245,241,0.06);
-      border-color: rgba(246,245,241,0.5);
-    }
-
-    /* BADGE */
-    .badge-green {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(109,138,115,0.12);
-      border: 1px solid rgba(109,138,115,0.3);
-      color: var(--green);
-      font-size: 11px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .badge-green.on-light {
-      background: rgba(109,138,115,0.09);
-      border-color: rgba(109,138,115,0.25);
-      color: #4A6E52;
-    }
-    .badge-amber {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(200,138,43,0.1);
-      border: 1px solid rgba(200,138,43,0.28);
-      color: var(--amber);
-      font-size: 11px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    /* RULE */
-    .rule-d {
-      height: 1px;
-      background: rgba(246,245,241,0.1);
-    }
-    .rule-l {
-      height: 1px;
-      background: rgba(14,42,54,0.1);
-    }
-    .rule-amber {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--amber), transparent);
-      opacity: 0.4;
-    }
-
-    /* ACCENT LINE */
-    .aline {
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--amber);
-      border-radius: 2px;
-      margin-bottom: 16px;
-    }
-    .aline-green {
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--green);
-      border-radius: 2px;
-      margin-bottom: 16px;
-    }
-
-    /* CARDS — light sections */
-    .card-l {
-      background: var(--white);
-      border: 1px solid rgba(14,42,54,0.08);
-      border-radius: 8px;
-      transition: border-color 280ms, transform 280ms, box-shadow 280ms;
-    }
-    .card-l:hover {
-      border-color: rgba(200,138,43,0.25);
-      transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(14,42,54,0.07);
-    }
-
-    /* CARDS — dark sections */
-    .card-d {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(246,245,241,0.08);
-      border-radius: 8px;
-      transition: border-color 280ms, transform 280ms;
-    }
-    .card-d:hover {
-      border-color: rgba(200,138,43,0.3);
-      transform: translateY(-3px);
-    }
-
-    /* QUOTE */
-    .quote-l { border-left: 3px solid var(--amber); padding-left: 24px; }
-    .quote-d { border-left: 3px solid var(--amber); padding-left: 24px; }
-
-    /* ICON BOX */
-    .icon-box-l {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      background: rgba(14,42,54,0.06);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
-      flex-shrink: 0;
-    }
-    .icon-box-d {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      background: rgba(246,245,241,0.07);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
-      flex-shrink: 0;
-    }
-
-    /* STEP BADGE */
-    .step-badge {
-      width: 52px; height: 52px;
-      border-radius: 8px;
-      border: 1px solid rgba(200,138,43,0.35);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
-      color: var(--amber);
-    }
-
-    /* CHECK / DOT list */
-    .check-icon { flex-shrink: 0; margin-top: 2px; }
-    .dot-amber { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 7px; }
-
-    /* STRIKE */
-    .strike { text-decoration: line-through; opacity: 0.38; }
-
-    /* STAT NUM */
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      line-height: 1;
-      color: var(--text-d);
-    }
-
-    /* PRICE */
-    .price {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      line-height: 1;
-      color: var(--text-l);
-    }
-
-    /* REVEAL animations */
-    .reveal { opacity: 0; transform: translateY(44px); }
-
-    /* Hero entrance */
-    @keyframes enterUp {
-      from { opacity: 0; transform: translateY(26px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .e1 { animation: enterUp .7s ease forwards .05s;  opacity: 0; }
-    .e2 { animation: enterUp .7s ease forwards .2s;   opacity: 0; }
-    .e3 { animation: enterUp .7s ease forwards .38s;  opacity: 0; }
-    .e4 { animation: enterUp .7s ease forwards .54s;  opacity: 0; }
-    .e5 { animation: enterUp .7s ease forwards .70s;  opacity: 0; }
-
-    /* FAQ accordion */
-    details summary { list-style: none; cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }
-    details .faq-arrow { transition: transform 200ms ease; }
-    details[open] .faq-arrow { transform: rotate(180deg); }
-
-    /* COMPENSATION SCALE */
-    .comp-scale {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      border-radius: 6px;
+    .hero-bg {
+      background: linear-gradient(160deg, #1a0d05 0%, #2e1508 40%, #1a0d05 100%);
+      position: relative;
       overflow: hidden;
     }
-    .comp-seg {
-      height: 8px;
-      transition: transform 300ms;
-    }
-    .comp-seg:hover { transform: scaleY(1.6); }
-
-    /* STICKY BAR */
-    .sticky-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 99;
-      background: rgba(14,42,54,0.97);
-      backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(200,138,43,0.25);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      transform: translateY(100%);
-      transition: transform 320ms ease;
-      contain: layout paint;
-      will-change: transform;
-    }
-    .sticky-bar.visible { transform: translateY(0); }
-    @media (max-width: 600px) {
-      .sticky-bar { flex-direction: column; padding: 12px 16px; }
-      .sticky-bar p { text-align: center; }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(184,150,10,0.08) 0%, transparent 65%);
     }
 
-    /* Section padding shorthand */
-    .sp { padding: 96px 32px; }
-    .sp-sm { padding: 72px 32px; }
-    .inner { max-width: 1160px; margin: auto; }
-    .inner-md { max-width: 800px; margin: auto; }
-    .inner-sm { max-width: 620px; margin: auto; }
-
-    @media (max-width: 768px) {
-      .sp { padding: 64px 20px; }
-      .sp-sm { padding: 52px 20px; }
-      .nav-inner { padding: 0 20px; }
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      pointer-events: none;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1 !important; transform: none !important; }
-      .e1, .e2, .e3, .e4, .e5 { animation: none !important; opacity: 1 !important; transform: none !important; }
-      .sticky-bar { transition: none !important; }
-      .pulse { animation: none !important; }
+    .gold-line {
+      width: 48px;
+      height: 2px;
+      background: #B8960A;
+      display: block;
+      margin-bottom: 1.5rem;
     }
+
+    .ticker-wrap { overflow: hidden; white-space: nowrap; }
+    .ticker { display: inline-block; animation: ticker 22s linear infinite; }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .faq-item { border-bottom: 1px solid rgba(184,150,10,0.3); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-answer.open { max-height: 300px; }
+    .faq-icon { transition: transform 0.3s ease; display: inline-block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .hover-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .hover-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(28,16,8,0.12); }
+
+    .cta-btn { transition: all 0.3s ease; letter-spacing: 0.12em; }
+    .cta-btn:hover { background: #1C1008; color: #EAE6DF; transform: translateY(-2px); }
+
+    .fade-up { opacity: 0; transform: translateY(40px); }
+    .fade-left { opacity: 0; transform: translateX(-40px); }
+    .fade-right { opacity: 0; transform: translateX(40px); }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════
-       NAV
-  ═══════════════════════════════════════ -->
-  <nav class="nav-wrap">
-    <div class="nav-inner">
-      <div class="nav-logo">
-        <div class="pulse"></div>
-        Assetto Biologico™
-      </div>
-      <a href="#prenota" class="btn-amber" style="padding:11px 22px;font-size:14px;">
-        Prenota — €297
-      </a>
-    </div>
-  </nav>
-
-
-  <!-- ══════════════════════════════════════
-       HERO — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 32px 80px;position:relative;overflow:hidden;">
-
-    <!-- Ambient radial glows -->
-    <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(109,138,115,0.1) 0%,transparent 70%);top:-200px;left:-200px;pointer-events:none;"></div>
-    <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(200,138,43,0.07) 0%,transparent 70%);bottom:-100px;right:-100px;pointer-events:none;"></div>
-
-    <div class="inner" style="position:relative;z-index:1;">
-
-      <div class="e1">
-        <p style="font-family:'DM Sans',sans-serif;font-size:clamp(14px,1.4vw,17px);font-weight:600;color:var(--amber);letter-spacing:0.01em;line-height:1.6;max-width:760px;">
-          <span style="color:#fff;">ATTENZIONE:</span> Se hai tra i 40 e i 55 anni e negli ultimi 24 mesi senti di aver perso energia, focus e spinta mentale… questa potrebbe essere la pagina più importante che leggerai quest'anno
-        </p>
-      </div>
-
-      <h1 class="e2 f-display" style="font-size:clamp(36px,5.5vw,78px);font-weight:400;line-height:1.15;color:var(--text-d);margin-top:28px;max-width:860px;">
-        Se ti svegli già stanco e fatichi ad arrivare lucido fino a sera…<br>
-        <em style="color:var(--amber);">è il segnale che la tua batteria è già in modalità risparmio</em>
-      </h1>
-
-      <p class="e3 muted" style="font-size:clamp(16px,1.8vw,20px);line-height:1.75;margin-top:28px;max-width:580px;">
-        In un'analisi integrata di 6 sistemi biologici, leggiamo HRV, cortisolo, circolazione e recupero dallo stress come un sistema unico — non come parametri isolati. Ottieni una lettura chiara di dove stai perdendo coordinazione biologica e un piano su cosa fare adesso.
-      </p>
-
-      <div class="e4" style="margin-top:32px;display:flex;flex-direction:column;gap:10px;max-width:560px;">
-        <div style="display:flex;gap:10px;align-items:flex-start;">
-          <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <p class="muted" style="font-size:15px;">Esami nella norma ma ti senti peggio di 5 anni fa? Esattamente il caso per cui esiste questa analisi.</p>
-        </div>
-        <div style="display:flex;gap:10px;align-items:flex-start;">
-          <svg style="flex-shrink:0;margin-top:3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <p class="muted" style="font-size:15px;">Non è biohacking, non è coaching, non è wellness. È un'analisi biologica con dati oggettivi e un piano operativo.</p>
-        </div>
-      </div>
-
-      <div class="e4" style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;">
-        <a href="#prenota" class="btn-amber lg">
-          Ottieni la tua analisi biologica
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#come-funziona" class="btn-ghost-d">Come funziona</a>
-      </div>
-
-      <div class="e5" style="margin-top:64px;">
-        <div class="rule-d"></div>
-        <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:48px;">
-          <div>
-            <div style="display:flex;align-items:baseline;line-height:1;">
-              <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="97">0</div>
-              <span class="stat-num" style="font-size:clamp(44px,6vw,72px);">%</span>
-            </div>
-            <p class="muted" style="font-size:13px;margin-top:12px;">di chi l'ha provato dice:<br>"gli esami erano normali,<br>ma i sintomi no"</p>
-          </div>
-          <div>
-            <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="3">0</div>
-            <p class="muted" style="font-size:13px;margin-top:12px;">consulenze integrate<br>incluse nel percorso</p>
-          </div>
-          <div>
-            <div class="stat-num" style="font-size:clamp(44px,6vw,72px);">€297</div>
-            <p class="muted" style="font-size:13px;margin-top:12px;">accesso completo<br>alla valutazione</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       LA SCENA — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner-md">
-
-      <div class="reveal">
-        <span class="aline"></span>
-        <h2 class="f-display" style="font-size:clamp(30px,4.5vw,56px);font-weight:400;line-height:1.3;color:var(--petrol);">
-          "Faccio già tutto nel modo giusto.<br>Eppure qualcosa non torna."
-        </h2>
-      </div>
-
-      <div class="reveal" style="margin-top:36px;max-width:640px;">
-        <p class="semi" style="font-size:17px;line-height:1.85;">
-          Dormi 7–8 ore. Mangi bene. Ti alleni. Fai le cose "come si deve". Eppure verso le 16 il cervello rallenta, la mattina ti svegli già senza vero margine, e per restare allo stesso livello devi spingere sempre di più.
-        </p>
-        <p style="font-size:17px;line-height:1.85;margin-top:16px;color:var(--petrol);">
-          Non è un crollo improvviso. <strong>È qualcosa di più sottile e molto più pericoloso.</strong>
-        </p>
-      </div>
-
-      <div class="reveal" style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
-        <div class="card-l" style="padding:28px;">
-          <p class="semi" style="font-size:15px;line-height:1.8;">Vai dal medico. Gli esami escono nella norma. Il medico dice che stai bene. Tu stesso ti dici:</p>
-          <p style="font-size:16px;font-style:italic;color:var(--petrol);margin-top:14px;font-family:'Cormorant Garamond',serif;font-size:20px;">"Forse è solo stress. Forse è l'età."</p>
-        </div>
-        <div class="card-l" style="padding:28px;">
-          <p class="semi" style="font-size:15px;line-height:1.8;">Ma quella spiegazione non ti convince fino in fondo. Perché tu non ti senti malato.</p>
-          <p style="font-size:16px;font-weight:600;color:var(--petrol);margin-top:14px;">Ti senti meno te stesso. E c'è una differenza enorme.</p>
-        </div>
-      </div>
-
-      <div class="reveal" style="margin-top:48px;">
-        <div class="quote-l">
-          <p class="f-display" style="font-size:clamp(20px,3vw,32px);color:var(--petrol);line-height:1.5;font-weight:400;">
-            "Continuo a funzionare. Ma ho la sensazione costante di essere sempre un gradino sotto rispetto a come ero."
-          </p>
-          <p class="muted" style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin-top:12px;">— Giorgio, agente immobiliare, 46 anni</p>
-        </div>
-      </div>
-
-      <div class="reveal" style="margin-top:36px;max-width:620px;">
-        <p class="semi" style="font-size:17px;line-height:1.85;">
-          Il problema non è che sei malato. Il problema è che il tuo corpo sta compensando invece di recuperare — e la medicina standard non ha gli strumenti per vederlo finché non diventa una patologia conclamata.
-        </p>
-        <p style="font-size:17px;line-height:1.85;margin-top:14px;color:var(--petrol);">
-          <strong>Assetto Biologico™ legge esattamente quello che gli esami standard non vedono.</strong>
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       IL PROBLEMA — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" style="background:#EEF0EC;padding-top:0;">
-    <div class="inner">
-
-      <div class="reveal" style="text-align:center;padding-top:96px;margin-bottom:56px;">
-        <span class="badge-amber">Il problema invisibile</span>
-        <h2 class="f-display" style="font-size:clamp(30px,5vw,68px);font-weight:400;line-height:1.1;color:var(--petrol);margin-top:20px;">
-          La frase più pericolosa<br>che senti dopo i 45 anni?
-        </h2>
-        <p class="f-display" style="font-size:clamp(22px,3.5vw,44px);font-style:italic;color:var(--amber);margin-top:8px;">
-          "È tutto nella norma."
-        </p>
-        <p class="semi" style="font-size:17px;max-width:560px;margin:20px auto 0;line-height:1.7;">
-          Il check-up standard analizza parametri isolati e cerca patologie conclamate. Guarda HRV, cortisolo, circolazione e stress come elementi separati, non come un unico sistema. Il declino biologico inizia prima che la medicina lo rilevi. E spesso lo senti già addosso.
-        </p>
-      </div>
-
-      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-
-        <div class="card-l" style="padding:32px;">
-          <div class="icon-box-l">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h3 class="f-display" style="font-size:22px;color:var(--petrol);margin-bottom:10px;">Energia instabile</h3>
-          <p class="semi" style="font-size:14px;line-height:1.75;">Cali netti nel pomeriggio. Caffeina come carburante di default. Bisogno continuo di stimoli per restare sul pezzo.</p>
-        </div>
-
-        <div class="card-l" style="padding:32px;">
-          <div class="icon-box-l">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3 class="f-display" style="font-size:22px;color:var(--petrol);margin-bottom:10px;">Recupero che non basta</h3>
-          <p class="semi" style="font-size:14px;line-height:1.75;">Dormi 7–8 ore. Ma la mattina è come se la notte non bastasse a ricaricare davvero. Risvegli già pesanti.</p>
-        </div>
-
-        <div class="card-l" style="padding:32px;">
-          <div class="icon-box-l">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
-          </div>
-          <h3 class="f-display" style="font-size:22px;color:var(--petrol);margin-bottom:10px;">Lucidità altalenante</h3>
-          <p class="semi" style="font-size:14px;line-height:1.75;">La testa si appanna. Meno pazienza, meno margine mentale. Per restare allo stesso livello devi spingere sempre di più.</p>
-        </div>
-
-      </div>
-
-      <div class="reveal" style="text-align:center;margin-top:56px;">
-        <p class="f-display" style="font-size:clamp(20px,3vw,34px);line-height:1.55;color:var(--petrol);max-width:640px;margin:auto;">
-          Il decadimento biologico non arriva all'improvviso.<br>
-          <em style="color:var(--amber);">Ti consuma lentamente. In silenzio.</em><br>
-          E quando gli esami standard lo vedono…<br>spesso sei già in ritardo.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       LIVELLI DI COMPENSAZIONE — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(200,138,43,0.07) 0%,transparent 65%);top:-100px;right:-150px;pointer-events:none;"></div>
-
-    <div class="inner" style="position:relative;z-index:1;">
-
-      <div class="reveal" style="text-align:center;margin-bottom:64px;">
-<h2 class="f-display" style="font-size:clamp(28px,4.5vw,60px);font-weight:400;line-height:1.2;color:var(--text-d);margin-top:20px;">
-          A che livello stai<br>operando davvero?
-        </h2>
-        <p class="muted" style="font-size:17px;max-width:500px;margin:16px auto 0;line-height:1.7;">
-          Il corpo non crolla all'improvviso. Scende lentamente attraverso quattro stati — quasi sempre senza che tu te ne accorga.
-        </p>
-      </div>
-
-      <div class="reveal">
-
-        <!-- Scale bar -->
-        <div class="comp-scale" style="margin-bottom:12px;">
-          <div class="comp-seg" style="background:#6D8A73;"></div>
-          <div class="comp-seg" style="background:#C9A64E;"></div>
-          <div class="comp-seg" style="background:#B8772E;"></div>
-          <div class="comp-seg" style="background:#8A3A34;"></div>
-        </div>
-
-        <!-- Labels -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;">
-
-          <div style="padding:24px 20px;background:rgba(109,138,115,0.12);border:1px solid rgba(109,138,115,0.2);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#6D8A73;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#A8C4AC;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Recupero reale</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Il sistema si ricarica davvero. Energia stabile. Mente pulita. Margine presente.</p>
-          </div>
-
-          <div style="padding:24px 20px;background:rgba(201,166,78,0.08);border:1px solid rgba(201,166,78,0.18);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#C9A64E;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#C9A64E;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Compensazione funzionale</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Funzioni ancora bene. Ma stai attingendo alle riserve senza rendertene conto.</p>
-          </div>
-
-          <div style="padding:24px 20px;background:rgba(184,119,46,0.08);border:1px solid rgba(184,119,46,0.18);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#B8772E;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#D4904A;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Sovraccarico adattato</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Il corpo regge ma in modalità emergenza. Hai troppo addosso. Non ti stai riprendendo.</p>
-          </div>
-
-          <div style="padding:24px 20px;background:rgba(138,58,52,0.1);border:1px solid rgba(138,58,52,0.22);border-radius:6px;">
-            <div style="width:10px;height:10px;border-radius:50%;background:#8A3A34;margin-bottom:12px;"></div>
-            <p style="font-size:13px;font-weight:600;color:#C06A64;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">Performance artificiale</p>
-            <p class="muted" style="font-size:13px;line-height:1.65;">Vai avanti solo con stimoli. Gli esami sembrano ok. Il corpo sta già pagando.</p>
-          </div>
-
-        </div>
-
-        <!-- Indicator -->
-        <div style="margin-top:40px;text-align:center;">
-          <p class="muted" style="font-size:15px;line-height:1.7;max-width:520px;margin:auto;">
-            La maggior parte delle persone ad alte prestazioni vive tra il terzo e il quarto livello per mesi — talvolta anni — senza saperlo.<br>
-            <span style="color:var(--text-d);">Assetto Biologico™ misura esattamente dove sei.</span>
-          </p>
-        </div>
-
-        <div style="margin-top:48px;text-align:center;">
-          <a href="#prenota" class="btn-amber lg">Scopri a che livello sei — €297
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       CASO STUDIO — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner">
-
-      <div class="reveal" style="margin-bottom:16px;">
-        <span class="aline"></span>
-        <p style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--amber);">Caso reale</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:start;">
-
-        <div class="reveal">
-          <h2 class="f-display" style="font-size:clamp(28px,4vw,52px);font-weight:400;line-height:1.2;color:var(--petrol);">
-            Andrea, 47 anni.<br>Manager. Esami perfetti.
-          </h2>
-
-          <div style="margin-top:28px;display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Alimentazione corretta. Allenamento costante.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Check-up annuali. Risultati nella norma.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">7 ore di sonno. Tutto apparentemente "ok".</p>
-            </div>
-          </div>
-
-          <div style="margin-top:28px;">
-            <p class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Eppure ogni giorno:</p>
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">Verso le 16 il cervello rallentava</p>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">Sonno leggero. Risvegli pesanti.</p>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">Bisogno continuo di "riaccendersi"</p>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div class="dot-amber"></div>
-                <p style="font-size:15px;color:var(--petrol);">HRV compromessa · Cortisolo alterato</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="semi" style="font-size:16px;line-height:1.75;margin-top:24px;">
-            Pensava fosse il prezzo inevitabile del suo lavoro.<br>
-            <strong style="color:var(--petrol);">Non lo era.</strong>
-          </p>
-        </div>
-
-        <div class="reveal">
-          <div class="card-l" style="padding:36px;border-color:rgba(200,138,43,0.22);">
-            <span class="aline-green"></span>
-            <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#4A6E52;margin-bottom:18px;">Dopo la lettura integrata</p>
-            <div class="quote-l">
-              <p class="f-display" style="font-size:clamp(20px,2.8vw,28px);color:var(--petrol);line-height:1.5;font-weight:400;">
-                "Adesso capisco perché mi sento così."
-              </p>
-            </div>
-
-            <div style="margin-top:28px;">
-              <p class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;">Primi cambiamenti notati:</p>
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Mente più stabile nel pomeriggio</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Risvegli meno pesanti</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Meno bisogno di stimoli per restare operativo</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Maggiore lucidità decisionale</p>
-                </div>
-                <div style="display:flex;gap:10px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:14px;">Sensazione di avere finalmente margine</p>
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(14,42,54,0.07);">
-              <p style="font-size:15px;color:#4A6E52;line-height:1.65;">
-                "La cosa che ho notato per prima non era 'più energia'. Era non dover più lottare contro me stesso per funzionare bene."
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:48px;text-align:center;">
-          <a href="#prenota" class="btn-amber lg">Voglio la mia analisi biologica — €297
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <p class="muted" style="font-size:13px;margin-top:10px;">Garanzia rimborso se non ottieni una lettura chiara</p>
-        </div>
-
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="bg-brown-dark text-cream py-3 relative z-50">
+    <div class="ticker-wrap">
+      <div class="ticker text-sm font-body tracking-widest uppercase">
+        <span class="mx-8">Posti limitati &mdash; massimo 10 nuovi clienti al mese</span>
+        <span class="mx-8 text-gold-light font-medium">&#187; Prenota la tua consulenza gratuita</span>
+        <span class="mx-8">Zero conservanti &nbsp;&bull;&nbsp; 15 giorni di freschezza</span>
+        <span class="mx-8 text-gold-light font-medium">&#187; Parla con Marco</span>
+        <span class="mx-8">Posti limitati &mdash; massimo 10 nuovi clienti al mese</span>
+        <span class="mx-8 text-gold-light font-medium">&#187; Prenota la tua consulenza gratuita</span>
+        <span class="mx-8">Zero conservanti &nbsp;&bull;&nbsp; 15 giorni di freschezza</span>
+        <span class="mx-8 text-gold-light font-medium">&#187; Parla con Marco</span>
       </div>
     </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       IL MECCANISMO — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(109,138,115,0.09) 0%,transparent 70%);bottom:-150px;left:-100px;pointer-events:none;"></div>
-
-    <div class="inner" style="position:relative;z-index:1;">
-
-      <div class="reveal" style="text-align:center;margin-bottom:56px;">
-        <h2 class="f-display" style="font-size:clamp(28px,5vw,68px);font-weight:400;line-height:1.1;color:var(--text-d);margin-top:20px;">
-          Non sei stanco perché stai invecchiando.
-        </h2>
-        <p class="f-display" style="font-size:clamp(18px,3vw,36px);font-style:italic;color:var(--amber);line-height:1.4;margin-top:10px;">
-          Ti senti così perché il tuo corpo<br>sta perdendo coordinazione biologica…<br>e nessuno l'ha ancora misurata.
-        </p>
-      </div>
-
-      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
-
-        <div class="card-d" style="padding:32px;">
-          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber-dim);margin-bottom:16px;">La medicina tradizionale</p>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Analizza parametri isolati</p>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Cerca malattie conclamate</p>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Interviene quando il danno ha un nome</p>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <p style="font-size:15px;color:var(--text-d);text-decoration:line-through;">Produce referti, non letture integrate</p>
-            </div>
-          </div>
-          <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(246,245,241,0.06);">
-            <p style="font-size:16px;color:var(--text-d);">"Tutto nella norma."</p>
-            <p class="muted" style="font-size:14px;margin-top:4px;">Ma il corpo racconta altro.</p>
-          </div>
-        </div>
-
-        <div class="card-d" style="padding:32px;border-color:rgba(200,138,43,0.2);">
-          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:#A8D4B0;margin-bottom:16px;">Assetto Biologico™</p>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Collega HRV, cortisolo, perfusione e recupero</p>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Intercetta squilibri anni prima della patologia</p>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Vede il corpo come sistema unico, non a pezzi</p>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A8D4B0" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:#E8F0EA;">Trasforma sensazioni vaghe in dati interpretabili</p>
-            </div>
-          </div>
-          <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(200,138,43,0.15);">
-            <p style="font-size:16px;color:var(--amber);">Non del corpo da referto.<br><span style="color:#F6F5F1;">Del corpo reale.</span></p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       COSA ANALIZZA — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" id="come-funziona">
-    <div class="inner">
-
-      <div class="reveal" style="text-align:center;margin-bottom:52px;">
-        <span class="badge-green on-light">6 sistemi · Una lettura unica</span>
-        <h2 class="f-display" style="font-size:clamp(28px,4.5vw,62px);font-weight:400;color:var(--petrol);margin-top:18px;">
-          Cosa analizza Assetto Biologico™
-        </h2>
-        <p class="semi" style="font-size:17px;max-width:460px;margin:16px auto 0;line-height:1.7;">
-          Non misura solo dati. Individua come i tuoi sistemi stanno cooperando — o smettendo di farlo.
-        </p>
-      </div>
-
-      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;">
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Sistema Nervoso &amp; Recupero</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">HRV · Equilibrio simpatico/parasimpatico · Stress fisiologico · Recupero autonomico</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Da solo, un'analisi seria dell'HRV e dello stato del sistema nervoso in un centro performance può costare centinaia di euro. Perché qui non stai misurando "come ti senti". Stai misurando quanto il tuo corpo è davvero sotto pressione… anche quando continui a funzionare.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Ritmo Biologico</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Ritmo circadiano · Cortisolo · Sincronizzazione energetica nelle 24 ore</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">La maggior parte degli uomini over 40 pensa di essere "solo stanco". In realtà vive completamente fuori sincronizzazione biologica da anni. E questo distrugge focus, recupero, energia mentale e performance quotidiana.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Circolazione &amp; Perfusione</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Perfusione periferica · Pulse Transit Time · Efficienza circolatoria</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Capisci se il tuo sistema sta distribuendo energia e ossigeno in modo efficiente… oppure se stai guidando il tuo corpo col freno a mano tirato.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Metabolismo &amp; Struttura</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Composizione corporea · Densità ossea · Stato della membrana cellulare</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Non parliamo del numerino sulla bilancia. Parliamo di capire cosa sta succedendo davvero alla tua struttura biologica mentre continui a lavorare, decidere, performare.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;">
-          <div class="icon-box-l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E2A36" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Equilibrio Cellulare</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Acqua extracellulare · Matrice extracellulare · Minerali · Potassio</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">La maggior parte dei check-up tradizionali non arriva nemmeno qui. Eppure è spesso il livello dove iniziano i primi segnali di crollo energetico e infiammazione silenziosa.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;border-color:rgba(138,58,52,0.2);">
-          <div class="icon-box-l" style="background:rgba(138,58,52,0.07);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A34" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Predictive Health™</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Stress · energia cellulare · equilibrio neuro-ormonale · capacità di recupero</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">La maggior parte dei check-up tradizionali si ferma ai valori "normali". Non intercetta ciò che succede prima del calo: quando il sistema inizia a perdere margine, e la performance quotidiana diventa sempre più costosa da sostenere.</p>
-        </div>
-
-        <div class="card-l" style="padding:28px;border-color:rgba(200,138,43,0.22);">
-          <div class="icon-box-l" style="background:rgba(200,138,43,0.08);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-          <h3 class="f-display" style="font-size:19px;color:var(--petrol);margin-bottom:8px;">Lettura Integrata</h3>
-          <p class="muted" style="font-size:12px;line-height:1.6;margin-bottom:12px;">Correlazione di tutti i parametri · Interpretazione sistemica · Piano operativo</p>
-          <p class="semi" style="font-size:13px;line-height:1.75;">Il valore vero non è avere dei dati. È capire cosa significano insieme. Un parametro isolato racconta poco. Il pattern completo racconta come stai davvero funzionando oggi… e dove stai perdendo energia, recupero e performance senza accorgertene.</p>
-        </div>
-
-      </div>
-
-      <!-- Price justification block -->
-      <div class="reveal" style="margin-top:56px;">
-        <div class="card-l" style="padding:40px;border-color:rgba(200,138,43,0.3);background:rgba(200,138,43,0.03);">
-          <h3 class="f-display" style="font-size:clamp(22px,3vw,34px);color:var(--petrol);font-weight:400;margin-bottom:20px;">Tutto questo a €297?</h3>
-          <p class="semi" style="font-size:16px;line-height:1.8;margin-bottom:16px;">Un imprenditore spende più di così per una cena mediocre o per due ore di consulenza qualunque. Qui stai comprando qualcosa di molto più raro: una fotografia concreta di come il tuo corpo sta reggendo anni di stress, responsabilità e pressione continua.</p>
-          <p class="semi" style="font-size:16px;line-height:1.8;margin-bottom:16px;">Per molti uomini, il problema non è che stanno invecchiando. È che stanno guidando un sistema scarico senza averlo mai davvero analizzato.</p>
-          <p style="font-size:16px;line-height:1.8;color:var(--petrol);font-weight:500;">€297 non è il costo dell'analisi. È probabilmente il prezzo più basso che pagherai prima che stanchezza, calo di lucidità e stress inizino a presentarti un conto molto più alto.</p>
-          <div style="margin-top:28px;">
-            <a href="#prenota" class="btn-amber lg">Prenota adesso — €297
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       COME FUNZIONA — light slightly tinted
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" style="background:#EEF0EC;">
-    <div class="inner-md">
-
-      <div class="reveal" style="margin-bottom:52px;">
-        <span class="aline"></span>
-        <h2 class="f-display" style="font-size:clamp(28px,4.5vw,60px);font-weight:400;color:var(--petrol);">Come funziona</h2>
-      </div>
-
-      <p class="reveal semi" style="font-size:16px;line-height:1.7;margin-bottom:44px;max-width:640px;">Ecco esattamente cosa succede dal momento in cui prenoti — senza sorprese, senza aspettare settimane.</p>
-
-      <div style="display:flex;flex-direction:column;gap:40px;">
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">1</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Prenoti → entro 24 ore ricevi le istruzioni</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Dopo la prenotazione, entro 24 ore lavorative ricevi una mail con le istruzioni per la prima consulenza: cosa monitorare nei giorni precedenti, cosa portare, cosa aspettarti. Nessuna attesa indefinita.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">2</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Prima consulenza: 60–90 minuti di analisi completa</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Non un check-up di 10 minuti: una sessione di 60–90 minuti in cui misuriamo HRV, composizione cellulare, cortisolo, perfusione periferica e ritmi biologici. Raccogliamo tutto quello che serve per leggere il tuo corpo come sistema unico — non a parametri isolati.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">3</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Entro 5 giorni lavorativi: report + piano operativo</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Non ricevi un referto. Ricevi una lettura integrata di come il tuo corpo sta gestendo energia, recupero e pressione — con priorità chiare e indicazioni precise su cosa fare, in che ordine e da dove iniziare. Una risposta, non dati grezzi.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">4</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Follow-up a 3 settimane: verifica e aggiustamento</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">Vediamo insieme cosa è cambiato nel corpo dopo le prime indicazioni operative. Aggiustiamo il percorso in base ai dati reali — non alle impressioni. Se qualcosa non sta funzionando, lo correggiamo qui.</p>
-          </div>
-        </div>
-
-        <div class="rule-l"></div>
-
-        <div class="reveal" style="display:flex;gap:24px;align-items:flex-start;">
-          <div class="step-badge">5</div>
-          <div>
-            <h3 style="font-size:20px;font-weight:600;color:var(--petrol);margin-bottom:10px;">Follow-up a 6 settimane: lettura finale e direzione</h3>
-            <p class="semi" style="font-size:16px;line-height:1.75;max-width:560px;">La verifica finale. Misuriamo i cambiamenti rispetto al baseline iniziale, vediamo dove il sistema biologico ha risposto e definiamo cosa fare da qui in avanti. Non ti lasciamo da soli dopo la prima consulenza.</p>
-          </div>
-        </div>
-
-        <div style="margin-top:48px;text-align:center;">
-          <a href="#prenota" class="btn-amber lg">Inizia adesso — €297
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <p class="semi" style="font-size:13px;margin-top:10px;">5 sessioni incluse · Garanzia rimborso</p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       COSA NON È — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner-md">
-      <div class="reveal">
-        <div class="card-l" style="padding:40px 44px;border-color:rgba(200,138,43,0.18);">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;">
-
-            <div>
-              <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--amber);margin-bottom:18px;">NON è</p>
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Un trattamento medico</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Motivazione o mindset coaching</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">L'ennesimo protocollo biohacking</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Integratori casuali o vitamine</p></div>
-                <div style="display:flex;gap:8px;align-items:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C0473F" stroke-width="2.8" style="flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p style="font-size:15px;color:var(--text-l);text-decoration:line-through;">Dashboard con dati senza contesto</p></div>
-              </div>
-            </div>
-
-            <div>
-              <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:#4A6E52;margin-bottom:18px;">È</p>
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">Una lettura integrata di come stai funzionando adesso</p>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">Un sistema di intelligence biologica personale</p>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">La risposta al "non so cosa ho" con dati obiettivi</p>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                  <p class="semi" style="font-size:15px;">Il modo per agire prima che il declino diventi visibile</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       GARANZIA — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp-sm" style="position:relative;overflow:hidden;">
-    <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(109,138,115,0.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
-    <div class="inner reveal" style="position:relative;z-index:1;max-width:720px;margin:auto;text-align:center;">
-
-      <div style="margin-bottom:32px;padding:12px 24px;background:rgba(200,138,43,0.1);border:1px solid rgba(200,138,43,0.3);border-radius:6px;display:inline-block;">
-        <p style="font-size:14px;color:var(--amber-dim);font-weight:500;">Se al termine della prima consulenza non ottieni una lettura chiara, ti rimborsiamo tutto — senza domande.</p>
-      </div>
-
-      <div style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;border:2px solid rgba(200,138,43,0.5);margin-bottom:28px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-
-      <h2 class="f-display" style="font-size:clamp(26px,4vw,52px);font-weight:400;color:var(--text-d);line-height:1.2;margin-bottom:20px;">
-        Garanzia di lettura chiara — o rimborso totale
-      </h2>
-
-      <p class="muted" style="font-size:17px;line-height:1.8;max-width:560px;margin:0 auto 28px;">
-        Se al termine della prima consulenza non ottieni una lettura chiara e specifica di come il tuo corpo sta gestendo energia e recupero — ti rimborsiamo l'intero importo di €297. Senza domande, senza procedure.
-      </p>
-
-      <p style="font-size:15px;color:var(--text-d);opacity:0.65;font-style:italic;">
-        Non è un'offerta per tutti. È una garanzia per chi vuole certezze prima di investire.
-      </p>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       PRICING — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp" id="prenota" style="background:#EEF0EC;">
-    <div class="inner">
-
-      <div class="reveal" style="text-align:center;margin-bottom:40px;">
-        <span class="badge-amber">Accesso alla valutazione</span>
-        <h2 class="f-display" style="font-size:clamp(28px,4.5vw,62px);font-weight:400;color:var(--petrol);margin-top:16px;">
-          Assetto Biologico™
-        </h2>
-        <p class="semi" style="font-size:17px;max-width:460px;margin:14px auto 0;line-height:1.7;">
-          Non è pensato per chi vuole "curiosare".<br>
-          È per chi ha iniziato a percepire una differenza reale e vuole capire perché.
-        </p>
-      </div>
-
-      <div class="reveal" style="max-width:580px;margin:auto;">
-        <div class="card-l" style="padding:48px;border-color:rgba(200,138,43,0.25);">
-
-          <div style="margin-bottom:24px;padding:14px 18px;background:rgba(200,138,43,0.07);border:1px solid rgba(200,138,43,0.2);border-radius:6px;">
-            <p style="font-size:14px;color:var(--petrol);line-height:1.6;"><strong>Tutto incluso:</strong> prima consulenza + analisi completa + report + piano operativo + 2 follow-up.</p>
-          </div>
-          <div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:36px;">
-            <span class="price" style="font-size:clamp(56px,8vw,80px);color:var(--petrol);">€297</span>
-            <span class="muted" style="padding-bottom:14px;font-size:15px;">accesso completo</span>
-          </div>
-
-          <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:36px;">
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">60 minuti di colloquio — non un check-up di 10 minuti. Tempo vero per leggere il tuo corpo davvero.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">6 sistemi biologici correlati tra loro — quello che nessun esame standard fa mai.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Report con priorità chiare: non dati grezzi, ma risposte su cosa fare e da dove iniziare.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p class="semi" style="font-size:15px;">Piano operativo concreto: azioni specifiche, non consigli generici su dieta e stile di vita.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6D8A73" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <p style="font-size:15px;color:var(--petrol);"><strong>2 follow-up inclusi</strong> a 3 e 6 settimane — non ti lasciamo da solo dopo la prima sessione.</p>
-            </div>
-            <div style="display:flex;gap:10px;">
-              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <p style="font-size:15px;color:var(--petrol);"><strong>Garanzia rimborso totale</strong> — se al termine della prima consulenza non ottieni una lettura chiara.</p>
-            </div>
-          </div>
-
-          <a href="mailto:info@assettobiologico.it" class="btn-amber lg" style="width:100%;justify-content:center;">
-            Prenota adesso — €297
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-
-          <p class="muted" style="font-size:13px;text-align:center;margin-top:16px;line-height:1.6;color:var(--text-l3);">
-            Lettura chiara garantita — o rimborso totale senza domande.
-          </p>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       FAQ — light
-  ═══════════════════════════════════════ -->
-  <section class="light-section sp">
-    <div class="inner-md">
-
-      <div class="reveal" style="margin-bottom:44px;">
-        <span class="aline"></span>
-        <h2 class="f-display" style="font-size:clamp(26px,4vw,54px);font-weight:400;color:var(--petrol);">Domande frequenti</h2>
-      </div>
-
-      <div class="reveal" style="display:flex;flex-direction:column;gap:10px;">
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>Ho già fatto un check-up di recente e va tutto bene. Perché dovrei fare anche questo?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">Esatto — ed è precisamente il problema. Il check-up standard analizza parametri isolati e cerca patologie conclamate. Guarda HRV, cortisolo, circolazione e stress come elementi separati, non come un unico sistema. Il declino biologico inizia prima che la medicina lo rilevi. Se li hai fatti e sei qui lo stesso, è perché una parte di te sa già che la risposta non è in quel referto.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>€297 per una consulenza mi sembra tanto. Come lo giustifico?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">€297 include prima consulenza di 60–90 minuti, analisi integrata di 6 sistemi biologici, report con interpretazione e piano operativo, più 2 consulenze di follow-up a 3 e 6 settimane. Non è una visita — è un percorso. E c'è la garanzia rimborso totale se al termine della prima consulenza non ottieni una lettura chiara. Il rischio è azzerato.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>E se scopro qualcosa che non posso risolvere o che mi spaventa?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">Accade il contrario. Quando capisci esattamente cosa sta succedendo nel tuo corpo, smetti di vivere nell'incertezza diffusa che è molto più logorante. La chiarezza riduce l'ansia, non la aumenta. Non ricevi dati grezzi che ti lasciano a interpretare — ricevi una lettura chiara con indicazioni precise su cosa fare. Sapere è sempre meglio di intuire.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>Non è biohacking o una di quelle cose da wellness estremo?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">No. Non c'è nessun protocollo biohacking, nessun integratore casuale, nessuna dashboard con dati senza contesto. È un'analisi biologica con strumenti di misurazione oggettivi — HRV, bioimpedenza, variabilità del cortisolo — letta come sistema integrato e tradotta in un piano operativo concreto. Non devi sapere cos'è l'HRV per beneficiarne. Devi solo voler capire cosa sta succedendo nel tuo corpo.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card-l" style="overflow:hidden;">
-          <details>
-            <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;font-size:16px;font-weight:500;color:var(--petrol);">
-              <span>Sostituisce i miei esami clinici o il rapporto con il mio medico?</span>
-              <svg class="faq-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C88A2B" stroke-width="2.2" style="flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div style="padding:0 28px 22px;">
-              <p class="semi" style="font-size:15px;line-height:1.8;">No, e non lo pretende. Assetto Biologico™ non è un servizio medico e non diagnostica patologie. Aggiunge una dimensione che gli esami standard non vedono: come i tuoi sistemi biologici stanno cooperando o smettendo di farlo. È complementare — non alternativo — e in alcuni casi porta a informazioni utili anche per il tuo medico.</p>
-            </div>
-          </details>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       CTA FINALE — dark petrol
-  ═══════════════════════════════════════ -->
-  <section class="dark-section sp" style="text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(200,138,43,0.07) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
-
-    <div class="inner reveal" style="position:relative;z-index:1;max-width:760px;">
-      <div class="rule-amber" style="margin-bottom:64px;"></div>
-
-      <h2 class="f-display" style="font-size:clamp(28px,5.5vw,72px);font-weight:400;line-height:1.1;color:var(--text-d);">
-        Tra i 40 e i 55 anni<br>
-        esiste <em style="color:var(--amber);">una fase pericolosa.</em>
-      </h2>
-
-      <p class="muted" style="font-size:18px;line-height:1.75;max-width:520px;margin:28px auto 0;">
-        Non sei malato abbastanza per essere trattato. Ma non sei più efficiente abbastanza per sentirti davvero te stesso. È lì che il declino accelera in silenzio — e tu continui a spingere senza capire dove stai perdendo.
-      </p>
-
-      <p style="font-size:18px;color:var(--amber);margin-top:20px;line-height:1.5;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.5vw,28px);">
-        Adesso puoi sapere esattamente dove.
-      </p>
-
-      <div style="margin-top:44px;">
-        <a href="#prenota" class="btn-amber lg">
-          Prenota adesso — €297
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <p class="muted" style="font-size:13px;margin-top:16px;">
-          Check-up biologico avanzato · 3 sessioni · Garanzia Zero Rischi
-        </p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       FOOTER — dark petrol
-  ═══════════════════════════════════════ -->
-  <footer class="dark-section" style="padding:36px 32px;border-top:1px solid rgba(246,245,241,0.06);">
-    <div class="inner" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;">
-      <div class="nav-logo">
-        <div class="pulse"></div>
-        Assetto Biologico™
-      </div>
-      <p class="muted" style="font-size:12px;text-align:right;">
-        Analisi biologica integrata · Non sostituisce esami clinici · Non è un servizio medico
-      </p>
-    </div>
-  </footer>
-
-
-  <!-- STICKY BAR -->
-  <div class="sticky-bar" id="stickyBar">
-    <p style="color:var(--text-d2);font-size:14px;line-height:1.4;">Analisi biologica integrata · 5 sessioni · Garanzia rimborso</p>
-    <a href="#prenota" class="btn-amber" style="white-space:nowrap;flex-shrink:0;">
-      Prenota — €297
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
   </div>
 
+  <!-- HERO -->
+  <section class="hero-bg grain min-h-screen flex flex-col justify-center items-center text-center px-6 py-32 relative">
+    <div class="absolute inset-0 z-0" style="background: linear-gradient(to bottom, rgba(26,13,5,0.3) 0%, rgba(26,13,5,0.15) 40%, rgba(26,13,5,0.6) 100%);"></div>
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <p class="font-body text-gold tracking-[0.3em] text-xs uppercase mb-8 fade-up">Chef Marco Mandaliti &mdash; Pasti Pronti di Alta Cucina</p>
 
-  <!-- ══════════════════════════════════════
-       SCRIPTS — local, non-render-blocking
-  ═══════════════════════════════════════ -->
-  <script src="./js/gsap.min.js"></script>
-  <script src="./js/ScrollTrigger.min.js"></script>
+      <h1 class="font-display text-cream text-6xl md:text-8xl leading-[1.05] mb-6 fade-up">
+        Mangia <em>come al ristorante.</em>
+        <br />
+        <span class="text-gold">A casa tua.</span>
+      </h1>
+
+      <p class="font-body text-cream/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-4 fade-up">
+        Piatti da alta cucina, preparati da uno chef professionista e consegnati sottovuoto.<br />
+        <strong class="text-cream/90 italic font-display text-2xl">Restano freschi 15 giorni. Si riscaldano in 4 minuti.</strong>
+      </p>
+
+      <p class="font-display italic text-gold text-2xl md:text-3xl mb-12 fade-up">
+        Zero fatica. Zero compromessi. Zero cucina sporca.
+      </p>
+
+      <div class="fade-up flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#contatto" class="cta-btn bg-gold text-brown font-body font-medium py-4 px-10 text-sm tracking-widest uppercase rounded-sm">
+          Parla con Marco →
+        </a>
+        <a href="#come-funziona" class="font-body text-cream/60 text-sm tracking-wider underline underline-offset-4 hover:text-gold transition-colors">
+          Scopri come funziona
+        </a>
+      </div>
+
+      <div class="mt-16 fade-up">
+        <div class="inline-flex items-center gap-6 border border-cream/20 rounded-full px-8 py-3 text-cream/50 text-xs tracking-widest uppercase font-body">
+          <span>Massimo 10 clienti/mese</span>
+          <span class="w-px h-4 bg-cream/20"></span>
+          <span>Zero conservanti</span>
+          <span class="w-px h-4 bg-cream/20"></span>
+          <span>15 giorni di freschezza</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHI È MARCO -->
+  <section class="bg-depth py-28 px-6 relative">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="fade-left">
+        <span class="gold-line"></span>
+        <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">Chi è Marco</p>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight mb-8">
+          Vent'anni nelle cucine<br /><em>dei migliori ristoranti.</em><br />
+          Ora cucina <strong>per te.</strong>
+        </h2>
+        <p class="font-body text-brown/70 leading-relaxed mb-6 text-lg">
+          Marco Mandaliti ha affinato la sua tecnica nelle cucine professionali più esigenti. Ha imparato che la qualità non è un dettaglio — è tutto.
+        </p>
+        <p class="font-body text-brown/70 leading-relaxed text-lg">
+          Oggi porta quella stessa cura, quegli stessi ingredienti selezionati, quella stessa precisione direttamente a casa tua. Non è food delivery. È un servizio di alta cucina personalizzato.
+        </p>
+      </div>
+      <div class="fade-right relative">
+        <div class="aspect-[4/5] bg-brown-dark rounded-sm overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Chef Marco Mandaliti" class="w-full h-full object-cover opacity-90" />
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(28,16,8,0.4) 0%, transparent 60%)"></div>
+        </div>
+        <div class="absolute -bottom-6 -left-6 bg-gold p-6 shadow-xl">
+          <p class="font-display text-4xl font-bold text-brown leading-none">20+</p>
+          <p class="font-body text-xs text-brown/80 tracking-widest uppercase mt-1">Anni di esperienza</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COME FUNZIONA -->
+  <section id="come-funziona" class="py-28 px-6" style="background: #F2EFE9;">
+    <div class="max-w-5xl mx-auto text-center mb-16 fade-up">
+      <span class="gold-line mx-auto"></span>
+      <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">Il processo</p>
+      <h2 class="font-display text-5xl md:text-6xl leading-tight">
+        Come funziona,<br /><em>in tre passi.</em>
+      </h2>
+    </div>
+
+    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+      <div class="hover-card bg-cream p-8 rounded-sm fade-up">
+        <p class="font-display text-7xl font-bold leading-none mb-4" style="color: rgba(184,150,10,0.2)">01</p>
+        <h3 class="font-display text-2xl font-semibold mb-3">Consulenza gratuita</h3>
+        <p class="font-body text-brown/65 leading-relaxed">Marco ti chiama, capisce le tue abitudini, le tue preferenze, la tua settimana. Nessun vincolo, nessun abbonamento forzato.</p>
+      </div>
+      <div class="hover-card bg-cream p-8 rounded-sm fade-up">
+        <p class="font-display text-7xl font-bold leading-none mb-4" style="color: rgba(184,150,10,0.2)">02</p>
+        <h3 class="font-display text-2xl font-semibold mb-3">Cucina &amp; sottovuoto</h3>
+        <p class="font-body text-brown/65 leading-relaxed">Marco prepara i tuoi piatti con ingredienti selezionati, li confeziona sottovuoto nel momento di massima qualità. Freschi. Senza conservanti.</p>
+      </div>
+      <div class="hover-card bg-cream p-8 rounded-sm fade-up">
+        <p class="font-display text-7xl font-bold leading-none mb-4" style="color: rgba(184,150,10,0.2)">03</p>
+        <h3 class="font-display text-2xl font-semibold mb-3">Consegna &amp; goditi</h3>
+        <p class="font-body text-brown/65 leading-relaxed">Ricevi i tuoi piatti a casa. Durano 15 giorni in frigo. In 4 minuti al microonde tornano come appena usciti dalla cucina.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMERI -->
+  <section class="py-20 px-6 relative overflow-hidden" style="background: #1C1008;">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(184,150,10,0.08) 0%, transparent 70%)"></div>
+    <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold counter" data-target="20">0</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Anni cucine professionali</p>
+      </div>
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold counter" data-target="15">0</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Giorni di freschezza</p>
+      </div>
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold">4'</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Per un piatto perfetto</p>
+      </div>
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold counter" data-target="10">0</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Nuovi clienti al mese</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PER CHI È / PER CHI NON È -->
+  <section class="bg-depth py-28 px-6 relative">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <span class="gold-line mx-auto"></span>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight">
+          Fa per te?<br /><em>Scoprilo in 30 secondi.</em>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="fade-left bg-cream border-l-4 border-green-700 p-8 rounded-sm">
+          <h3 class="font-display text-2xl font-semibold mb-6" style="color: #15803d">✓ &nbsp;Fa per te se…</h3>
+          <ul class="space-y-4">
+            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
+              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
+              Ami mangiare bene ma non hai tempo (o voglia) di cucinare ogni giorno
+            </li>
+            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
+              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
+              Sai riconoscere la materia prima vera e non ti accontenti di meno
+            </li>
+            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
+              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
+              Vuoi liberarti del "cosa cucino stasera" senza abbassare l'asticella
+            </li>
+            <li class="font-body text-brown/80 flex gap-3">
+              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
+              Cerchi un servizio curato, con una persona vera dietro, non un prodotto di massa
+            </li>
+          </ul>
+        </div>
+        <div class="fade-right bg-cream border-l-4 border-red-700 p-8 rounded-sm">
+          <h3 class="font-display text-2xl font-semibold mb-6" style="color: #b91c1c">✗ &nbsp;Non fa per te se…</h3>
+          <ul class="space-y-4">
+            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
+              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
+              Ami cucinare da zero e hai il tempo e il piacere di farlo ogni giorno
+            </li>
+            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
+              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
+              Vivi fuori dalla zona di consegna (per ora disponibile in area limitata)
+            </li>
+            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
+              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
+              Vuoi qualcosa di "usa e getta", senza alcuna relazione con il produttore
+            </li>
+            <li class="font-body text-brown/80 flex gap-3">
+              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
+              Stai cercando il prezzo più basso, non la qualità più alta
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="font-display italic text-center text-xl mt-10 fade-up" style="color: rgba(28,16,8,0.55)">
+        "Ma posso fare scorta?" &mdash; <strong class="not-italic font-semibold text-brown">Assolutamente sì.</strong> Molti clienti riempiono il frigo a ogni ordine.
+      </p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-28 px-6" style="background: #F2EFE9;">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-16 fade-up">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight">
+          Non fidarti di noi.<br /><span class="text-gold"><em>Fidati di chi l'ha provato.</em></span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="hover-card bg-cream p-8 rounded-sm fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-body font-medium text-sm" style="background:#15803d">G</div>
+            <div>
+              <p class="font-body font-medium text-sm">Giulia M.</p>
+              <p class="font-body text-xs" style="color: rgba(28,16,8,0.45)">Milano</p>
+            </div>
+          </div>
+          <p class="font-display italic text-xl leading-relaxed" style="color: rgba(28,16,8,0.75)">
+            "Finalmente mangio come voglio, senza sprecare ore in cucina. Il risotto al tartufo è diventato la mia cena preferita del giovedì."
+          </p>
+        </div>
+        <div class="hover-card bg-cream p-8 rounded-sm fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-cream font-body font-medium text-sm bg-brown-dark">A</div>
+            <div>
+              <p class="font-body font-medium text-sm">Alessandro R.</p>
+              <p class="font-body text-xs" style="color: rgba(28,16,8,0.45)">Bologna</p>
+            </div>
+          </div>
+          <p class="font-display italic text-xl leading-relaxed" style="color: rgba(28,16,8,0.75)">
+            "Ero scettico. Dopo il primo assaggio ho ordinato subito per altre due settimane. Non è possibile che sia così buono e così facile."
+          </p>
+        </div>
+        <div class="hover-card bg-cream p-8 rounded-sm fade-up">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-brown font-body font-medium text-sm bg-gold">F</div>
+            <div>
+              <p class="font-body font-medium text-sm">Federica T.</p>
+              <p class="font-body text-xs" style="color: rgba(28,16,8,0.45)">Modena</p>
+            </div>
+          </div>
+          <p class="font-display italic text-xl leading-relaxed" style="color: rgba(28,16,8,0.75)">
+            "Marco è una persona seria, appassionata. Si sente nei piatti. È il tipo di servizio che pensavo esistesse solo all'estero."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-depth py-28 px-6 relative">
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-16 fade-up">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-4xl md:text-5xl leading-tight">
+          Hai ancora qualche dubbio?<br /><em>Probabilmente la risposta è qui.</em>
+        </h2>
+      </div>
+
+      <div class="fade-up">
+        <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="font-body font-medium text-lg">Ma non è più economico cucinare da soli?</h3>
+            <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
+          </div>
+          <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
+            <p class="pt-4">Se valuti solo il costo degli ingredienti, forse. Ma considera il tempo (1-2 ore al giorno), gli sprechi, l'energia. E soprattutto: stai comparando supermarket con alta cucina professionale. Non è la stessa cosa.</p>
+          </div>
+        </div>
+
+        <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="font-body font-medium text-lg">Davvero durano 15 giorni senza congelare niente?</h3>
+            <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
+          </div>
+          <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
+            <p class="pt-4">Sì. Il sottovuoto blocca la proliferazione batterica e preserva sapori e nutrienti. I piatti vengono cucinati e sigillati nel momento di massima qualità. Non congelati — refrigerati e freschi.</p>
+          </div>
+        </div>
+
+        <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="font-body font-medium text-lg">Ci sono conservanti o additivi?</h3>
+            <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
+          </div>
+          <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
+            <p class="pt-4">Zero. Nessun conservante, nessun additivo. La conservazione avviene esclusivamente attraverso la tecnica del sottovuoto e la catena del freddo. Ingredienti puliti, punto.</p>
+          </div>
+        </div>
+
+        <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="font-body font-medium text-lg">Come funziona esattamente la rigenerazione al microonde?</h3>
+            <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
+          </div>
+          <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
+            <p class="pt-4">Ogni piatto arriva con le istruzioni. In genere: apri leggermente il sacchetto sottovuoto, metti in microonde 3-4 minuti a 700W. Il piatto torna esattamente com'era appena uscito dalla cucina di Marco.</p>
+          </div>
+        </div>
+
+        <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex justify-between items-center gap-4">
+            <h3 class="font-body font-medium text-lg">Posso personalizzare il menu in base alle mie preferenze?</h3>
+            <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
+          </div>
+          <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
+            <p class="pt-4">Assolutamente sì. La consulenza iniziale serve proprio a capire i tuoi gusti, le tue intolleranze, le tue abitudini. Marco costruisce il tuo menu su misura.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section id="contatto" class="py-28 px-6 text-center relative overflow-hidden" style="background: #B8960A;">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)"></div>
+    <div class="max-w-2xl mx-auto relative z-10 fade-up">
+      <h2 class="font-display text-5xl md:text-6xl text-brown leading-tight mb-6">
+        Il tuo frigo non sarà<br /><em>mai più vuoto.</em>
+      </h2>
+      <p class="font-body text-lg mb-3" style="color: rgba(28,16,8,0.7)">
+        Lascia i tuoi dati. Marco ti chiama entro 24 ore e chiarisce ogni tuo dubbio.
+      </p>
+      <p class="font-display italic text-xl mb-12" style="color: rgba(28,16,8,0.55)">La prima consegna è inclusa.</p>
+
+      <a href="mailto:info@marcomandaliti.it" class="cta-btn inline-block bg-cream text-brown font-body font-medium py-5 px-16 text-sm tracking-widest uppercase rounded-sm shadow-lg">
+        Sì, voglio parlare con Marco →
+      </a>
+
+      <p class="font-body text-xs tracking-widest uppercase mt-8" style="color: rgba(28,16,8,0.45)">Nessun vincolo &bull; Nessun abbonamento &bull; Solo qualità</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-16 px-6 text-center" style="background: #0A0A0A;">
+    <p class="font-display text-2xl mb-2" style="color: rgba(234,230,223,0.8)">Marco Mandaliti</p>
+    <p class="font-body text-xs tracking-widest uppercase mb-8" style="color: rgba(234,230,223,0.3)">Chef &mdash; Pasti Pronti di Alta Cucina</p>
+    <div class="flex justify-center gap-8 text-xs font-body tracking-wider uppercase" style="color: rgba(234,230,223,0.3)">
+      <a href="#" class="hover:text-gold transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-gold transition-colors">Cookies</a>
+      <a href="mailto:info@marcomandaliti.it" class="hover:text-gold transition-colors">Contatti</a>
+    </div>
+    <p class="font-body text-xs mt-8" style="color: rgba(234,230,223,0.2)">&copy; 2025 Marco Mandaliti &mdash; Tutti i diritti riservati</p>
+  </footer>
+
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Scroll reveal
-    gsap.utils.toArray('.reveal').forEach(el => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 48 },
-        {
-          opacity: 1, y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
+    gsap.utils.toArray('.fade-up').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      });
     });
 
-    // Counter animation
-    function animateCount(el, target, dur) {
-      const t0 = performance.now();
-      (function tick(now) {
-        const p = Math.min((now - t0) / dur, 1);
-        const e = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(e * target);
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = target;
-      })(t0);
-    }
-    document.querySelectorAll('[data-count]').forEach(el => {
+    gsap.utils.toArray('.fade-left').forEach(el => {
+      gsap.to(el, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+
+    gsap.utils.toArray('.fade-right').forEach(el => {
+      gsap.to(el, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+
+    // Hero on load
+    gsap.from('.hero-bg .fade-up', {
+      opacity: 0, y: 50, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.3,
+    });
+
+    // Counter
+    gsap.utils.toArray('.counter').forEach(el => {
+      const target = parseInt(el.dataset.target);
       ScrollTrigger.create({
-        trigger: el, start: 'top 90%', once: true,
-        onEnter: () => animateCount(el, +el.dataset.count, 1400)
+        trigger: el, start: 'top 85%', once: true,
+        onEnter: () => {
+          gsap.to({ val: 0 }, {
+            val: target, duration: 1.5, ease: 'power2.out',
+            onUpdate: function() { el.textContent = Math.round(this.targets()[0].val) + '+'; },
+          });
+        },
       });
     });
 
-    // Sticky bar — show after hero
-    const stickyBar = document.getElementById('stickyBar');
-    const hero = document.querySelector('section.dark-section');
-    ScrollTrigger.create({
-      trigger: hero, start: 'bottom top',
-      onEnter: () => stickyBar.classList.add('visible'),
-      onLeaveBack: () => stickyBar.classList.remove('visible')
-    });
-
-    // Parallax glows on dark sections
-    document.querySelectorAll('.dark-section > div[style*="radial-gradient"]').forEach((glow, i) => {
-      gsap.to(glow, {
-        y: i % 2 === 0 ? -80 : 80,
-        ease: 'none',
-        scrollTrigger: { trigger: glow.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1.5 }
-      });
-    });
+    function toggleFaq(item) {
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) {
+        answer.classList.add('open');
+        item.classList.add('open');
+      }
+    }
   </script>
-
 </body>
 </html>
