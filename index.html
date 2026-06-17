@@ -754,9 +754,10 @@
         scrollTrigger: { trigger: el, start: 'top 85%' } });
     });
 
-    gsap.from('.hero-bg .fade-up', {
-      opacity: 0, y: 60, duration: 1.1, stagger: 0.15, ease: 'power3.out', delay: 0.2,
-    });
+    gsap.fromTo('.hero-bg .fade-up',
+      { opacity: 0, y: 60 },
+      { opacity: 1, y: 0, duration: 1.1, stagger: 0.15, ease: 'power3.out', delay: 0.2 }
+    );
 
     gsap.utils.toArray('.counter').forEach(el => {
       const target = parseInt(el.dataset.target);
