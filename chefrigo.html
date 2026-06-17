@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CheFrigo — Piatti artigianali freschi fino a 15 giorni | Modena</title>
+  <meta name="description" content="Piatti di livello ristorante, preparati freschi e consegnati a casa tua. Restano freschi fino a 15 giorni. Servizio artigianale per professionisti a Modena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Variables ── */
+    :root {
+      --cream:      #F7F3EE;
+      --cream-alt:  #F2EDE6;
+      --sand:       #EDE7DC;
+      --sand-dark:  #E0D5C5;
+      --dark:       #211A14;
+      --dark-mid:   #3A2A1E;
+      --text:       #2C1F17;
+      --text-mid:   #7A5C4A;
+      --text-muted: #A08070;
+      --terra:      #C4673A;
+      --terra-dark: #A85430;
+      --olive:      #6B7C5E;
+      --border:     #D9CFC4;
+      --border-dk:  #C4B8A8;
+    }
+
+    /* ── Base ── */
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .wrap    { max-width: 680px;  margin: 0 auto; padding: 0 28px; }
+    .wrap-lg { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── Sections ── */
+    .s-cream { background: var(--cream); }
+    .s-sand  { background: var(--sand);  }
+    .s-dark  { background: var(--dark);  color: var(--cream); }
+
+    /* ── Reveal animation ── */
+    .r {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .r.on { opacity: 1; transform: translateY(0); }
+    .r.d1 { transition-delay: 0.1s; }
+    .r.d2 { transition-delay: 0.2s; }
+    .r.d3 { transition-delay: 0.3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .r { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Typography helpers ── */
+    .serif { font-family: 'Playfair Display', serif; }
+    .serif-i { font-family: 'Playfair Display', serif; font-style: italic; }
+
+    .eyebrow {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--terra);
+      margin-bottom: 20px;
+    }
+    .eyebrow.inv { color: rgba(247,243,238,.5); }
+
+    .divider {
+      width: 44px;
+      height: 2px;
+      background: var(--terra);
+      margin: 28px 0;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--terra);
+      color: #fff;
+      text-align: center;
+      padding: 13px 28px;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+    .topbar b { font-weight: 500; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,243,238,.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 500;
+      letter-spacing: -.01em;
+    }
+    .logo span { color: var(--terra); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      padding: 13px 28px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .2s, border-color .2s;
+      text-align: center;
+    }
+    .btn-terra {
+      background: var(--terra);
+      color: #fff;
+    }
+    .btn-terra:hover { background: var(--terra-dark); transform: translateY(-1px); }
+
+    .btn-terra-lg {
+      padding: 18px 44px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 104px 0 88px;
+      text-align: center;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 28px;
+    }
+    .hero-sub {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--text-mid);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 44px;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 400; }
+    .cta-note {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+    .hero-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 44px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+    .hero-steps .dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--border-dk);
+    }
+
+    /* ── MEDIA ── */
+    .media-ph {
+      height: 460px;
+      background: var(--sand-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-align: center;
+      gap: 12px;
+      flex-direction: column;
+    }
+    .media-ph svg { opacity: .45; }
+
+    /* ── NARRATIVE (dark) ── */
+    .narrative { padding: 96px 0; }
+    .narrative-body {
+      font-size: clamp(.98rem, 1.8vw, 1.1rem);
+      line-height: 1.95;
+      color: rgba(247,243,238,.78);
+    }
+    .narrative-body p { margin-bottom: 1.1em; }
+    .narrative-body p:last-child { margin-bottom: 0; }
+    .profession-list {
+      display: block;
+      padding: 20px 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: rgba(247,243,238,.45);
+      line-height: 1.9;
+    }
+    .n-highlight {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+      color: var(--terra);
+      line-height: 1.4;
+      margin: 36px 0;
+    }
+    .n-list { margin: 24px 0; }
+    .n-list span {
+      display: block;
+      padding: 4px 0;
+      color: rgba(247,243,238,.5);
+    }
+    .n-kicker {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: rgba(247,243,238,.65);
+      font-size: 1.05rem;
+    }
+
+    /* ── INSIGHT (light) ── */
+    .insight { padding: 96px 0; }
+    .insight-lead {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .insight-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+      font-weight: 400;
+      color: var(--text-mid);
+      margin-bottom: 40px;
+      line-height: 1.3;
+    }
+    .insight-body {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-mid);
+    }
+    .insight-body p { margin-bottom: 1em; }
+    .friction-list { margin: 28px 0; }
+    .friction-list span {
+      display: block;
+      padding: 5px 0;
+      color: var(--text-mid);
+      font-size: 1.02rem;
+    }
+    .insight-close {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      line-height: 1.55;
+      margin-top: 36px;
+    }
+
+    /* ── WHAT THEY BUY ── */
+    .what-buy { padding: 96px 0; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      margin-bottom: 40px;
+      line-height: 1.75;
+    }
+    .check-list { list-style: none; }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.03rem;
+      color: var(--text);
+    }
+    .check-list li:first-child { border-top: 1px solid var(--border); }
+    .chk {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--olive);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .chk svg { width: 11px; height: 11px; stroke: #fff; }
+    .buy-close {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin-top: 32px;
+    }
+
+    /* ── PROCESS ── */
+    .process { padding: 96px 0; }
+    .process-body {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-mid);
+    }
+    .process-body p { margin-bottom: 1em; }
+    .process-body .highlight {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .process-body .no-list span {
+      display: block;
+      padding: 3px 0;
+    }
+
+    /* ── CHI SIAMO ── */
+    .chi { padding: 96px 0; }
+    .chi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .chi-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--terra);
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 3px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      margin-bottom: 32px;
+    }
+    .chi-body {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: var(--text-mid);
+    }
+    .chi-body p { margin-bottom: 1em; }
+    .chi-body .italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── 3 STEPS ── */
+    .steps { padding: 96px 0; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+    .step-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 36px 30px;
+    }
+    .step-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--terra);
+      opacity: .28;
+      margin-bottom: 20px;
+    }
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 14px;
+    }
+    .step-body {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .step-mini { margin-top: 16px; }
+    .step-mini span {
+      display: block;
+      padding: 3px 0;
+      font-size: 0.92rem;
+      color: var(--text-mid);
+    }
+    .step-mini .strong { color: var(--text); font-weight: 500; }
+
+    /* ── VISION (dark) ── */
+    .vision { padding: 120px 0; text-align: center; }
+    .vision-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.8vw, 2.3rem);
+      line-height: 1.65;
+      color: var(--cream);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .vision-list {
+      margin: 44px auto;
+      max-width: 300px;
+    }
+    .vision-list span {
+      display: block;
+      padding: 6px 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(247,243,238,.45);
+    }
+    .vision-close {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+      line-height: 1.65;
+      color: rgba(247,243,238,.75);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .vision-list-b {
+      margin: 44px auto 0;
+      max-width: 280px;
+    }
+    .vision-list-b span {
+      display: block;
+      padding: 6px 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(247,243,238,.38);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testi { padding: 96px 0; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-top: 52px;
+    }
+    .tcard {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 30px 28px;
+    }
+    .tcard.wide {
+      grid-column: span 2;
+      background: var(--sand);
+    }
+    .tcard-stars {
+      color: var(--terra);
+      font-size: 0.82rem;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+    }
+    .tcard-q {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.08rem;
+      line-height: 1.65;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .tcard-name {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── FIT CHECK ── */
+    .fit { padding: 96px 0; }
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 52px;
+    }
+    .fit-col {
+      padding: 36px 32px;
+      border-radius: 5px;
+    }
+    .fit-yes { background: var(--cream); border: 1px solid var(--border); }
+    .fit-no  { background: var(--sand);  border: 1px solid var(--border); }
+    .fit-head {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin-bottom: 26px;
+    }
+    .fit-head.y { color: var(--olive); }
+    .fit-head.n { color: var(--text-muted); }
+    .fit-list { list-style: none; }
+    .fit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+    .fit-list li:last-child { border-bottom: none; }
+    .fit-mk { flex-shrink: 0; font-size: 0.88rem; margin-top: 1px; }
+    .fit-mk.y { color: var(--olive); }
+    .fit-mk.n { color: var(--text-muted); }
+
+    /* ── SCARCITY ── */
+    .scarcity {
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .scarcity-inner {
+      display: flex;
+      align-items: center;
+      gap: 52px;
+    }
+    .scarcity-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 5.5rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--terra);
+      flex-shrink: 0;
+    }
+    .scarcity-text {
+      font-size: 1.02rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+    }
+    .scarcity-text p { margin-bottom: 0.8em; }
+    .scarcity-text p:last-child { margin-bottom: 0; }
+    .scarcity-text strong { color: var(--text); font-weight: 500; }
+
+    /* ── FINAL CTA ── */
+    .cta-final { padding: 108px 0; text-align: center; }
+    .cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 14px;
+    }
+    .cta-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      color: rgba(247,243,238,.5);
+      margin-bottom: 52px;
+    }
+    .cta-form { max-width: 460px; margin: 0 auto; }
+    .form-g { margin-bottom: 14px; }
+    .form-g input, .form-g select {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(247,243,238,.07);
+      border: 1px solid rgba(247,243,238,.18);
+      border-radius: 3px;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      transition: border-color .2s;
+    }
+    .form-g input::placeholder { color: rgba(247,243,238,.35); }
+    .form-g input:focus {
+      outline: none;
+      border-color: var(--terra);
+    }
+    .form-btn {
+      width: 100%;
+      padding: 18px;
+      margin-top: 8px;
+      background: var(--terra);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .form-btn:hover { background: var(--terra-dark); transform: translateY(-1px); }
+    .form-note {
+      font-size: 0.8rem;
+      color: rgba(247,243,238,.35);
+      line-height: 1.7;
+      margin-top: 18px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(247,243,238,.07);
+      padding: 38px 0;
+    }
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: rgba(247,243,238,.35);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .chi-grid   { grid-template-columns: 1fr; gap: 40px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    @media (max-width: 700px) {
+      .testi-grid { grid-template-columns: 1fr; }
+      .tcard.wide { grid-column: span 1; }
+      .fit-grid   { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 76px 0 64px; }
+      .narrative, .insight, .what-buy, .process,
+      .chi, .steps, .testi, .fit, .cta-final { padding: 72px 0; }
+      .vision { padding: 88px 0; }
+      .scarcity { padding: 56px 0; }
+      .scarcity-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .wrap, .wrap-lg { padding: 0 20px; }
+      .nav-inner { padding: 16px 20px; }
+      .topbar { font-size: 0.8rem; padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <b>ATTENZIONE RESIDENTI A MODENA E DINTORNI</b> — Accettiamo massimo 10 nuovi clienti al mese per garantire preparazione artigianale, ingredienti freschi e qualità costante. La consegna del primo ordine è inclusa.
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">Che<span>Frigo</span></div>
+    <a href="#contatti" class="btn btn-terra">Parla con uno Chef</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero s-cream">
+  <div class="wrap">
+    <span class="eyebrow r">Modena e dintorni</span>
+
+    <h1 class="hero-headline r d1">
+      Hai lavorato<br>abbastanza oggi.
+    </h1>
+
+    <p class="hero-sub r d2">
+      La cena non dovrebbe essere un altro problema da risolvere.<br><br>
+      <strong>CheFrigo</strong> prepara per te piatti di livello ristorante
+      che restano freschi fino a 15 giorni.
+    </p>
+
+    <div class="r d3">
+      <a href="#contatti" class="btn btn-terra btn-terra-lg">PARLA CON UNO CHEF</a>
+      <p class="cta-note">Ti richiamiamo entro 24 ore. Nessun impegno.</p>
+    </div>
+
+    <div class="hero-steps r" style="transition-delay:.4s">
+      <span>Apri</span>
+      <span class="dot"></span>
+      <span>Scegli</span>
+      <span class="dot"></span>
+      <span>Scaldi</span>
+      <span class="dot"></span>
+      <span>Mangi</span>
+      <span class="dot"></span>
+      <span>Vai avanti</span>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO / FOTO PIATTI -->
+<section class="s-sand">
+  <div class="media-ph">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <circle cx="8.5" cy="8.5" r="1.5"/>
+      <path d="m21 15-5-5L5 21"/>
+    </svg>
+    <span>VIDEO / FOTO PIATTI</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     IL PROBLEMA
+══════════════════════════════════════════ -->
+<section class="narrative s-dark">
+  <div class="wrap">
+
+    <span class="eyebrow inv r">Il problema</span>
+
+    <h2 class="section-title r" style="color:var(--cream);margin-bottom:28px">
+      La maggior parte delle persone organizza<br>la propria vita attorno al cibo.
+    </h2>
+
+    <div class="divider r"></div>
+
+    <div class="narrative-body r">
+      <p>Noi abbiamo creato CheFrigo per fare il contrario.</p>
+      <p>C'è un momento che accomuna molti dei nostri clienti.</p>
+    </div>
+
+    <span class="profession-list r">
+      Avvocati.<br>
+      Dentisti.<br>
+      Imprenditori.<br>
+      Commercialisti.<br>
+      Consulenti.
+    </span>
+
+    <div class="narrative-body r">
+      <p>Professionisti che passano la giornata a prendere decisioni e risolvere problemi.</p>
+      <p>
+        Arrivano a casa.<br>
+        Posano le chiavi.<br>
+        Si siedono un attimo.
+      </p>
+      <p>E pensano:</p>
+    </div>
+
+    <div class="n-highlight r">"Adesso c'è anche la cena."</div>
+
+    <div class="narrative-body r">
+      <p>
+        Non è una tragedia.<br>
+        È peggio.<br>
+        È una piccola seccatura che si ripresenta ogni singolo giorno.
+      </p>
+    </div>
+
+    <div class="n-list r">
+      <span>Fare la spesa.</span>
+      <span>Decidere cosa mangiare.</span>
+      <span>Cucinare.</span>
+      <span>Pulire.</span>
+      <span>Ordinare delivery.</span>
+      <span>Aspettare.</span>
+      <span>Ricominciare da capo il giorno dopo.</span>
+    </div>
+
+    <div class="narrative-body r">
+      <p>Il problema non è il tempo che richiede.</p>
+      <p class="n-kicker">
+        Il problema è che continua a occupare spazio mentale.<br>
+        Ogni giorno.<br>
+        Ogni settimana.<br>
+        Ogni mese.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     L'INSIGHT
+══════════════════════════════════════════ -->
+<section class="insight s-cream">
+  <div class="wrap">
+
+    <span class="eyebrow r">L'insight</span>
+
+    <h2 class="insight-lead r">
+      Le persone con una vita piena non hanno bisogno di più forza di volontà.
+    </h2>
+    <p class="insight-sub r">Hanno bisogno di meno attriti.</p>
+
+    <div class="insight-body r">
+      <p>
+        Le persone di successo non eliminano i problemi enormi.<br>
+        Eliminano quelli ricorrenti.<br>
+        Perché sono quelli che consumano più energia.
+      </p>
+    </div>
+
+    <div class="friction-list r">
+      <span>La spesa.</span>
+      <span>La cucina.</span>
+      <span>Le pentole.</span>
+      <span>Le decisioni.</span>
+      <span>Le corse al supermercato.</span>
+      <span>Le ordinazioni dell'ultimo minuto.</span>
+    </div>
+
+    <div class="insight-body r">
+      <p>
+        Tutte attività piccole.<br>
+        Tutte attività ripetute.<br>
+        Tutte attività che rubano attenzione.
+      </p>
+    </div>
+
+    <div class="divider r"></div>
+
+    <p class="insight-close r">
+      CheFrigo nasce per eliminare una di queste.<br>
+      In modo semplice.<br>
+      Definitivo.
+    </p>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     COSA COMPRANO DAVVERO
+══════════════════════════════════════════ -->
+<section class="what-buy s-sand">
+  <div class="wrap">
+
+    <span class="eyebrow r">Il valore reale</span>
+    <h2 class="section-title r">Cosa comprano davvero i nostri clienti</h2>
+    <p class="section-lead r">
+      Non comprano semplicemente dei piatti pronti.<br>Comprano questo.
+    </p>
+
+    <ul class="check-list r">
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane senza fare la spesa.
+      </li>
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane senza cucinare.
+      </li>
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane senza ordinare delivery.
+      </li>
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane senza lavare pentole.
+      </li>
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane senza chiedersi cosa mangiare.
+      </li>
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane con il frigorifero già organizzato.
+      </li>
+      <li>
+        <span class="chk"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span>
+        Due settimane con una cosa in meno a cui pensare.
+      </li>
+    </ul>
+
+    <p class="buy-close r">
+      Per qualcuno può sembrare poco.<br>
+      Per chi lavora tutto il giorno è una differenza enorme.
+    </p>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     COME FUNZIONA — IL METODO
+══════════════════════════════════════════ -->
+<section class="process s-cream">
+  <div class="wrap">
+
+    <span class="eyebrow r">La differenza</span>
+    <h2 class="section-title r">
+      Prepariamo il piatto nel suo momento migliore.<br>E lo conserviamo lì.
+    </h2>
+
+    <div class="divider r"></div>
+
+    <div class="process-body r">
+      <p>
+        Molti servizi di consegna preparano il cibo e te lo fanno mangiare
+        quando ha già iniziato a perdere temperatura, consistenza e qualità.
+      </p>
+      <p>Noi facciamo il contrario.</p>
+      <p>
+        Prepariamo ogni piatto dopo aver ricevuto il tuo ordine.<br>
+        Lo confezioniamo <strong style="color:var(--text)">sottovuoto</strong> nel momento perfetto.
+      </p>
+      <div class="no-list" style="margin:24px 0">
+        <span>Senza conservanti.</span>
+        <span>Senza additivi.</span>
+        <span>Senza produzione industriale.</span>
+      </div>
+      <p>Quando decidi di mangiarlo, bastano pochi minuti.</p>
+      <p class="highlight">
+        E ritrovi il profumo, il sapore e la consistenza<br>
+        che normalmente andrebbero persi durante il trasporto.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CHI SIAMO
+══════════════════════════════════════════ -->
+<section class="chi s-sand">
+  <div class="wrap-lg">
+    <div class="chi-grid">
+
+      <div>
+        <span class="eyebrow r">Chi siamo</span>
+        <h2 class="section-title r" style="margin-bottom:28px">
+          Prima di CheFrigo abbiamo lavorato nelle cucine di ristoranti e hotel in Europa.
+        </h2>
+        <div class="chi-badge r">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          25+ anni di esperienza
+        </div>
+      </div>
+
+      <div class="chi-body r">
+        <p>Da oltre 25 anni utilizziamo ogni giorno la tecnica del sottovuoto.</p>
+        <p>Oggi facciamo la stessa cosa nel nostro laboratorio artigianale.</p>
+        <p class="italic">
+          Non produciamo in serie.<br>
+          Non prepariamo settimane prima.<br>
+          Non abbiamo magazzini pieni da smaltire.
+        </p>
+        <p><strong style="color:var(--text)">Cuciniamo dopo che hai ordinato.</strong><br>Sempre.</p>
+        <p>Per questo possiamo accettare solo un numero limitato di nuovi clienti ogni mese.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     COME FUNZIONA — 3 STEP
+══════════════════════════════════════════ -->
+<section class="steps s-cream">
+  <div class="wrap-lg">
+
+    <span class="eyebrow r">Come funziona</span>
+    <h2 class="section-title r">Tre passi. Poi basta.</h2>
+
+    <div class="steps-grid">
+
+      <div class="step-card r">
+        <div class="step-n">01</div>
+        <h3 class="step-title">Scegli cosa vuoi mangiare</h3>
+        <p class="step-body">Accedi al negozio e componi il tuo ordine liberamente.</p>
+        <div class="step-mini">
+          <span>Verdure.</span>
+          <span>Pesce.</span>
+          <span>Carne.</span>
+          <span>Cereali.</span>
+          <span>Piatti completi.</span>
+        </div>
+      </div>
+
+      <div class="step-card r d1">
+        <div class="step-n">02</div>
+        <h3 class="step-title">Entriamo in cucina</h3>
+        <p class="step-body">Prepariamo tutto dopo il tuo ordine.</p>
+        <div class="step-mini">
+          <span>Lavoriamo ingredienti freschi.</span>
+          <span>Confezioniamo sottovuoto.</span>
+          <span>Organizziamo la consegna.</span>
+        </div>
+      </div>
+
+      <div class="step-card r d2">
+        <div class="step-n">03</div>
+        <h3 class="step-title">Apri il frigo quando vuoi</h3>
+        <p class="step-body">I prodotti restano freschi fino a 15 giorni. Quando hai fame:</p>
+        <div class="step-mini">
+          <span>Apri.</span>
+          <span>Scegli.</span>
+          <span>Scaldi.</span>
+          <span>Mangi.</span>
+          <span class="strong">Fine.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     VISIONE (DARK)
+══════════════════════════════════════════ -->
+<section class="vision s-dark">
+  <div class="wrap">
+
+    <span class="eyebrow inv r">Immagina</span>
+
+    <p class="vision-text r">
+      Rientri a casa.<br>
+      Apri il frigorifero.<br>
+      Sai già che c'è qualcosa di buono pronto.
+    </p>
+
+    <div class="vision-list r d1">
+      <span>Non devi decidere.</span>
+      <span>Non devi ordinare.</span>
+      <span>Non devi cucinare.</span>
+      <span>Non devi pulire.</span>
+    </div>
+
+    <p class="vision-close r d2">
+      La cena è già risolta.<br><br>
+      E puoi dedicare il tuo tempo a ciò che conta davvero per te.
+    </p>
+
+    <div class="vision-list-b r d3">
+      <span>La tua famiglia.</span>
+      <span>Una serie TV.</span>
+      <span>Un libro.</span>
+      <span>Una passeggiata.</span>
+      <span>O semplicemente niente.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TESTIMONIANZE
+══════════════════════════════════════════ -->
+<section class="testi s-cream">
+  <div class="wrap-lg">
+
+    <span class="eyebrow r">Cosa dicono i clienti</span>
+
+    <div class="testi-grid">
+
+      <div class="tcard r">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-q">"Quando apro la busta si sente il profumo di un piatto appena fatto."</p>
+        <span class="tcard-name">Krisztina</span>
+      </div>
+
+      <div class="tcard r d1">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-q">"La qualità è davvero alta. Siamo entusiasti del servizio."</p>
+        <span class="tcard-name">Stefano</span>
+      </div>
+
+      <div class="tcard wide r d1">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-q">"Questa settimana avevo un sacco di impegni di lavoro e tornare a casa sapendo che il frigo era pieno di roba buona già pronta è stata una salvezza."</p>
+        <span class="tcard-name">Chiara</span>
+      </div>
+
+      <div class="tcard r d2">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-q">"Tutto straordinario."</p>
+        <span class="tcard-name">Federico</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FA PER TE?
+══════════════════════════════════════════ -->
+<section class="fit s-sand">
+  <div class="wrap-lg">
+
+    <span class="eyebrow r">Fa per te?</span>
+
+    <div class="fit-grid">
+
+      <div class="fit-col fit-yes r">
+        <h3 class="fit-head y">Sì, se:</h3>
+        <ul class="fit-list">
+          <li><span class="fit-mk y">✓</span> Dai valore al tuo tempo.</li>
+          <li><span class="fit-mk y">✓</span> Hai una vita piena e non vuoi organizzarla attorno ai pasti.</li>
+          <li><span class="fit-mk y">✓</span> Ti piace mangiare bene.</li>
+          <li><span class="fit-mk y">✓</span> Apprezzi la qualità artigianale.</li>
+          <li><span class="fit-mk y">✓</span> Preferisci eliminare problemi invece di gestirli.</li>
+        </ul>
+      </div>
+
+      <div class="fit-col fit-no r d1">
+        <h3 class="fit-head n">No, se:</h3>
+        <ul class="fit-list">
+          <li><span class="fit-mk n">✗</span> Cerchi il prezzo più basso.</li>
+          <li><span class="fit-mk n">✗</span> Per te un pasto vale l'altro.</li>
+          <li><span class="fit-mk n">✗</span> Ami cucinare ogni giorno.</li>
+          <li><span class="fit-mk n">✗</span> Non attribuisci alcun valore al tempo che spendi tra spesa, cucina e riordino.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DISPONIBILITÀ LIMITATA
+══════════════════════════════════════════ -->
+<section class="scarcity s-cream">
+  <div class="wrap">
+    <div class="scarcity-inner r">
+      <div class="scarcity-num">10</div>
+      <div class="scarcity-text">
+        <span class="eyebrow" style="margin-bottom:14px">Disponibilità limitata</span>
+        <p>Lavoriamo in un laboratorio artigianale.<br>Ogni piatto passa dalle nostre mani.</p>
+        <p>
+          Per questo accettiamo <strong>massimo 10 nuovi clienti al mese</strong>.
+          Quando raggiungiamo la nostra capacità produttiva chiudiamo le nuove richieste
+          e riapriamo il mese successivo.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CTA FINALE
+══════════════════════════════════════════ -->
+<section class="cta-final s-dark" id="contatti">
+  <div class="wrap">
+
+    <span class="eyebrow inv r">Inizia ora</span>
+
+    <h2 class="cta-headline r d1">
+      Hai già abbastanza cose<br>a cui pensare.
+    </h2>
+    <p class="cta-sub r d2">La cena non dovrebbe essere una di queste.</p>
+
+    <form class="cta-form r d2" action="#" method="post">
+      <div class="form-g">
+        <input type="text" name="nome" placeholder="Il tuo nome" required>
+      </div>
+      <div class="form-g">
+        <input type="tel" name="telefono" placeholder="Numero di telefono" required>
+      </div>
+      <div class="form-g">
+        <input type="email" name="email" placeholder="Email (opzionale)">
+      </div>
+      <button type="submit" class="form-btn">PARLA CON UNO CHEF</button>
+      <p class="form-note">
+        Nessun pagamento. Nessun abbonamento. Nessun impegno.<br>
+        Solo una telefonata di 10 minuti per capire se CheFrigo è adatto a te.
+      </p>
+    </form>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span style="font-family:'Playfair Display',serif;color:rgba(247,243,238,.55)">CheFrigo</span>
+    <span>Modena e dintorni</span>
+    <span>© 2025 CheFrigo. Tutti i diritti riservati.</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal via IntersectionObserver
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
