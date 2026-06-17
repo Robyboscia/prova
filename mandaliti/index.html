@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Mandaliti — Pasti pronti di livello ristorante</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#EAE6DF',
+            'cream-light': '#F2EFE9',
+            brown: '#1C1008',
+            'brown-dark': '#3D1F0F',
+            gold: '#B8960A',
+            'gold-light': '#C9A825',
+          },
+          fontFamily: {
+            display: ['Cormorant Garamond', 'serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background-color: #EAE6DF; color: #1C1008; }
+
+    .hero-bg {
+      background: linear-gradient(160deg, #1a0d05 0%, #2e1508 50%, #1a0d05 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(184,150,10,0.07) 0%, transparent 65%);
+    }
+
+    .grain::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay; pointer-events: none;
+    }
+
+    .gold-line {
+      width: 48px; height: 2px; background: #B8960A;
+      display: block; margin-bottom: 1.5rem;
+    }
+
+    .ticker-wrap { overflow: hidden; white-space: nowrap; }
+    .ticker { display: inline-block; animation: ticker 28s linear infinite; }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .hero-food-img img {
+      width: 100%; height: 520px; object-fit: cover; display: block;
+    }
+    .hero-food-img { position: relative; }
+    .hero-food-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(26,13,5,0.6) 100%);
+    }
+
+    .dish-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) { .dish-gallery { grid-template-columns: repeat(2, 1fr); } }
+    .dish-card { position: relative; overflow: hidden; cursor: pointer; }
+    .dish-card img { width: 100%; height: 280px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .dish-card:hover img { transform: scale(1.04); }
+    .dish-card-label {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 16px;
+      background: linear-gradient(to top, rgba(28,16,8,0.85) 0%, transparent 100%);
+      color: #EAE6DF; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic;
+    }
+
+    .mega-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 260px;
+      gap: 8px;
+    }
+    @media (max-width: 1024px) { .mega-gallery { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px) { .mega-gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; } }
+    .mega-gallery .featured { grid-column: span 2; grid-row: span 2; }
+    .mega-item { position: relative; overflow: hidden; }
+    .mega-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .mega-item:hover img { transform: scale(1.04); }
+    .mega-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px;
+      background: linear-gradient(to top, rgba(28,16,8,0.8) 0%, transparent 100%);
+      color: #EAE6DF; font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic; font-weight: 600;
+    }
+
+    .comparison-col img { width: 100%; height: 420px; object-fit: cover; display: block; }
+
+    .testi-row {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: stretch; background: #F2EFE9; overflow: hidden;
+    }
+    .testi-row .dish-thumb { width: 180px; object-fit: cover; display: block; }
+    @media (max-width: 640px) {
+      .testi-row { grid-template-columns: 1fr; }
+      .testi-row .dish-thumb { width: 100%; height: 200px; }
+    }
+
+    .cta-photo-bg { position: relative; overflow: hidden; }
+    .cta-photo-bg > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .cta-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,13,5,0.6) 0%, rgba(26,13,5,0.78) 100%); }
+
+    .faq-item { border-bottom: 1px solid rgba(184,150,10,0.3); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-answer.open { max-height: 300px; }
+    .faq-icon { transition: transform 0.3s ease; display: inline-block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(28,16,8,0.12); }
+
+    .cta-btn { transition: all 0.3s ease; letter-spacing: 0.12em; display: inline-block; }
+    .cta-btn:hover { background: #1C1008 !important; color: #EAE6DF !important; transform: translateY(-2px); }
+    .cta-btn-outline { transition: all 0.3s ease; letter-spacing: 0.12em; display: inline-block; }
+    .cta-btn-outline:hover { background: #B8960A; color: #1C1008; border-color: #B8960A; transform: translateY(-2px); }
+
+    .checklist li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(28,16,8,0.08); }
+    .checklist li:last-child { border-bottom: none; }
+
+    .fade-up { opacity: 1; transform: none; }
+    .fade-left { opacity: 1; transform: none; }
+    .fade-right { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <div class="bg-brown-dark text-cream py-3 z-50 relative">
+    <div class="ticker-wrap">
+      <div class="ticker text-xs font-body tracking-widest uppercase">
+        <span class="mx-8 font-medium">Attenzione residenti a Modena e dintorni</span>
+        <span class="mx-8 text-gold-light">&#187; Accettiamo massimo 10 nuovi clienti al mese per garantire qualità costante</span>
+        <span class="mx-8">La consegna del primo ordine è inclusa &bull; Zero conservanti &bull; 15 giorni di freschezza</span>
+        <span class="mx-8 text-gold-light">&#187; Parla con Marco — Ti richiamiamo entro 24 ore</span>
+        <span class="mx-8 font-medium">Attenzione residenti a Modena e dintorni</span>
+        <span class="mx-8 text-gold-light">&#187; Accettiamo massimo 10 nuovi clienti al mese per garantire qualità costante</span>
+        <span class="mx-8">La consegna del primo ordine è inclusa &bull; Zero conservanti &bull; 15 giorni di freschezza</span>
+        <span class="mx-8 text-gold-light">&#187; Parla con Marco — Ti richiamiamo entro 24 ore</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero-bg grain relative">
+    <div class="absolute inset-0 z-0" style="background: linear-gradient(to bottom, rgba(26,13,5,0.5) 0%, rgba(26,13,5,0.15) 45%, rgba(26,13,5,0.85) 100%);"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-0 text-center">
+      <p class="font-body text-gold tracking-[0.3em] text-xs uppercase mb-7 fade-up">Chef Marco Mandaliti &mdash; Modena</p>
+
+      <h1 class="font-display text-cream text-6xl md:text-8xl leading-[1.05] mb-8 fade-up">
+        Hai lavorato<br /><em>abbastanza oggi.</em>
+      </h1>
+
+      <p class="font-body text-cream/65 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-6 fade-up">
+        La cena non dovrebbe essere un altro problema da risolvere.
+      </p>
+
+      <div class="font-display italic text-cream/80 text-xl md:text-2xl mb-10 fade-up space-y-1">
+        <p>Piatti di livello ristorante. Freschi fino a 15 giorni.</p>
+        <p class="text-gold">Apri il frigo. Scegli. Scaldi. Mangi.</p>
+      </div>
+
+      <div class="fade-up flex flex-col sm:flex-row gap-4 justify-center items-center mb-14">
+        <a href="#contatto" class="cta-btn bg-gold text-brown font-body font-medium py-4 px-12 text-sm tracking-widest uppercase">
+          Parla con uno chef →
+        </a>
+        <p class="font-body text-cream/40 text-xs">Ti richiamiamo entro 24 ore. Nessun impegno.</p>
+      </div>
+
+      <!-- FOTO GIGANTE HERO — prima la fame, poi la logica -->
+      <div class="hero-food-img fade-up">
+        <img
+          src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=1400&q=90"
+          alt="Piatto gourmet — Marco Mandaliti"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEMA — la stanchezza del cibo ═══ -->
+  <section class="py-28 px-6" style="background: #F2EFE9;">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-16 fade-up">
+        <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-6">La maggior parte delle persone organizza la propria vita attorno al cibo.</p>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight mb-10">
+          Noi abbiamo creato questo servizio<br /><em>per fare il contrario.</em>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-12 mt-12">
+          <div>
+            <p class="font-body text-lg leading-loose" style="color: rgba(28,16,8,0.68)">
+              C'è un momento che accomuna molti dei nostri clienti.<br /><br />
+              Avvocati. Dentisti. Imprenditori. Commercialisti. Consulenti.<br /><br />
+              Professionisti che passano la giornata a prendere decisioni e risolvere problemi.<br /><br />
+              Arrivano a casa. Posano le chiavi. Si siedono un attimo.<br /><br />
+              E pensano:
+            </p>
+            <p class="font-display italic text-3xl text-gold mt-6">
+              "Adesso c'è anche la cena."
+            </p>
+          </div>
+          <div>
+            <p class="font-body text-lg leading-loose mb-4" style="color: rgba(28,16,8,0.68)">Non è una tragedia. È peggio.<br /><br />È una piccola seccatura che si ripresenta ogni singolo giorno.</p>
+            <ul class="space-y-2 font-body" style="color: rgba(28,16,8,0.55)">
+              <li class="flex gap-3 items-start"><span class="text-gold mt-1">—</span>Fare la spesa</li>
+              <li class="flex gap-3 items-start"><span class="text-gold mt-1">—</span>Decidere cosa mangiare</li>
+              <li class="flex gap-3 items-start"><span class="text-gold mt-1">—</span>Cucinare e pulire</li>
+              <li class="flex gap-3 items-start"><span class="text-gold mt-1">—</span>Ordinare delivery. Aspettare.</li>
+              <li class="flex gap-3 items-start"><span class="text-gold mt-1">—</span>Ricominciare da capo il giorno dopo</li>
+            </ul>
+            <p class="font-body text-lg mt-6 leading-relaxed" style="color: rgba(28,16,8,0.68)">Il problema non è il tempo che richiede.<br /><strong class="text-brown">Il problema è che continua a occupare spazio mentale.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gold/25 pt-12 fade-up">
+        <h3 class="font-display text-3xl md:text-4xl leading-tight mb-4">
+          Le persone con una vita piena non hanno bisogno di più forza di volontà.<br />
+          <em class="text-gold">Hanno bisogno di meno attriti.</em>
+        </h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALLERY PIATTI ═══ -->
+  <section id="piatti" class="py-24 px-6 bg-depth relative" style="background: #EAE6DF;">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-12 fade-up">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-4xl md:text-5xl leading-tight">
+          Alcuni dei piatti che troverai<br /><em>nel tuo frigorifero.</em>
+        </h2>
+      </div>
+
+      <div class="dish-gallery fade-up">
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1598515213692-b4e3a64e8ba4?w=700&q=85" alt="Pollo al limone" />
+          <div class="dish-card-label">Pollo al limone</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=85" alt="Cereali orientali" />
+          <div class="dish-card-label">Cereali orientali</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9d0?w=700&q=85" alt="Verdure natura" />
+          <div class="dish-card-label">Verdure natura</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=700&q=85" alt="Zuppa di legumi" />
+          <div class="dish-card-label">Zuppa di legumi e gamberi</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=700&q=85" alt="Pesce al vapore" />
+          <div class="dish-card-label">Filetto di pesce al vapore</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&q=85" alt="Piatto completo" />
+          <div class="dish-card-label">Piatto completo gourmet</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COSA COMPRANO DAVVERO ═══ -->
+  <section class="py-28 px-6" style="background: #1C1008;">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="fade-left">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-5xl md:text-6xl text-cream leading-tight mb-10">
+          Cosa comprano davvero<br /><em class="text-gold">i nostri clienti.</em>
+        </h2>
+        <p class="font-body mb-6 text-lg" style="color: rgba(234,230,223,0.55)">Non comprano semplicemente dei piatti pronti.<br />Comprano questo.</p>
+
+        <ul class="checklist space-y-0">
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane senza fare la spesa
+          </li>
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane senza cucinare
+          </li>
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane senza ordinare delivery
+          </li>
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane senza lavare pentole
+          </li>
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane senza chiedersi cosa mangiare
+          </li>
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane con il frigorifero già organizzato
+          </li>
+          <li style="color: rgba(234,230,223,0.75); border-color: rgba(184,150,10,0.15)">
+            <span class="text-gold flex-shrink-0 font-medium mt-0.5">✓</span>
+            Due settimane con una cosa in meno a cui pensare
+          </li>
+        </ul>
+
+        <p class="font-display italic text-gold text-xl mt-8">Per chi lavora tutto il giorno è una differenza enorme.</p>
+      </div>
+
+      <!-- Lifestyle photo -->
+      <div class="fade-right relative">
+        <div class="relative overflow-hidden" style="border-radius: 2px;">
+          <img
+            src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?w=800&q=85"
+            alt="Professionista che apre il frigo — sollievo"
+            class="w-full object-cover"
+            style="height: 540px;"
+          />
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(28,16,8,0.4) 0%, transparent 60%)"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONFRONTO VISIVO ═══ -->
+  <section class="py-24 px-6" style="background: #2e1508;">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14 fade-up">
+        <h2 class="font-display text-5xl md:text-6xl text-cream leading-tight">
+          Il cervello capisce in 2 secondi<br /><em class="text-gold">quello che il copy spiega in 200 parole.</em>
+        </h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-2 fade-up">
+        <div class="comparison-col relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=80" alt="Food delivery" class="grayscale" />
+          <div class="absolute inset-0 bg-black/55 flex flex-col justify-end p-8">
+            <div class="inline-block bg-red-900/80 text-cream text-xs tracking-widest uppercase font-body px-3 py-1 mb-3" style="width: fit-content;">Food Delivery</div>
+            <p class="font-display italic text-cream text-2xl leading-tight">Pizza schiacciata.<br />Contenitore unto.<br />Piatto arrivato male.</p>
+          </div>
+        </div>
+        <div class="comparison-col relative overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=85" alt="Marco Mandaliti" />
+          <div class="absolute inset-0 flex flex-col justify-end p-8" style="background: linear-gradient(to top, rgba(28,16,8,0.75) 0%, transparent 55%)">
+            <div class="inline-block bg-gold text-brown text-xs tracking-widest uppercase font-body px-3 py-1 mb-3" style="width: fit-content;">Marco Mandaliti</div>
+            <p class="font-display italic text-cream text-2xl leading-tight">Perfettamente impiattato.<br />Colori vivi.<br />Come appena cucinato.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NUMERI ═══ -->
+  <section class="py-20 px-6 relative overflow-hidden" style="background: #3D1F0F;">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(184,150,10,0.08) 0%, transparent 70%)"></div>
+    <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold counter" data-target="25">0</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Anni di esperienza</p>
+      </div>
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold counter" data-target="15">0</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Giorni di freschezza</p>
+      </div>
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold">4'</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Per un piatto perfetto</p>
+      </div>
+      <div class="fade-up">
+        <p class="font-display text-5xl font-bold text-gold counter" data-target="10">0</p>
+        <p class="font-body text-xs tracking-widest uppercase mt-2" style="color: rgba(234,230,223,0.5)">Nuovi clienti al mese</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CHI SIAMO ═══ -->
+  <section class="py-28 px-6" style="background: #F2EFE9;">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="fade-right relative order-2 md:order-1">
+        <div class="relative overflow-hidden" style="border-radius: 2px;">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=85" alt="Marco Mandaliti chef" class="w-full object-cover" style="height: 500px;" />
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(28,16,8,0.35) 0%, transparent 60%)"></div>
+        </div>
+        <div class="absolute -bottom-6 -right-6 bg-gold p-6 shadow-xl">
+          <p class="font-display text-4xl font-bold text-brown leading-none">25+</p>
+          <p class="font-body text-xs text-brown/80 tracking-widest uppercase mt-1">Anni sottovuoto</p>
+        </div>
+      </div>
+      <div class="fade-left order-1 md:order-2">
+        <span class="gold-line"></span>
+        <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">Chi siamo</p>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight mb-8">
+          Prima le cucine<br /><em>d'Europa.</em><br />Ora la tua.
+        </h2>
+        <p class="font-body text-lg leading-relaxed mb-4" style="color: rgba(28,16,8,0.68)">Prima di questo servizio abbiamo lavorato nelle cucine di ristoranti e hotel in Europa. Da oltre 25 anni utilizziamo ogni giorno la tecnica del sottovuoto.</p>
+        <p class="font-body text-lg leading-relaxed mb-4" style="color: rgba(28,16,8,0.68)">Oggi facciamo la stessa cosa nel nostro laboratorio artigianale.<br /><strong class="text-brown">Non produciamo in serie. Cuciniamo dopo che hai ordinato. Sempre.</strong></p>
+        <p class="font-body text-lg leading-relaxed" style="color: rgba(28,16,8,0.68)">Per questo possiamo accettare solo un numero limitato di nuovi clienti ogni mese.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COME FUNZIONA — Infografica ═══ -->
+  <section id="come-funziona" class="py-28 px-6" style="background: #EAE6DF;">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-20 fade-up">
+        <span class="gold-line mx-auto"></span>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight">Come funziona.</h2>
+        <p class="font-body mt-4" style="color: rgba(28,16,8,0.45)">Prepariamo il piatto nel suo momento migliore. E lo conserviamo lì.</p>
+      </div>
+
+      <div class="fade-up">
+
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full border-2 border-gold flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">01</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Scegli cosa vuoi mangiare</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Verdure. Pesce. Carne. Cereali. Piatti completi. Componi il tuo ordine liberamente.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto overflow-hidden" style="border-radius: 2px;">
+              <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=200&q=80" alt="Chef" class="w-full h-full object-cover" />
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">02</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Entriamo in cucina</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Prepariamo tutto dopo il tuo ordine. Ingredienti freschi. Sottovuoto. Nessun conservante.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto overflow-hidden" style="border-radius: 2px;">
+              <img src="https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=200&q=80" alt="Frigo" class="w-full h-full object-cover" />
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">03</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Apri il frigo quando vuoi</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">I prodotti restano freschi fino a 15 giorni. Scegli. Senza pianificazione.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full border-2 border-gold flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">04</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">4 minuti</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Apri il sacchetto, scalda. Ritrovi profumo, sapore e consistenza come appena cucinato.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto overflow-hidden" style="border-radius: 2px;">
+              <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=200&q=85" alt="Piatto gourmet" class="w-full h-full object-cover" />
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">05</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Mangi.</h3>
+            <p class="font-display italic text-gold text-xl">E vai avanti con la tua serata.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ IMMAGINA LA PROSSIMA SETTIMANA ═══ -->
+  <section class="py-24 px-6" style="background: #3D1F0F; position: relative; overflow: hidden;">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 50% 70% at 70% 50%, rgba(184,150,10,0.07) 0%, transparent 70%)"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10 fade-up">
+      <h2 class="font-display text-5xl md:text-6xl text-cream leading-tight mb-10">
+        Immagina come sarà<br /><em class="text-gold">la prossima settimana.</em>
+      </h2>
+      <div class="font-body text-lg space-y-3 mb-10" style="color: rgba(234,230,223,0.65)">
+        <p>Rientri a casa. Apri il frigorifero.</p>
+        <p>Sai già che c'è qualcosa di buono pronto.</p>
+        <p><strong class="text-cream">Non devi decidere. Non devi ordinare. Non devi cucinare. Non devi pulire.</strong></p>
+        <p>La cena è già risolta.</p>
+      </div>
+      <p class="font-body text-lg" style="color: rgba(234,230,223,0.55)">E puoi dedicare il tuo tempo a ciò che conta davvero per te.</p>
+      <div class="flex flex-wrap justify-center gap-6 mt-6 font-display italic text-gold text-xl">
+        <span>La tua famiglia.</span>
+        <span>Una serie TV.</span>
+        <span>Un libro.</span>
+        <span>O semplicemente niente.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MEGA GALLERY ═══ -->
+  <section class="py-24 px-6" style="background: #1C1008;">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 fade-up">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-5xl md:text-6xl text-cream leading-tight">
+          Il frigo che hai sempre<br /><em class="text-gold">voluto avere.</em>
+        </h2>
+        <p class="font-body mt-4 text-lg" style="color: rgba(234,230,223,0.4)">Tutti i piatti. Tutti pronti. Tutti tuoi.</p>
+      </div>
+
+      <div class="mega-gallery fade-up">
+        <div class="mega-item featured">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=1000&q=90" alt="Pollo al limone" />
+          <div class="mega-item-label">Pollo al limone</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=85" alt="Farro gamberi e lime" />
+          <div class="mega-item-label">Farro gamberi e lime</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9d0?w=600&q=85" alt="Verdure natura" />
+          <div class="mega-item-label">Verdure natura</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=600&q=85" alt="Zuppa di legumi" />
+          <div class="mega-item-label">Zuppa di legumi</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=85" alt="Pesce al vapore" />
+          <div class="mega-item-label">Pesce al vapore</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=85" alt="Cereali orientali" />
+          <div class="mega-item-label">Cereali orientali</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1598515213692-b4e3a64e8ba4?w=600&q=85" alt="Contorni gourmet" />
+          <div class="mega-item-label">Contorni gourmet</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=85" alt="Piatto completo" />
+          <div class="mega-item-label">Piatto completo</div>
+        </div>
+      </div>
+
+      <div class="text-center mt-14 fade-up">
+        <p class="font-display italic text-2xl text-gold mb-8">
+          "Ok, adesso ho capito perché la gente lo sceglie."
+        </p>
+        <a href="#contatto" class="cta-btn bg-gold text-brown font-body font-medium py-4 px-12 text-sm tracking-widest uppercase">
+          Parla con uno chef →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIANZE ═══ -->
+  <section class="py-28 px-6" style="background: #EAE6DF;">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-16 fade-up">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight">
+          Cosa dicono i clienti.
+        </h2>
+      </div>
+
+      <div class="space-y-6 fade-up">
+
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-body font-medium" style="background:#15803d">K</div>
+              <p class="font-body font-medium text-sm">Krisztina</p>
+            </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "Quando apro la busta si sente il profumo di un <strong class="not-italic font-semibold text-brown">piatto appena fatto.</strong>"
+            </p>
+          </div>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=300&q=85" alt="Piatto gourmet" />
+        </div>
+
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-cream text-sm font-body font-medium bg-brown-dark">C</div>
+              <p class="font-body font-medium text-sm">Chiara</p>
+            </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "Questa settimana avevo un sacco di impegni di lavoro e tornare a casa sapendo che il frigo era pieno di <strong class="not-italic font-semibold text-brown">roba buona già pronta</strong> è stata una salvezza."
+            </p>
+          </div>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=300&q=85" alt="Farro gamberi e lime" />
+        </div>
+
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-brown text-sm font-body font-medium bg-gold">S</div>
+              <p class="font-body font-medium text-sm">Stefano</p>
+            </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "<strong class="not-italic font-semibold text-brown">La qualità è davvero alta.</strong> Siamo entusiasti del servizio."
+            </p>
+          </div>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&q=85" alt="Cereali orientali" />
+        </div>
+
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-cream text-sm font-body font-medium" style="background: #5c3d1e">F</div>
+              <p class="font-body font-medium text-sm">Federico</p>
+            </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "<strong class="not-italic font-semibold text-brown">Tutto straordinario.</strong>"
+            </p>
+          </div>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=300&q=85" alt="Pesce" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FA PER TE? ═══ -->
+  <section class="py-28 px-6" style="background: #F2EFE9;">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <span class="gold-line mx-auto"></span>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight">
+          Fa per te?
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="fade-left bg-cream border-l-4 border-green-700 p-8">
+          <h3 class="font-display text-2xl font-semibold mb-6" style="color: #15803d">Sì, se…</h3>
+          <ul class="space-y-3">
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Dai valore al tuo tempo</li>
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Hai una vita piena e non vuoi organizzarla attorno ai pasti</li>
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Ti piace mangiare bene</li>
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Apprezzi la qualità artigianale</li>
+            <li class="font-body flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Preferisci eliminare problemi invece di gestirli</li>
+          </ul>
+        </div>
+        <div class="fade-right bg-cream border-l-4 border-red-700 p-8">
+          <h3 class="font-display text-2xl font-semibold mb-6" style="color: #b91c1c">No, se…</h3>
+          <ul class="space-y-3">
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Cerchi il prezzo più basso</li>
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Per te un pasto vale l'altro</li>
+            <li class="font-body pb-3 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Ami cucinare ogni giorno</li>
+            <li class="font-body flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Non attribuisci alcun valore al tempo che spendi tra spesa, cucina e riordino</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Disponibilità limitata -->
+      <div class="mt-16 bg-brown p-10 text-center fade-up" style="border-radius: 2px;">
+        <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">Disponibilità limitata</p>
+        <h3 class="font-display text-3xl text-cream leading-tight mb-4">
+          Ogni piatto passa dalle nostre mani.<br /><em>Per questo accettiamo solo 10 nuovi clienti al mese.</em>
+        </h3>
+        <p class="font-body mb-8" style="color: rgba(234,230,223,0.55)">Quando raggiungiamo la nostra capacità produttiva chiudiamo le nuove richieste e riapriamo il mese successivo.</p>
+        <a href="#contatto" class="cta-btn bg-gold text-brown font-body font-medium py-4 px-12 text-sm tracking-widest uppercase">
+          Verifica disponibilità →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA FINALE — Foto tavola emozionale ═══ -->
+  <section id="contatto" class="cta-photo-bg relative" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=90" alt="Tavola apparecchiata — luce calda, calice, atmosfera" />
+    <div class="cta-overlay"></div>
+
+    <div class="relative z-10 text-center px-6 py-28 max-w-3xl mx-auto fade-up">
+      <span class="gold-line mx-auto"></span>
+      <h2 class="font-display text-cream text-5xl md:text-7xl leading-tight mb-4">
+        Hai già abbastanza<br /><em>cose a cui pensare.</em>
+      </h2>
+      <p class="font-display italic text-cream/65 text-2xl md:text-3xl mb-12">
+        La cena non dovrebbe essere una di queste.
+      </p>
+
+      <p class="font-body mb-8" style="color: rgba(234,230,223,0.55)">Compila il modulo. Ti richiamiamo entro 24 ore. Rispondiamo a tutte le tue domande e verifichiamo la disponibilità nella tua zona.</p>
+
+      <a href="mailto:info@marcomandaliti.it" class="cta-btn-outline border-2 border-cream text-cream font-body font-medium py-5 px-14 text-sm tracking-widest uppercase mb-6">
+        Parla con uno chef →
+      </a>
+
+      <p class="font-body text-xs tracking-widest uppercase mt-8" style="color: rgba(234,230,223,0.35)">
+        Nessun pagamento &bull; Nessun abbonamento &bull; Nessun impegno<br />Solo una telefonata di 10 minuti per capire se fa per te.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="py-16 px-6 text-center" style="background: #0A0A0A;">
+    <p class="font-display text-2xl mb-2" style="color: rgba(234,230,223,0.8)">Marco Mandaliti</p>
+    <p class="font-body text-xs tracking-widest uppercase mb-8" style="color: rgba(234,230,223,0.3)">Pasti Pronti di Livello Ristorante &mdash; Modena</p>
+    <div class="flex justify-center gap-8 text-xs font-body tracking-wider uppercase" style="color: rgba(234,230,223,0.3)">
+      <a href="#" class="hover:text-gold transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-gold transition-colors">Cookies</a>
+      <a href="mailto:info@marcomandaliti.it" class="hover:text-gold transition-colors">Contatti</a>
+    </div>
+    <p class="font-body text-xs mt-8" style="color: rgba(234,230,223,0.18)">&copy; 2025 Marco Mandaliti &mdash; Tutti i diritti riservati</p>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.fade-up').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      });
+    });
+    gsap.utils.toArray('.fade-left').forEach(el => {
+      gsap.to(el, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+    gsap.utils.toArray('.fade-right').forEach(el => {
+      gsap.to(el, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+
+    gsap.fromTo('.hero-bg .fade-up',
+      { opacity: 0, y: 60 },
+      { opacity: 1, y: 0, duration: 1.1, stagger: 0.15, ease: 'power3.out', delay: 0.2 }
+    );
+
+    gsap.utils.toArray('.counter').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%', once: true,
+        onEnter: () => {
+          gsap.to({ val: 0 }, {
+            val: target, duration: 1.5, ease: 'power2.out',
+            onUpdate: function() { el.textContent = Math.round(this.targets()[0].val) + '+'; },
+          });
+        },
+      });
+    });
+
+    function toggleFaq(item) {
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); item.classList.add('open'); }
+    }
+  </script>
+</body>
+</html>
