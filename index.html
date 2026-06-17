@@ -361,19 +361,99 @@ nav.nav-blur{top:40px!important}
         "name": "Mental Pro™"
       },
       "manufacturer": {"@id": "https://mentalpro.it/#organization"},
+      "material": "Polvere solubile",
+      "weight": {
+        "@type": "QuantitativeValue",
+        "value": "180",
+        "unitCode": "GRM"
+      },
+      "additionalProperty": [
+        {"@type": "PropertyValue", "name": "Formato", "value": "Polvere solubile"},
+        {"@type": "PropertyValue", "name": "Peso netto", "value": "180 g"},
+        {"@type": "PropertyValue", "name": "Dosi per confezione", "value": "60 dosi"},
+        {"@type": "PropertyValue", "name": "Dose giornaliera", "value": "3 g"},
+        {"@type": "PropertyValue", "name": "Ingrediente 1", "value": "Inositolo 2000mg"},
+        {"@type": "PropertyValue", "name": "Ingrediente 2", "value": "Magnesio Bisglicinato"},
+        {"@type": "PropertyValue", "name": "Ingrediente 3", "value": "Taurina"},
+        {"@type": "PropertyValue", "name": "Ingrediente 4", "value": "Glicina"},
+        {"@type": "PropertyValue", "name": "Paese di produzione", "value": "Italia"},
+        {"@type": "PropertyValue", "name": "Tempi di consegna", "value": "2-3 giorni lavorativi in Italia"}
+      ],
       "offers": [
         {
           "@type": "Offer",
-          "name": "Reset Iniziale — 1 confezione",
+          "name": "Reset Iniziale — 1 confezione (30 giorni, 60 dosi)",
           "price": "47.00",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
           "url": "https://mentalpro.it/#pricing",
           "priceValidUntil": "2026-12-31",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "currency": "EUR"},
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY"},
+              "transitTime": {"@type": "QuantitativeValue", "minValue": 2, "maxValue": 3, "unitCode": "DAY"}
+            },
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "IT"}
+          },
           "hasMerchantReturnPolicy": {
             "@type": "MerchantReturnPolicy",
             "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
             "merchantReturnDays": 60,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/FreeReturn"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Bundle Sleep Elite — 3 confezioni (90 giorni, 180 dosi)",
+          "price": "117.00",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://mentalpro.it/#pricing",
+          "priceValidUntil": "2026-12-31",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "currency": "EUR"},
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY"},
+              "transitTime": {"@type": "QuantitativeValue", "minValue": 2, "maxValue": 3, "unitCode": "DAY"}
+            },
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "IT"}
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 180,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/FreeReturn"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Massimo Risparmio — 6 confezioni (180 giorni, 360 dosi)",
+          "price": "249.00",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://mentalpro.it/#pricing",
+          "priceValidUntil": "2026-12-31",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "currency": "EUR"},
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY"},
+              "transitTime": {"@type": "QuantitativeValue", "minValue": 2, "maxValue": 3, "unitCode": "DAY"}
+            },
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "IT"}
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 180,
             "returnMethod": "https://schema.org/ReturnByMail",
             "returnFees": "https://schema.org/FreeReturn"
           }

@@ -7,8 +7,8 @@
 
 <item>
   <g:id>mentalpro-1</g:id>
-  <title>Mental Pro™ — 1 Confezione (30 giorni)</title>
-  <description>L'integratore in polvere che spegne la riunione mentale notturna. Formula con Inositolo, Magnesio Bisglicinato, Taurina e Glicina. Garanzia rimborso 60 giorni.</description>
+  <title>Mental Pro™ Integratore Sonno in Polvere — 180g, 60 dosi (30 giorni)</title>
+  <description>Integratore alimentare in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. Favorisce il rilassamento mentale e un sonno più profondo senza effetto sedativo. 180g per confezione, 60 dosi da 3g. Prodotto in Italia. Spedizione in tutta Italia in 2-3 giorni lavorativi. Garanzia rimborso 60 giorni.</description>
   <link>https://mentalpro.it/</link>
   <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
   <g:condition>new</g:condition>
@@ -18,12 +18,70 @@
   <g:mpn>MENTALPRO-1</g:mpn>
   <g:identifier_exists>no</g:identifier_exists>
   <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Vitamins &amp; Supplements</g:google_product_category>
+  <g:product_detail>
+    <g:section_name>Formato</g:section_name>
+    <g:attribute_name>Formato</g:attribute_name>
+    <g:attribute_value>Polvere solubile</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Peso netto</g:attribute_name>
+    <g:attribute_value>180 g</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Numero di dosi</g:attribute_name>
+    <g:attribute_value>60 dosi</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Durata trattamento</g:attribute_name>
+    <g:attribute_value>30 giorni</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 1</g:attribute_name>
+    <g:attribute_value>Inositolo 2000mg</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 2</g:attribute_name>
+    <g:attribute_value>Magnesio Bisglicinato</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 3</g:attribute_name>
+    <g:attribute_value>Taurina</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 4</g:attribute_name>
+    <g:attribute_value>Glicina</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Garanzia</g:section_name>
+    <g:attribute_name>Garanzia rimborso</g:attribute_name>
+    <g:attribute_value>60 giorni soddisfatti o rimborsati</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Spedizione</g:section_name>
+    <g:attribute_name>Tempi di consegna</g:attribute_name>
+    <g:attribute_value>2-3 giorni lavorativi in Italia</g:attribute_value>
+  </g:product_detail>
+  <g:shipping>
+    <g:country>IT</g:country>
+    <g:service>Standard</g:service>
+    <g:min_handling_time>0</g:min_handling_time>
+    <g:max_handling_time>1</g:max_handling_time>
+    <g:min_transit_time>2</g:min_transit_time>
+    <g:max_transit_time>3</g:max_transit_time>
+  </g:shipping>
 </item>
 
 <item>
   <g:id>mentalpro-3</g:id>
-  <title>Mental Pro™ — 3 Confezioni (90 giorni)</title>
-  <description>Bundle Sleep Elite: 3 confezioni Mental Pro™, 90 giorni di trattamento. Garanzia rimborso 180 giorni. Risparmio rispetto al singolo pacco.</description>
+  <title>Mental Pro™ Bundle Sleep Elite — 3 Confezioni 540g, 180 dosi (90 giorni)</title>
+  <description>Bundle Sleep Elite: 3 confezioni di Mental Pro™, integratore in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. 540g totali, 180 dosi, 90 giorni di trattamento. Risparmio rispetto all'acquisto singolo (€39 a confezione). Prodotto in Italia. Spedizione 2-3 giorni lavorativi. Garanzia rimborso 180 giorni.</description>
   <link>https://mentalpro.it/</link>
   <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
   <g:condition>new</g:condition>
@@ -33,12 +91,70 @@
   <g:mpn>MENTALPRO-3</g:mpn>
   <g:identifier_exists>no</g:identifier_exists>
   <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Vitamins &amp; Supplements</g:google_product_category>
+  <g:product_detail>
+    <g:section_name>Formato</g:section_name>
+    <g:attribute_name>Formato</g:attribute_name>
+    <g:attribute_value>Polvere solubile</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Peso netto totale</g:attribute_name>
+    <g:attribute_value>540 g (3 x 180g)</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Numero di dosi totali</g:attribute_name>
+    <g:attribute_value>180 dosi</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Durata trattamento</g:attribute_name>
+    <g:attribute_value>90 giorni</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 1</g:attribute_name>
+    <g:attribute_value>Inositolo 2000mg</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 2</g:attribute_name>
+    <g:attribute_value>Magnesio Bisglicinato</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 3</g:attribute_name>
+    <g:attribute_value>Taurina</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 4</g:attribute_name>
+    <g:attribute_value>Glicina</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Garanzia</g:section_name>
+    <g:attribute_name>Garanzia rimborso</g:attribute_name>
+    <g:attribute_value>180 giorni soddisfatti o rimborsati</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Spedizione</g:section_name>
+    <g:attribute_name>Tempi di consegna</g:attribute_name>
+    <g:attribute_value>2-3 giorni lavorativi in Italia</g:attribute_value>
+  </g:product_detail>
+  <g:shipping>
+    <g:country>IT</g:country>
+    <g:service>Standard</g:service>
+    <g:min_handling_time>0</g:min_handling_time>
+    <g:max_handling_time>1</g:max_handling_time>
+    <g:min_transit_time>2</g:min_transit_time>
+    <g:max_transit_time>3</g:max_transit_time>
+  </g:shipping>
 </item>
 
 <item>
   <g:id>mentalpro-6</g:id>
-  <title>Mental Pro™ — 6 Confezioni (180 giorni)</title>
-  <description>Bundle massimo risparmio: 6 confezioni Mental Pro™, 180 giorni di trattamento. Garanzia rimborso 180 giorni.</description>
+  <title>Mental Pro™ Massimo Risparmio — 6 Confezioni 1080g, 360 dosi (180 giorni)</title>
+  <description>Bundle massimo risparmio: 6 confezioni di Mental Pro™, integratore in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. 1080g totali, 360 dosi, 180 giorni di trattamento continuo. Miglior prezzo per dose (€41,50 a confezione). Prodotto in Italia. Spedizione 2-3 giorni lavorativi. Garanzia rimborso 180 giorni.</description>
   <link>https://mentalpro.it/</link>
   <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
   <g:condition>new</g:condition>
@@ -48,6 +164,64 @@
   <g:mpn>MENTALPRO-6</g:mpn>
   <g:identifier_exists>no</g:identifier_exists>
   <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Vitamins &amp; Supplements</g:google_product_category>
+  <g:product_detail>
+    <g:section_name>Formato</g:section_name>
+    <g:attribute_name>Formato</g:attribute_name>
+    <g:attribute_value>Polvere solubile</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Peso netto totale</g:attribute_name>
+    <g:attribute_value>1080 g (6 x 180g)</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Numero di dosi totali</g:attribute_name>
+    <g:attribute_value>360 dosi</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Quantità</g:section_name>
+    <g:attribute_name>Durata trattamento</g:attribute_name>
+    <g:attribute_value>180 giorni</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 1</g:attribute_name>
+    <g:attribute_value>Inositolo 2000mg</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 2</g:attribute_name>
+    <g:attribute_value>Magnesio Bisglicinato</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 3</g:attribute_name>
+    <g:attribute_value>Taurina</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Ingredienti chiave</g:section_name>
+    <g:attribute_name>Ingrediente 4</g:attribute_name>
+    <g:attribute_value>Glicina</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Garanzia</g:section_name>
+    <g:attribute_name>Garanzia rimborso</g:attribute_name>
+    <g:attribute_value>180 giorni soddisfatti o rimborsati</g:attribute_value>
+  </g:product_detail>
+  <g:product_detail>
+    <g:section_name>Spedizione</g:section_name>
+    <g:attribute_name>Tempi di consegna</g:attribute_name>
+    <g:attribute_value>2-3 giorni lavorativi in Italia</g:attribute_value>
+  </g:product_detail>
+  <g:shipping>
+    <g:country>IT</g:country>
+    <g:service>Standard</g:service>
+    <g:min_handling_time>0</g:min_handling_time>
+    <g:max_handling_time>1</g:max_handling_time>
+    <g:min_transit_time>2</g:min_transit_time>
+    <g:max_transit_time>3</g:max_transit_time>
+  </g:shipping>
 </item>
 
 </channel>
