@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marco Mandaliti — Chef a Domicilio</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -33,56 +31,37 @@
     }
   </script>
 
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background-color: #EAE6DF; color: #1C1008; }
 
-    .font-display { font-family: 'Cormorant Garamond', serif; }
-
-    .bg-depth::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(184,150,10,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 85% 75%, rgba(61,31,15,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
     .hero-bg {
-      background: linear-gradient(160deg, #1a0d05 0%, #2e1508 40%, #1a0d05 100%);
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(160deg, #1a0d05 0%, #2e1508 50%, #1a0d05 100%);
+      position: relative; overflow: hidden;
     }
     .hero-bg::before {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(184,150,10,0.08) 0%, transparent 65%);
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(184,150,10,0.07) 0%, transparent 65%);
     }
 
     .grain::after {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      pointer-events: none;
+      mix-blend-mode: overlay; pointer-events: none;
     }
 
     .gold-line {
-      width: 48px;
-      height: 2px;
-      background: #B8960A;
-      display: block;
-      margin-bottom: 1.5rem;
+      width: 48px; height: 2px; background: #B8960A;
+      display: block; margin-bottom: 1.5rem;
     }
 
+    /* Ticker */
     .ticker-wrap { overflow: hidden; white-space: nowrap; }
     .ticker { display: inline-block; animation: ticker 22s linear infinite; }
     @keyframes ticker {
@@ -90,17 +69,146 @@
       100% { transform: translateX(-50%); }
     }
 
+    /* Hero food image */
+    .hero-food-img {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-food-img img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+    .hero-food-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(26,13,5,0.5) 100%);
+      border-radius: 2px;
+    }
+
+    /* Gallery grid */
+    .dish-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .dish-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+    .dish-card { position: relative; overflow: hidden; cursor: pointer; }
+    .dish-card img {
+      width: 100%; height: 280px; object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .dish-card:hover img { transform: scale(1.04); }
+    .dish-card-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 16px;
+      background: linear-gradient(to top, rgba(28,16,8,0.85) 0%, transparent 100%);
+      color: #EAE6DF;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    /* Mega gallery */
+    .mega-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 260px;
+      gap: 8px;
+    }
+    @media (max-width: 1024px) {
+      .mega-gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .mega-gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+    }
+    .mega-gallery .featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .mega-item { position: relative; overflow: hidden; }
+    .mega-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.5s ease;
+    }
+    .mega-item:hover img { transform: scale(1.04); }
+    .mega-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 14px 16px;
+      background: linear-gradient(to top, rgba(28,16,8,0.8) 0%, transparent 100%);
+      color: #EAE6DF;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    /* Comparison */
+    .comparison-col { position: relative; overflow: hidden; }
+    .comparison-col img { width: 100%; height: 400px; object-fit: cover; display: block; }
+
+    /* Infographic steps */
+    .step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(184,150,10,0.4);
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    /* Testimonials with dish */
+    .testi-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0;
+      align-items: center;
+      background: #F2EFE9;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .testi-row .dish-thumb {
+      width: 180px; height: 180px;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .testi-row { grid-template-columns: 1fr; }
+      .testi-row .dish-thumb { width: 100%; height: 200px; }
+    }
+
+    /* CTA bg */
+    .cta-photo-bg { position: relative; overflow: hidden; }
+    .cta-photo-bg img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .cta-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(26,13,5,0.55) 0%, rgba(26,13,5,0.75) 100%);
+    }
+
+    /* FAQ */
     .faq-item { border-bottom: 1px solid rgba(184,150,10,0.3); }
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
     .faq-answer.open { max-height: 300px; }
     .faq-icon { transition: transform 0.3s ease; display: inline-block; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-    .hover-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .hover-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(28,16,8,0.12); }
+    .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(28,16,8,0.12); }
 
     .cta-btn { transition: all 0.3s ease; letter-spacing: 0.12em; }
-    .cta-btn:hover { background: #1C1008; color: #EAE6DF; transform: translateY(-2px); }
+    .cta-btn:hover { background: #1C1008 !important; color: #EAE6DF !important; transform: translateY(-2px); }
+    .cta-btn-dark { transition: all 0.3s ease; letter-spacing: 0.12em; }
+    .cta-btn-dark:hover { background: #B8960A; color: #1C1008; transform: translateY(-2px); }
 
     .fade-up { opacity: 0; transform: translateY(40px); }
     .fade-left { opacity: 0; transform: translateX(-40px); }
@@ -109,8 +217,8 @@
 </head>
 <body>
 
-  <!-- ANNOUNCEMENT BAR -->
-  <div class="bg-brown-dark text-cream py-3 relative z-50">
+  <!-- ═══ ANNOUNCEMENT BAR ═══ -->
+  <div class="bg-brown-dark text-cream py-3 z-50 relative">
     <div class="ticker-wrap">
       <div class="ticker text-sm font-body tracking-widest uppercase">
         <span class="mx-8">Posti limitati &mdash; massimo 10 nuovi clienti al mese</span>
@@ -125,109 +233,158 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero-bg grain min-h-screen flex flex-col justify-center items-center text-center px-6 py-32 relative">
-    <div class="absolute inset-0 z-0" style="background: linear-gradient(to bottom, rgba(26,13,5,0.3) 0%, rgba(26,13,5,0.15) 40%, rgba(26,13,5,0.6) 100%);"></div>
-    <div class="relative z-10 max-w-4xl mx-auto">
-      <p class="font-body text-gold tracking-[0.3em] text-xs uppercase mb-8 fade-up">Chef Marco Mandaliti &mdash; Pasti Pronti di Alta Cucina</p>
+  <!-- ═══ 1. HERO ═══ -->
+  <section class="hero-bg grain min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 pb-0 relative">
+    <div class="absolute inset-0 z-0" style="background: linear-gradient(to bottom, rgba(26,13,5,0.4) 0%, rgba(26,13,5,0.1) 50%, rgba(26,13,5,0.9) 100%);"></div>
 
-      <h1 class="font-display text-cream text-6xl md:text-8xl leading-[1.05] mb-6 fade-up">
-        Mangia <em>come al ristorante.</em>
-        <br />
+    <div class="relative z-10 w-full max-w-5xl mx-auto">
+      <p class="font-body text-gold tracking-[0.3em] text-xs uppercase mb-6 fade-up">Chef Marco Mandaliti &mdash; Pasti Pronti di Alta Cucina</p>
+
+      <h1 class="font-display text-cream text-6xl md:text-8xl leading-[1.05] mb-4 fade-up">
+        Mangia <em>come al ristorante.</em><br />
         <span class="text-gold">A casa tua.</span>
       </h1>
 
-      <p class="font-body text-cream/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-4 fade-up">
-        Piatti da alta cucina, preparati da uno chef professionista e consegnati sottovuoto.<br />
-        <strong class="text-cream/90 italic font-display text-2xl">Restano freschi 15 giorni. Si riscaldano in 4 minuti.</strong>
-      </p>
-
-      <p class="font-display italic text-gold text-2xl md:text-3xl mb-12 fade-up">
+      <p class="font-display italic text-cream/70 text-2xl md:text-3xl mb-10 fade-up">
         Zero fatica. Zero compromessi. Zero cucina sporca.
       </p>
 
-      <div class="fade-up flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <a href="#contatto" class="cta-btn bg-gold text-brown font-body font-medium py-4 px-10 text-sm tracking-widest uppercase rounded-sm">
+      <div class="fade-up flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+        <a href="#contatto" class="cta-btn bg-gold text-brown font-body font-medium py-4 px-10 text-sm tracking-widest uppercase">
           Parla con Marco →
         </a>
-        <a href="#come-funziona" class="font-body text-cream/60 text-sm tracking-wider underline underline-offset-4 hover:text-gold transition-colors">
-          Scopri come funziona
+        <a href="#piatti" class="font-body text-cream/55 text-sm tracking-wider underline underline-offset-4 hover:text-gold transition-colors">
+          Vedi i piatti
         </a>
       </div>
 
-      <div class="mt-16 fade-up">
-        <div class="inline-flex items-center gap-6 border border-cream/20 rounded-full px-8 py-3 text-cream/50 text-xs tracking-widest uppercase font-body">
-          <span>Massimo 10 clienti/mese</span>
-          <span class="w-px h-4 bg-cream/20"></span>
-          <span>Zero conservanti</span>
-          <span class="w-px h-4 bg-cream/20"></span>
-          <span>15 giorni di freschezza</span>
+      <!-- FOTO GIGANTE HERO — il piatto chiude la vendita -->
+      <div class="hero-food-img fade-up">
+        <img
+          src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=1400&q=90"
+          alt="Pollo al limone impiattato — Marco Mandaliti"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2. GALLERY PIATTI — "Cosa troverai nel tuo frigo" ═══ -->
+  <section id="piatti" class="py-24 px-6" style="background: #F2EFE9;">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-4 fade-up">
+        <p class="font-body text-brown/50 leading-relaxed text-lg max-w-2xl">
+          La maggior parte delle persone organizza la propria vita attorno al cibo.<br />
+          <strong class="text-brown font-medium">Marco la libera da questo peso.</strong>
+        </p>
+      </div>
+      <div class="mb-12 fade-up">
+        <h2 class="font-display text-4xl md:text-5xl leading-tight">
+          Alcuni dei piatti che troverai<br /><em>nel tuo frigorifero.</em>
+        </h2>
+      </div>
+
+      <div class="dish-gallery fade-up">
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1598515213692-b4e3a64e8ba4?w=700&q=85" alt="Pollo al limone" />
+          <div class="dish-card-label">Pollo al limone</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=85" alt="Cereali orientali" />
+          <div class="dish-card-label">Cereali orientali</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9d0?w=700&q=85" alt="Verdure natura" />
+          <div class="dish-card-label">Verdure natura</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=700&q=85" alt="Zuppa di legumi" />
+          <div class="dish-card-label">Zuppa di legumi e gamberi</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=700&q=85" alt="Pesce" />
+          <div class="dish-card-label">Filetto di pesce al vapore</div>
+        </div>
+        <div class="dish-card">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&q=85" alt="Piatto completo" />
+          <div class="dish-card-label">Piatto completo gourmet</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CHI È MARCO -->
-  <section class="bg-depth py-28 px-6 relative">
+  <!-- ═══ 3. LIFESTYLE — "Cosa comprano davvero" ═══ -->
+  <section class="py-24 px-6 bg-depth relative">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
       <div class="fade-left">
         <span class="gold-line"></span>
-        <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">Chi è Marco</p>
+        <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">La vera promessa</p>
         <h2 class="font-display text-5xl md:text-6xl leading-tight mb-8">
-          Vent'anni nelle cucine<br /><em>dei migliori ristoranti.</em><br />
-          Ora cucina <strong>per te.</strong>
+          Cosa comprano davvero<br /><em>i nostri clienti.</em>
         </h2>
-        <p class="font-body text-brown/70 leading-relaxed mb-6 text-lg">
-          Marco Mandaliti ha affinato la sua tecnica nelle cucine professionali più esigenti. Ha imparato che la qualità non è un dettaglio — è tutto.
+        <p class="font-body text-lg leading-relaxed mb-4" style="color: rgba(28,16,8,0.68)">
+          Non comprano cibo. Comprano <strong class="text-brown">sollievo</strong>.
         </p>
-        <p class="font-body text-brown/70 leading-relaxed text-lg">
-          Oggi porta quella stessa cura, quegli stessi ingredienti selezionati, quella stessa precisione direttamente a casa tua. Non è food delivery. È un servizio di alta cucina personalizzato.
+        <p class="font-body text-lg leading-relaxed mb-4" style="color: rgba(28,16,8,0.68)">
+          Comprano la possibilità di tornare a casa dopo una giornata piena, aprire il frigo e sapere già che stasera si mangia bene.
+        </p>
+        <p class="font-display italic text-2xl text-gold">
+          Senza pensieri. Senza compromessi.
         </p>
       </div>
       <div class="fade-right relative">
-        <div class="aspect-[4/5] bg-brown-dark rounded-sm overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Chef Marco Mandaliti" class="w-full h-full object-cover opacity-90" />
-          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(28,16,8,0.4) 0%, transparent 60%)"></div>
-        </div>
-        <div class="absolute -bottom-6 -left-6 bg-gold p-6 shadow-xl">
-          <p class="font-display text-4xl font-bold text-brown leading-none">20+</p>
-          <p class="font-body text-xs text-brown/80 tracking-widest uppercase mt-1">Anni di esperienza</p>
+        <!-- Lifestyle photo: professionista che apre il frigo e sorride -->
+        <div class="relative overflow-hidden" style="border-radius: 2px;">
+          <img
+            src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?w=800&q=85"
+            alt="Sollievo — tornare a casa e trovare il frigo pieno"
+            class="w-full object-cover"
+            style="height: 520px;"
+          />
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(28,16,8,0.35) 0%, transparent 60%)"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COME FUNZIONA -->
-  <section id="come-funziona" class="py-28 px-6" style="background: #F2EFE9;">
-    <div class="max-w-5xl mx-auto text-center mb-16 fade-up">
-      <span class="gold-line mx-auto"></span>
-      <p class="font-body text-gold tracking-[0.25em] text-xs uppercase mb-4">Il processo</p>
-      <h2 class="font-display text-5xl md:text-6xl leading-tight">
-        Come funziona,<br /><em>in tre passi.</em>
-      </h2>
-    </div>
+  <!-- ═══ 4. CONFRONTO — Delivery vs Marco Mandaliti ═══ -->
+  <section class="py-24 px-6" style="background: #1C1008;">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <h2 class="font-display text-5xl md:text-6xl text-cream leading-tight">
+          Il cervello capisce in 2 secondi<br /><em class="text-gold">quello che il copy spiega in 200 parole.</em>
+        </h2>
+      </div>
 
-    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
-      <div class="hover-card bg-cream p-8 rounded-sm fade-up">
-        <p class="font-display text-7xl font-bold leading-none mb-4" style="color: rgba(184,150,10,0.2)">01</p>
-        <h3 class="font-display text-2xl font-semibold mb-3">Consulenza gratuita</h3>
-        <p class="font-body text-brown/65 leading-relaxed">Marco ti chiama, capisce le tue abitudini, le tue preferenze, la tua settimana. Nessun vincolo, nessun abbonamento forzato.</p>
-      </div>
-      <div class="hover-card bg-cream p-8 rounded-sm fade-up">
-        <p class="font-display text-7xl font-bold leading-none mb-4" style="color: rgba(184,150,10,0.2)">02</p>
-        <h3 class="font-display text-2xl font-semibold mb-3">Cucina &amp; sottovuoto</h3>
-        <p class="font-body text-brown/65 leading-relaxed">Marco prepara i tuoi piatti con ingredienti selezionati, li confeziona sottovuoto nel momento di massima qualità. Freschi. Senza conservanti.</p>
-      </div>
-      <div class="hover-card bg-cream p-8 rounded-sm fade-up">
-        <p class="font-display text-7xl font-bold leading-none mb-4" style="color: rgba(184,150,10,0.2)">03</p>
-        <h3 class="font-display text-2xl font-semibold mb-3">Consegna &amp; goditi</h3>
-        <p class="font-body text-brown/65 leading-relaxed">Ricevi i tuoi piatti a casa. Durano 15 giorni in frigo. In 4 minuti al microonde tornano come appena usciti dalla cucina.</p>
+      <div class="grid md:grid-cols-2 gap-2 fade-up">
+        <!-- Colonna sinistra: Delivery -->
+        <div class="comparison-col relative">
+          <img
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=80"
+            alt="Delivery — pizza schiacciata, contenitore unto"
+            class="grayscale"
+          />
+          <div class="absolute inset-0 bg-black/50 flex flex-col justify-end p-8">
+            <div class="inline-block bg-red-900/80 text-cream text-xs tracking-widest uppercase font-body px-3 py-1 mb-3" style="width: fit-content;">Food Delivery</div>
+            <p class="font-display italic text-cream text-2xl leading-tight">Pizza schiacciata.<br />Contenitore unto.<br />Piatto arrivato male.</p>
+          </div>
+        </div>
+        <!-- Colonna destra: Marco -->
+        <div class="comparison-col relative">
+          <img
+            src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=85"
+            alt="Marco Mandaliti — piatto perfettamente impiattato"
+          />
+          <div class="absolute inset-0 flex flex-col justify-end p-8" style="background: linear-gradient(to top, rgba(28,16,8,0.75) 0%, transparent 60%)">
+            <div class="inline-block bg-gold text-brown text-xs tracking-widest uppercase font-body px-3 py-1 mb-3" style="width: fit-content;">Marco Mandaliti</div>
+            <p class="font-display italic text-cream text-2xl leading-tight">Perfettamente impiattato.<br />Colori vivi.<br />Come appena cucinato.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- NUMERI -->
-  <section class="py-20 px-6 relative overflow-hidden" style="background: #1C1008;">
+  <!-- ═══ NUMERI ═══ -->
+  <section class="py-20 px-6 relative overflow-hidden" style="background: #3D1F0F;">
     <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(184,150,10,0.08) 0%, transparent 70%)"></div>
     <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
       <div class="fade-up">
@@ -249,8 +406,95 @@
     </div>
   </section>
 
-  <!-- PER CHI È / PER CHI NON È -->
-  <section class="bg-depth py-28 px-6 relative">
+  <!-- ═══ 5. COME FUNZIONA — Infografica quasi senza testo ═══ -->
+  <section id="come-funziona" class="py-28 px-6" style="background: #F2EFE9;">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-20 fade-up">
+        <span class="gold-line mx-auto"></span>
+        <h2 class="font-display text-5xl md:text-6xl leading-tight">
+          Come funziona.
+        </h2>
+      </div>
+
+      <!-- Step flow verticale -->
+      <div class="space-y-0 fade-up">
+
+        <!-- Step 1 -->
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full border-2 border-gold flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">01</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Ordini</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Una chiamata con Marco. Nessun form, nessun algoritmo.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto overflow-hidden" style="border-radius: 2px;">
+              <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=200&q=80" alt="Chef" class="w-full h-full object-cover" />
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">02</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Cuciniamo</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Marco prepara i tuoi piatti. Ingredienti selezionati. Sottovuoto nel momento di massima qualità.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto overflow-hidden" style="border-radius: 2px;">
+              <img src="https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=200&q=80" alt="Frigo" class="w-full h-full object-cover" />
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">03</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Apri il frigo</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Trovi i tuoi piatti pronti. Durano 15 giorni. Scegli quello che vuoi, quando vuoi.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8 border-b border-gold/20">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full border-2 border-gold flex items-center justify-center">
+              <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">04</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">4 minuti</h3>
+            <p class="font-body text-sm" style="color: rgba(28,16,8,0.55)">Microonde. Apri il sacchetto, scalda. Nessun piatto da lavare dopo.</p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="grid grid-cols-[80px_1fr] gap-6 items-center py-8">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto overflow-hidden" style="border-radius: 2px;">
+              <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=200&q=85" alt="Piatto gourmet" class="w-full h-full object-cover" />
+            </div>
+            <p class="font-display text-gold text-xs mt-2 tracking-widest">05</p>
+          </div>
+          <div>
+            <h3 class="font-display text-3xl font-semibold mb-1">Mangi.</h3>
+            <p class="font-display italic text-gold text-xl">Come al ristorante.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PER CHI È / NON È ═══ -->
+  <section class="py-24 px-6 bg-depth relative">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-16 fade-up">
         <span class="gold-line mx-auto"></span>
@@ -258,61 +502,90 @@
           Fa per te?<br /><em>Scoprilo in 30 secondi.</em>
         </h2>
       </div>
-
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="fade-left bg-cream border-l-4 border-green-700 p-8 rounded-sm">
+        <div class="fade-left bg-cream border-l-4 border-green-700 p-8">
           <h3 class="font-display text-2xl font-semibold mb-6" style="color: #15803d">✓ &nbsp;Fa per te se…</h3>
           <ul class="space-y-4">
-            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
-              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
-              Ami mangiare bene ma non hai tempo (o voglia) di cucinare ogni giorno
-            </li>
-            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
-              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
-              Sai riconoscere la materia prima vera e non ti accontenti di meno
-            </li>
-            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
-              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
-              Vuoi liberarti del "cosa cucino stasera" senza abbassare l'asticella
-            </li>
-            <li class="font-body text-brown/80 flex gap-3">
-              <span style="color: #15803d" class="mt-0.5 flex-shrink-0">✓</span>
-              Cerchi un servizio curato, con una persona vera dietro, non un prodotto di massa
-            </li>
+            <li class="font-body pb-4 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Ami mangiare bene ma non hai tempo di cucinare ogni giorno</li>
+            <li class="font-body pb-4 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Sai riconoscere la materia prima vera e non ti accontenti di meno</li>
+            <li class="font-body pb-4 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Vuoi liberarti del "cosa cucino stasera" senza abbassare l'asticella</li>
+            <li class="font-body flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#15803d" class="flex-shrink-0 mt-0.5">✓</span>Cerchi un servizio curato, con una persona vera dietro</li>
           </ul>
         </div>
-        <div class="fade-right bg-cream border-l-4 border-red-700 p-8 rounded-sm">
+        <div class="fade-right bg-cream border-l-4 border-red-700 p-8">
           <h3 class="font-display text-2xl font-semibold mb-6" style="color: #b91c1c">✗ &nbsp;Non fa per te se…</h3>
           <ul class="space-y-4">
-            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
-              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
-              Ami cucinare da zero e hai il tempo e il piacere di farlo ogni giorno
-            </li>
-            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
-              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
-              Vivi fuori dalla zona di consegna (per ora disponibile in area limitata)
-            </li>
-            <li class="font-body text-brown/80 pb-4 border-b border-brown/10 flex gap-3">
-              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
-              Vuoi qualcosa di "usa e getta", senza alcuna relazione con il produttore
-            </li>
-            <li class="font-body text-brown/80 flex gap-3">
-              <span style="color: #b91c1c" class="mt-0.5 flex-shrink-0">✗</span>
-              Stai cercando il prezzo più basso, non la qualità più alta
-            </li>
+            <li class="font-body pb-4 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Ami cucinare da zero e hai il tempo di farlo ogni giorno</li>
+            <li class="font-body pb-4 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Vivi fuori dalla zona di consegna (per ora area limitata)</li>
+            <li class="font-body pb-4 border-b border-brown/10 flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Vuoi qualcosa di "usa e getta" senza relazione con il produttore</li>
+            <li class="font-body flex gap-3" style="color: rgba(28,16,8,0.78)"><span style="color:#b91c1c" class="flex-shrink-0 mt-0.5">✗</span>Stai cercando il prezzo più basso, non la qualità più alta</li>
           </ul>
         </div>
       </div>
-
-      <p class="font-display italic text-center text-xl mt-10 fade-up" style="color: rgba(28,16,8,0.55)">
-        "Ma posso fare scorta?" &mdash; <strong class="not-italic font-semibold text-brown">Assolutamente sì.</strong> Molti clienti riempiono il frigo a ogni ordine.
+      <p class="font-display italic text-center text-xl mt-10 fade-up" style="color: rgba(28,16,8,0.5)">
+        "Ma posso fare scorta?" &mdash; <strong class="not-italic font-semibold text-brown">Assolutamente sì.</strong>
       </p>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="py-28 px-6" style="background: #F2EFE9;">
-    <div class="max-w-5xl mx-auto">
+  <!-- ═══ 6. MEGA GALLERY — "Frigo Risolto" ═══ -->
+  <section class="py-24 px-6" style="background: #1C1008;">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 fade-up">
+        <span class="gold-line"></span>
+        <h2 class="font-display text-5xl md:text-6xl text-cream leading-tight">
+          Il frigo che hai sempre<br /><em class="text-gold">voluto avere.</em>
+        </h2>
+        <p class="font-body mt-4 text-lg" style="color: rgba(234,230,223,0.45)">8 piatti. Tutti pronti. Tutti tuoi.</p>
+      </div>
+
+      <div class="mega-gallery fade-up">
+        <!-- Featured large -->
+        <div class="mega-item featured">
+          <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=1000&q=90" alt="Pollo al limone" />
+          <div class="mega-item-label">Pollo al limone</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=85" alt="Farro gamberi e lime" />
+          <div class="mega-item-label">Farro gamberi e lime</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9d0?w=600&q=85" alt="Verdure natura" />
+          <div class="mega-item-label">Verdure natura</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=600&q=85" alt="Zuppa di legumi e gamberi" />
+          <div class="mega-item-label">Zuppa di legumi</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=85" alt="Pesce al vapore" />
+          <div class="mega-item-label">Pesce al vapore</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=85" alt="Cereali orientali" />
+          <div class="mega-item-label">Cereali orientali</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1598515213692-b4e3a64e8ba4?w=600&q=85" alt="Contorni gourmet" />
+          <div class="mega-item-label">Contorni gourmet</div>
+        </div>
+        <div class="mega-item">
+          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&q=85" alt="Piatto completo" />
+          <div class="mega-item-label">Piatto completo</div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12 fade-up">
+        <p class="font-display italic text-2xl text-gold">
+          "Ok, adesso ho capito perché la gente lo sceglie."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. TESTIMONIANZE con foto piatto ═══ -->
+  <section class="py-28 px-6" style="background: #EAE6DF;">
+    <div class="max-w-4xl mx-auto">
       <div class="mb-16 fade-up">
         <span class="gold-line"></span>
         <h2 class="font-display text-5xl md:text-6xl leading-tight">
@@ -320,49 +593,65 @@
         </h2>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="hover-card bg-cream p-8 rounded-sm fade-up">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-body font-medium text-sm" style="background:#15803d">G</div>
-            <div>
-              <p class="font-body font-medium text-sm">Giulia M.</p>
-              <p class="font-body text-xs" style="color: rgba(28,16,8,0.45)">Milano</p>
+      <div class="space-y-6 fade-up">
+
+        <!-- Testi 1 -->
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-body font-medium" style="background:#15803d">G</div>
+              <div>
+                <p class="font-body font-medium text-sm">Giulia M.</p>
+                <p class="font-body text-xs" style="color: rgba(28,16,8,0.4)">Milano</p>
+              </div>
             </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "Il <strong class="not-italic font-semibold text-brown">pollo al limone</strong> è diventato la mia cena preferita del giovedì. Non credevo fosse possibile mangiare così bene senza cucinare."
+            </p>
           </div>
-          <p class="font-display italic text-xl leading-relaxed" style="color: rgba(28,16,8,0.75)">
-            "Finalmente mangio come voglio, senza sprecare ore in cucina. Il risotto al tartufo è diventato la mia cena preferita del giovedì."
-          </p>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=300&q=85" alt="Pollo al limone" />
         </div>
-        <div class="hover-card bg-cream p-8 rounded-sm fade-up">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-cream font-body font-medium text-sm bg-brown-dark">A</div>
-            <div>
-              <p class="font-body font-medium text-sm">Alessandro R.</p>
-              <p class="font-body text-xs" style="color: rgba(28,16,8,0.45)">Bologna</p>
+
+        <!-- Testi 2 -->
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-cream text-sm font-body font-medium bg-brown-dark">A</div>
+              <div>
+                <p class="font-body font-medium text-sm">Alessandro R.</p>
+                <p class="font-body text-xs" style="color: rgba(28,16,8,0.4)">Bologna</p>
+              </div>
             </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "Il <strong class="not-italic font-semibold text-brown">farro all'orientale</strong> era fantastico. Ero scettico. Dopo il primo assaggio ho ordinato subito per altre due settimane."
+            </p>
           </div>
-          <p class="font-display italic text-xl leading-relaxed" style="color: rgba(28,16,8,0.75)">
-            "Ero scettico. Dopo il primo assaggio ho ordinato subito per altre due settimane. Non è possibile che sia così buono e così facile."
-          </p>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=300&q=85" alt="Farro gamberi e lime" />
         </div>
-        <div class="hover-card bg-cream p-8 rounded-sm fade-up">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-brown font-body font-medium text-sm bg-gold">F</div>
-            <div>
-              <p class="font-body font-medium text-sm">Federica T.</p>
-              <p class="font-body text-xs" style="color: rgba(28,16,8,0.45)">Modena</p>
+
+        <!-- Testi 3 -->
+        <div class="testi-row hover-lift">
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-9 h-9 rounded-full flex items-center justify-center text-brown text-sm font-body font-medium bg-gold">F</div>
+              <div>
+                <p class="font-body font-medium text-sm">Federica T.</p>
+                <p class="font-body text-xs" style="color: rgba(28,16,8,0.4)">Modena</p>
+              </div>
             </div>
+            <p class="font-display italic text-2xl leading-snug" style="color: rgba(28,16,8,0.75)">
+              "Marco è una persona seria. Si sente nei piatti. È il tipo di servizio che pensavo esistesse solo all'estero."
+            </p>
           </div>
-          <p class="font-display italic text-xl leading-relaxed" style="color: rgba(28,16,8,0.75)">
-            "Marco è una persona seria, appassionata. Si sente nei piatti. È il tipo di servizio che pensavo esistesse solo all'estero."
-          </p>
+          <img class="dish-thumb" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&q=85" alt="Cereali orientali" />
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="bg-depth py-28 px-6 relative">
+  <!-- ═══ FAQ ═══ -->
+  <section class="py-28 px-6" style="background: #F2EFE9;">
     <div class="max-w-3xl mx-auto">
       <div class="mb-16 fade-up">
         <span class="gold-line"></span>
@@ -370,7 +659,6 @@
           Hai ancora qualche dubbio?<br /><em>Probabilmente la risposta è qui.</em>
         </h2>
       </div>
-
       <div class="fade-up">
         <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
           <div class="flex justify-between items-center gap-4">
@@ -381,40 +669,36 @@
             <p class="pt-4">Se valuti solo il costo degli ingredienti, forse. Ma considera il tempo (1-2 ore al giorno), gli sprechi, l'energia. E soprattutto: stai comparando supermarket con alta cucina professionale. Non è la stessa cosa.</p>
           </div>
         </div>
-
         <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
           <div class="flex justify-between items-center gap-4">
             <h3 class="font-body font-medium text-lg">Davvero durano 15 giorni senza congelare niente?</h3>
             <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
           </div>
           <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
-            <p class="pt-4">Sì. Il sottovuoto blocca la proliferazione batterica e preserva sapori e nutrienti. I piatti vengono cucinati e sigillati nel momento di massima qualità. Non congelati — refrigerati e freschi.</p>
+            <p class="pt-4">Sì. Il sottovuoto blocca la proliferazione batterica e preserva sapori e nutrienti. Non congelati — refrigerati e freschi.</p>
           </div>
         </div>
-
         <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
           <div class="flex justify-between items-center gap-4">
             <h3 class="font-body font-medium text-lg">Ci sono conservanti o additivi?</h3>
             <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
           </div>
           <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
-            <p class="pt-4">Zero. Nessun conservante, nessun additivo. La conservazione avviene esclusivamente attraverso la tecnica del sottovuoto e la catena del freddo. Ingredienti puliti, punto.</p>
+            <p class="pt-4">Zero. La conservazione avviene esclusivamente attraverso la tecnica del sottovuoto e la catena del freddo. Ingredienti puliti, punto.</p>
           </div>
         </div>
-
         <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
           <div class="flex justify-between items-center gap-4">
-            <h3 class="font-body font-medium text-lg">Come funziona esattamente la rigenerazione al microonde?</h3>
+            <h3 class="font-body font-medium text-lg">Come funziona la rigenerazione al microonde?</h3>
             <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
           </div>
           <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
-            <p class="pt-4">Ogni piatto arriva con le istruzioni. In genere: apri leggermente il sacchetto sottovuoto, metti in microonde 3-4 minuti a 700W. Il piatto torna esattamente com'era appena uscito dalla cucina di Marco.</p>
+            <p class="pt-4">Apri leggermente il sacchetto sottovuoto, metti in microonde 3-4 minuti a 700W. Il piatto torna esattamente com'era appena uscito dalla cucina di Marco.</p>
           </div>
         </div>
-
         <div class="faq-item py-6 cursor-pointer" onclick="toggleFaq(this)">
           <div class="flex justify-between items-center gap-4">
-            <h3 class="font-body font-medium text-lg">Posso personalizzare il menu in base alle mie preferenze?</h3>
+            <h3 class="font-body font-medium text-lg">Posso personalizzare il menu?</h3>
             <span class="faq-icon text-gold text-2xl font-light flex-shrink-0">+</span>
           </div>
           <div class="faq-answer font-body leading-relaxed" style="color: rgba(28,16,8,0.6)">
@@ -425,27 +709,34 @@
     </div>
   </section>
 
-  <!-- CTA FINALE -->
-  <section id="contatto" class="py-28 px-6 text-center relative overflow-hidden" style="background: #B8960A;">
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)"></div>
-    <div class="max-w-2xl mx-auto relative z-10 fade-up">
-      <h2 class="font-display text-5xl md:text-6xl text-brown leading-tight mb-6">
-        Il tuo frigo non sarà<br /><em>mai più vuoto.</em>
-      </h2>
-      <p class="font-body text-lg mb-3" style="color: rgba(28,16,8,0.7)">
-        Lascia i tuoi dati. Marco ti chiama entro 24 ore e chiarisce ogni tuo dubbio.
-      </p>
-      <p class="font-display italic text-xl mb-12" style="color: rgba(28,16,8,0.55)">La prima consegna è inclusa.</p>
+  <!-- ═══ 8. CTA FINALE — Foto emozionale tavola apparecchiata ═══ -->
+  <section id="contatto" class="cta-photo-bg relative" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <img
+      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=90"
+      alt="Tavola apparecchiata — atmosfera rilassata, calice, luce calda"
+    />
+    <div class="cta-photo-overlay"></div>
 
-      <a href="mailto:info@marcomandaliti.it" class="cta-btn inline-block bg-cream text-brown font-body font-medium py-5 px-16 text-sm tracking-widest uppercase rounded-sm shadow-lg">
+    <div class="relative z-10 text-center px-6 py-28 max-w-3xl mx-auto fade-up">
+      <span class="gold-line mx-auto"></span>
+      <h2 class="font-display text-cream text-5xl md:text-7xl leading-tight mb-6">
+        Hai già abbastanza<br /><em>cose a cui pensare.</em>
+      </h2>
+      <p class="font-display italic text-cream/70 text-2xl md:text-3xl mb-12">
+        La cena non dovrebbe essere una di queste.
+      </p>
+
+      <a href="mailto:info@marcomandaliti.it" class="cta-btn-dark inline-block border-2 border-cream text-cream font-body font-medium py-5 px-14 text-sm tracking-widest uppercase mb-6">
         Sì, voglio parlare con Marco →
       </a>
 
-      <p class="font-body text-xs tracking-widest uppercase mt-8" style="color: rgba(28,16,8,0.45)">Nessun vincolo &bull; Nessun abbonamento &bull; Solo qualità</p>
+      <p class="font-body text-cream/40 text-xs tracking-widest uppercase mt-6">
+        La prima consegna è inclusa &bull; Nessun vincolo &bull; Solo qualità
+      </p>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ═══ FOOTER ═══ -->
   <footer class="py-16 px-6 text-center" style="background: #0A0A0A;">
     <p class="font-display text-2xl mb-2" style="color: rgba(234,230,223,0.8)">Marco Mandaliti</p>
     <p class="font-body text-xs tracking-widest uppercase mb-8" style="color: rgba(234,230,223,0.3)">Chef &mdash; Pasti Pronti di Alta Cucina</p>
@@ -454,7 +745,7 @@
       <a href="#" class="hover:text-gold transition-colors">Cookies</a>
       <a href="mailto:info@marcomandaliti.it" class="hover:text-gold transition-colors">Contatti</a>
     </div>
-    <p class="font-body text-xs mt-8" style="color: rgba(234,230,223,0.2)">&copy; 2025 Marco Mandaliti &mdash; Tutti i diritti riservati</p>
+    <p class="font-body text-xs mt-8" style="color: rgba(234,230,223,0.18)">&copy; 2025 Marco Mandaliti &mdash; Tutti i diritti riservati</p>
   </footer>
 
   <script>
@@ -462,16 +753,14 @@
 
     gsap.utils.toArray('.fade-up').forEach(el => {
       gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 88%' },
       });
     });
-
     gsap.utils.toArray('.fade-left').forEach(el => {
       gsap.to(el, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 85%' } });
     });
-
     gsap.utils.toArray('.fade-right').forEach(el => {
       gsap.to(el, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 85%' } });
@@ -479,7 +768,7 @@
 
     // Hero on load
     gsap.from('.hero-bg .fade-up', {
-      opacity: 0, y: 50, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.3,
+      opacity: 0, y: 60, duration: 1.1, stagger: 0.15, ease: 'power3.out', delay: 0.2,
     });
 
     // Counter
@@ -501,10 +790,7 @@
       const isOpen = answer.classList.contains('open');
       document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
       document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      if (!isOpen) {
-        answer.classList.add('open');
-        item.classList.add('open');
-      }
+      if (!isOpen) { answer.classList.add('open'); item.classList.add('open'); }
     }
   </script>
 </body>
