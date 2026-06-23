@@ -385,15 +385,6 @@ nav.nav-blur{top:40px!important}
 .md\:py-20{padding-top:5rem;padding-bottom:5rem}.md\:py-24{padding-top:6rem;padding-bottom:6rem}
 }
 @media(min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
-#urgency-bar{background:linear-gradient(90deg,#0f3f8c,#1757c2);color:#fff;text-align:center;padding:.5rem 1rem;font-size:.8rem;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:202;contain:layout paint;will-change:transform}
-#urgency-bar a{color:#a0d4ff;text-decoration:underline}
-.timer-digits{font-variant-numeric:tabular-nums;letter-spacing:.04em;font-weight:700}
-.bonuses-expired .bonus-item{display:none!important}
-.bonuses-expired #urgency-pricing{display:none!important}
-#bonus-expired-notice{display:none}
-.bonuses-expired #bonus-expired-notice{display:block!important}
-.bonuses-expired #urgency-bar-timer{display:none}
-.bonuses-expired #urgency-bar-expired{display:inline!important}
 @keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
 #hero-label{animation:fadeUp .7s ease .3s both}
 #hero-h1{animation:fadeUp .9s ease .55s both}
@@ -633,59 +624,9 @@ nav.nav-blur{top:40px!important}
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<script>
-(function(){
-  var KEY='mp_bonus_deadline';
-  var DURATION=72*60*60*1000;
-  var deadline=parseInt(localStorage.getItem(KEY)||'0');
-  if(!deadline||deadline<Date.now()){
-    deadline=Date.now()+DURATION;
-    localStorage.setItem(KEY,deadline);
-  }
-
-  function fmt(ms){
-    if(ms<=0)return'00:00:00';
-    var h=Math.floor(ms/3600000);
-    var m=Math.floor((ms%3600000)/60000);
-    var s=Math.floor((ms%60000)/1000);
-    return(h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-  }
-
-  function setExpired(){
-    document.body.classList.add('bonuses-expired');
-    ['timer-top','timer-pricing','timer-sticky'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el)el.textContent='Scaduto';
-    });
-    var st=document.getElementById('sticky-timer');
-    if(st)st.style.color='#999';
-  }
-
-  function tick(){
-    var left=deadline-Date.now();
-    if(left<=0){setExpired();return;}
-    var str=fmt(left);
-    ['timer-top','timer-pricing','timer-sticky'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el)el.textContent=str;
-    });
-    setTimeout(tick,1000);
-  }
-
-  if(deadline<=Date.now()){
-    document.addEventListener('DOMContentLoaded',setExpired);
-  } else {
-    document.addEventListener('DOMContentLoaded',tick);
-  }
-})();
-</script>
 
 
 <!-- ===== NAV ===== -->
-<div id="urgency-bar">
-  <span id="urgency-bar-timer">⏱ Gli extra esclusivi scadono tra: <span class="timer-digits" id="timer-top">--:--:--</span> &nbsp;·&nbsp; <a href="#pricing">Prendi i bonus →</a></span>
-  <span id="urgency-bar-expired" style="display:none">⚠️ Il periodo bonus è scaduto — i prodotti sono ancora disponibili</span>
-</div>
 <nav class="nav-blur fixed top-0 left-0 right-0 z-50 py-3 px-4 md:px-6">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
     <div class="flex items-center gap-2">
@@ -1046,12 +987,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p style="font-size:0.88rem;color:#3d5a76;line-height:1.7"><strong style="color:#0d1a2e">N.B.:</strong> Non stai scegliendo un formato di acquisto.<br>Stai scegliendo per quanto tempo vuoi interrompere il ciclo tra mente attiva e sonno.</p>
     </div>
 
-    <!-- Timer banner -->
-    <div id="urgency-pricing" style="background:rgba(23,87,194,.05);border:1px dashed rgba(23,87,194,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
-      🎁 <strong>Bonus inclusi</strong> per le prossime <strong class="timer-digits" id="timer-pricing" style="color:#1757c2">--:--:--</strong> — poi non saranno più inclusi
-    </div>
-    <div id="bonus-expired-notice" style="background:rgba(180,30,30,.05);border:1px dashed rgba(180,30,30,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
-      ⚠️ Il periodo bonus è scaduto — i prodotti sono ancora disponibili senza i bonus aggiuntivi.
+    <!-- Bonus always included -->
+    <div style="background:rgba(23,87,194,.05);border:1px dashed rgba(23,87,194,.3);border-radius:14px;padding:.7rem 1.25rem;text-align:center;margin-bottom:1.5rem">
+      🎁 <strong>Bonus inclusi</strong> con ogni ordine
     </div>
 
     <!-- Cards -->
