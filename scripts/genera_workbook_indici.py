@@ -24,6 +24,16 @@ BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 
 A1 = "Art.1 - Indici cardiologici"
 A2 = "Art.2 - Indici antropometrici"
+A3 = "Art.3 - Profilo marziale"
+
+# Pesi molecolari usati per convertire il pannello marziale dalle unita SI
+# a quelle convenzionali. Documentati perche il rapporto transferrina/log(ferritina)
+# ne dipende: vedi foglio 08.
+MW_TRF = 79570      # transferrina, g/mol
+MW_FER = 450000     # ferritina, g/mol
+K_TRF_GL = MW_TRF / 1e6        # uM -> g/L
+K_FER_UGL = MW_FER / 1e6 / 1e3  # pM -> ug/L
+K_FE_UGDL = 5.585              # uM -> ug/dL (ferro)
 
 
 def hdr(ws, row, labels, start=1, h=32):
@@ -62,7 +72,7 @@ ws = wb.active
 ws.title = "00 Legenda"
 setw(ws, {"A": 32, "B": 100})
 title(ws, "Indici clinici - aggregazione multi-articolo, calcolo e valutazione della pericolosita",
-      "Fonti attualmente integrate: Art.1 indici cardiologici, Art.2 indici antropometrici. Stesso soggetto dimostrativo.")
+      "Fonti integrate: Art.1 indici cardiologici, Art.2 indici antropometrici, Art.3 profilo marziale. Stesso soggetto dimostrativo.")
 
 LEG = [
     ("", ""),
@@ -76,7 +86,7 @@ LEG = [
     ("", ""),
     ("COME SI USA", "1) Apri '01 Input' e modifica SOLO le celle blu su sfondo giallo.\n"
                     "2) Tutti gli altri fogli si ricalcolano da soli.\n"
-                    "3) '02 Indici' contiene i 32 indici delle due fonti, ricalcolati e confrontati con il referto.\n"
+                    "3) '02 Indici' contiene i 43 indici delle tre fonti, ricalcolati e confrontati con il referto.\n"
                     "4) '06 Rischio' produce il punteggio complessivo di pericolosita.\n"
                     "5) '08 Controlli' elenca cosa e riproducibile e cosa no: leggilo prima di fidarti dei numeri."),
     ("", ""),
@@ -89,7 +99,7 @@ LEG = [
     ("", ""),
     ("FOGLI", ""),
     ("  01 Input", "Dati grezzi del soggetto, laboratorio e fattori anamnestici. Unico foglio da compilare."),
-    ("  02 Indici", "I 32 indici delle due fonti: formula, valore ricalcolato, scostamento dal referto, intervallo "
+    ("  02 Indici", "I 43 indici delle tre fonti: formula, valore ricalcolato, scostamento dal referto, intervallo "
                     "di riferimento, stato, peso clinico e punteggio."),
     ("  03 Formule", "Dizionario delle formule con derivazione e verifica numerica."),
     ("  04 Zone FC", "Zone di frequenza cardiaca ricavate dalla frequenza massima."),
@@ -98,11 +108,13 @@ LEG = [
                      "epidemiologico e indice composito di pericolosita."),
     ("  07 Scenari", "Simulazioni what-if sugli interventi discussi dalle fonti."),
     ("  08 Controlli", "Verifica di riproducibilita: quali valori pubblicati si riottengono dai dati grezzi e quali no."),
+    ("  09 Conversioni", "Il profilo marziale tradotto dalle unita SI a quelle di un referto di laboratorio ordinario."),
     ("", ""),
-    ("NOTA IMPORTANTE", "Il foglio '08 Controlli' segnala sette scostamenti fra i valori pubblicati e il ricalcolo, "
-                        "fra cui un BMI che non corrisponde al peso e all'altezza dichiarati e che si propaga su tre "
-                        "indici derivati. Il modello mantiene sia il valore pubblicato sia quello ricalcolato, "
-                        "senza sceglierne uno."),
+    ("NOTA IMPORTANTE", "Il foglio '08 Controlli' registra gli scostamenti fra i valori pubblicati e il ricalcolo. "
+                        "I due piu rilevanti: un BMI che non discende dal peso e dall'altezza dichiarati e che si "
+                        "propaga su tre indici derivati, e una diagnosi di sarcopenia che poggia su una correzione "
+                        "di cinque millimetri la cui formula non e pubblicata. Il modello mantiene sia il valore "
+                        "pubblicato sia quello ricalcolato, senza sceglierne uno."),
     ("", ""),
     ("AGGIUNGERE UN ARTICOLO", "Aggiungi le righe in fondo alle tabelle di '02 Indici', '03 Formule' e '05 Evidenze' "
                                "compilando la colonna 'Fonte' con l'etichetta del nuovo articolo. Se introduce dati "
@@ -157,6 +169,13 @@ INPUTS = [
     ("LABORATORIO", None, None, None),
     ("Colesterolo HDL", 41, "mg/dL", A2 + " - preso da solo nessun laboratorio lo segnalerebbe. Alimenta CMI e VAI"),
     ("Trigliceridi", 148, "mg/dL", A2 + " - idem. Alimenta LAP, CMI e VAI"),
+    ("", None, None, None),
+    ("PROFILO MARZIALE (valori misurati)", None, None, None),
+    ("Sideremia", 13.6, "uM", A3 + " - ritmo circadiano marcato: il prelievo va fatto al mattino a digiuno, altrimenti la saturazione risulta abbassata di diversi punti senza che le riserve siano cambiate"),
+    ("Transferrina", 39.2, "uM", A3 + " - il fegato ne produce di piu proprio quando il ferro scarseggia. Da qui derivano TIBC e UIBC"),
+    ("Ferritina", 160.9, "pM", A3 + " - proteina di fase acuta positiva: sale con l'infiammazione a prescindere da quanto ferro contenga"),
+    ("Fattore di aggiustamento BRINDA - sideremia", 1.2574, "-", "DEDOTTO: rapporto fra il valore aggiustato e quello grezzo pubblicati (17,1/13,6). I marcatori di infiammazione su cui si basa la correzione non sono riportati dall'articolo"),
+    ("Fattore di aggiustamento BRINDA - ferritina", 0.7502, "-", "DEDOTTO: rapporto fra il valore aggiustato e quello grezzo pubblicati (120,7/160,9). Corrisponde a una riduzione del 25% esatto"),
     ("", None, None, None),
     ("VALORI NON RICALCOLABILI (inseriti dal referto)", None, None, None),
     ("ABSI z-score da referto", 1.52, "z", A2 + " - il valore grezzo di ABSI e ricalcolabile, ma lo z-score richiede le tabelle NHANES per eta e sesso, che non sono pubblicate. Vedi foglio 08"),
@@ -217,6 +236,9 @@ I_HR, I_SV = I("Frequenza cardiaca a riposo (FC)"), I("Gittata sistolica (SV)")
 I_HRMAX = I("Frequenza cardiaca massima da referto")
 I_CVP = I("Pressione venosa centrale assunta (CVP)")
 I_HDL, I_TG = I("Colesterolo HDL"), I("Trigliceridi")
+I_FE, I_TRF, I_FER = I("Sideremia"), I("Transferrina"), I("Ferritina")
+I_KFE = I("Fattore di aggiustamento BRINDA - sideremia")
+I_KFER = I("Fattore di aggiustamento BRINDA - ferritina")
 I_ABSIZ = I("ABSI z-score da referto")
 I_CIG, I_YRS = I("Sigarette al giorno"), I("Anni di abitudine tabagica")
 I_MIO = I("Miosteatosi documentata")
@@ -322,6 +344,30 @@ IND = [
   "L'unico indice il cui commento non ammette diplomazia: rischio di mortalita molto alto. Costruito su 14.105 adulti NHANES per isolare la forma corporea depurata da peso e BMI, con aumento quasi esponenziale della mortalita (PMID 22815707). E l'indice che un normopeso non si aspetta mai di trovare alterato. Il valore grezzo di ABSI e ricalcolabile (0,0873), lo z-score no: le tabelle di riferimento non sono pubblicate."),
  (A2, "Muscolo", "Circonferenza polpaccio corretta per BMI", "CC - correzione categoriale EWGSOP2", f"={I_CALF}-IF({BMI}<18.5,-4,IF({BMI}<25,0,IF({BMI}<30,3,7)))", "cm", 33.5, 34.0, 45.0, "Basso", 3, "0.0",
   "Surrogato validato della massa muscolare appendicolare (PMID 30312372). La correzione applicata dal referto non e pubblicata: con quella categoriale EWGSOP2 il BMI del soggetto non comporta alcuna correzione e il valore resterebbe 34,0 cm, cioe ESATTAMENTE sulla soglia invece che sotto. La diagnosi di sarcopenia moderata dipende interamente da quei 5 millimetri non documentati."),
+
+ # ---------------- ARTICOLO 3 : PROFILO MARZIALE ----------------
+ (A3, "Ferro circolante", "Sideremia", "misurata", f"={I_FE}", "uM", 13.6, 13, 27, "Basso", 2, "0.0",
+  "Dentro l'intervallo per sei decimi di micromole: e il valore piu basso possibile senza essere segnalato. Ha un ritmo circadiano marcato, quindi un prelievo pomeridiano abbasserebbe la saturazione di diversi punti senza che le riserve siano cambiate."),
+ (A3, "Ferro circolante", "Sideremia aggiustata per infiammazione", "sideremia x fattore BRINDA", f"={I_FE}*{I_KFE}", "uM", 17.1, 15, 23, "Basso", 1, "0.0",
+  "La correzione per l'infiammazione alza il ferro circolante e abbassa la ferritina, cioe spinge le due grandezze in direzioni opposte. Il fattore non e pubblicato: e stato dedotto dal rapporto fra valore aggiustato e valore grezzo."),
+ (A3, "Trasporto", "Transferrina", "misurata", f"={I_TRF}", "uM", 25.1, 25.1, 50.3, "Alto", 1, "0.0",
+  "Il camion che trasporta il ferro. Il fegato ne produce di piu proprio quando il ferro scarseggia, quindi un valore alto e un segnale di carenza, non di abbondanza."),
+ (A3, "Trasporto", "TIBC (capacita totale legante)", "2 x transferrina", f"=2*E{R0+34}", "uM", 78.4, 45, 76, "Alto", 1, "0.0",
+  "Ogni molecola di transferrina lega due atomi di ferro: da qui il fattore 2, che riproduce esattamente il valore pubblicato. Oltre la finestra ottimale significa che circolano molti posti liberi sui camion."),
+ (A3, "Trasporto", "UIBC (capacita legante insatura)", "TIBC - sideremia", f"=E{R0+35}-E{R0+32}", "uM", 64.8, 22, 61, "Alto", 1, "0.0",
+  "I posti liberi effettivi. Conferma dall'altro lato quello che dice la saturazione: la capacita di trasporto c'e, il carico no."),
+ (A3, "Disponibilita", "Saturazione della transferrina", "sideremia / TIBC x 100", f"=E{R0+32}/E{R0+35}*100", "%", 17.3, 20, 48, "Basso", 3, "0.0",
+  "L'UNICO valore dell'intero pannello sotto il riferimento anche senza aggiustamenti, ed e considerato il marcatore piu informativo dello stato marziale reale perche mette insieme ferro circolante e proteina di trasporto (PMID 27346617, PMID 36380788). I camion viaggiano pieni per un sesto quando dovrebbero stare almeno a un quinto."),
+ (A3, "Disponibilita", "Saturazione aggiustata", "sideremia aggiustata / TIBC x 100", f"=E{R0+33}/E{R0+35}*100", "%", 21.8, 24, 35, "Basso", 2, "0.0",
+  "Anche dopo la correzione che alza il ferro circolante, la saturazione resta sotto la finestra ottimale. La carenza funzionale non e un artefatto dell'infiammazione."),
+ (A3, "Depositi", "Ferritina", "misurata", f"={I_FER}", "pM", 160.9, 54, 854, "Informativo", 0, "0.0",
+  "Comoda nel mezzo di un intervallo larghissimo, ed e la riga su cui quasi tutti si fermano. Peso 0 come il BMI dell'articolo 2, e per la stessa ragione: e una proteina di fase acuta, quindi in un fumatore da trent'anni con flogosi cronica misura l'infiammazione piu delle riserve. Correggendo per infiammazione con il metodo BRINDA la prevalenza di carenza sale dal 46,3% al 61,5% (PMID 35623855)."),
+ (A3, "Depositi", "Ferritina aggiustata per infiammazione", "ferritina x fattore BRINDA", f"={I_FER}*{I_KFER}", "pM", 120.7, 283.1, 854, "Basso", 3, "0.0",
+  "Meno della meta del valore ottimale. E la riga che nessuno guarda e che ribalta la lettura della riga precedente: il commento del laboratorio sulla stessa fascia dice depositi midollari in esaurimento."),
+ (A3, "Depositi", "Depositi di ferro", "ferritina x 4,5", f"={I_FER}*4.5", "nM", 724, 301.5, 706.5, "Bilaterale", 1, "0.0",
+  "Il fattore 4,5 deriva dai circa 4500 atomi di ferro che ogni molecola di ferritina puo contenere, con la conversione da pM a nM. Sopra la finestra ottimale: ferro presente ma sequestrato, non ferro in eccesso. Calcolandolo sulla ferritina AGGIUSTATA darebbe 543 nM, cioe dentro la finestra: la contraddizione fra le due righe e il cuore del referto non discriminante."),
+ (A3, "Indici derivati", "Transferrina / log(ferritina)", "transferrina g/L / log10(ferritina ug/L)", f"=({I_TRF}*{K_TRF_GL})/LOG10({I_FER}*{K_FER_UGL})", "-", 1.63, 0, 1.70, "Alto", 2, "0.00",
+  "Indice combinato per la carenza marziale in presenza di infiammazione. Il valore dipende dai pesi molecolari usati per la conversione in unita convenzionali, che la fonte non dichiara: al variare di quelli plausibili il risultato oscilla fra 1,59 e 1,70, e l'1,63 pubblicato cade dentro questa banda. Comunque a ridosso del cut-off."),
 ]
 
 r = R0
@@ -393,6 +439,7 @@ ws.conditional_formatting.add(f"H{R0}:H{LAST}",
 C = lambda off: f"'02 Indici'!$E${R0+off}"
 E_WHtR, E_LAP, E_CMI, E_VAI, E_CC = C(20), C(27), C(28), C(29), C(31)
 E_BMI = f"'02 Indici'!${BMI}"
+E_SAT, E_FERADJ, E_DEP = C(37), C(40), C(41)
 
 # =====================================================================
 # 03 FORMULE
@@ -468,6 +515,22 @@ FORM = [
   "La correzione categoriale non prevede alcun aggiustamento per BMI fra 18,5 e 24,9, quindi il valore resterebbe 34,0 cm, esattamente sulla soglia. Il referto applica -0,5 cm con una formula non pubblicata, e da quei 5 millimetri dipende la diagnosi di sarcopenia moderata."),
  (A2, "Volume del tessuto adiposo", "a parita di massa il grasso occupa circa il 18% di spazio in piu del muscolo", "-", "Esplicita",
   "Spiega perche la vita cresce mentre l'ago della bilancia sta fermo, e perche il paziente giura in buona fede di non essere ingrassato."),
+ (A3, "TIBC", "TIBC = 2 x transferrina", "2 x 39,2 = 78,4", "Ricostruita",
+  "Riproduce esattamente il valore pubblicato. Il fattore 2 e stechiometrico: ogni molecola di transferrina lega due atomi di ferro."),
+ (A3, "UIBC", "UIBC = TIBC - sideremia", "78,4 - 13,6 = 64,8", "Ricostruita",
+  "Riproduce esattamente il valore pubblicato. E la capacita di trasporto ancora libera."),
+ (A3, "Saturazione della transferrina", "TSAT = sideremia / TIBC x 100", "13,6 / 78,4 = 17,35% -> 17,3", "Ricostruita",
+  "Riproduce il valore pubblicato. E l'unico valore del pannello sotto il riferimento senza bisogno di correzioni, ed e considerato il marcatore piu informativo dello stato marziale reale."),
+ (A3, "Saturazione aggiustata", "TSATadj = sideremia aggiustata / TIBC x 100", "17,1 / 78,4 = 21,81% -> 21,8", "Ricostruita",
+  "Riproduce il valore pubblicato e conferma che l'aggiustamento agisce sul numeratore, non sulla capacita di trasporto."),
+ (A3, "Depositi di ferro", "depositi (nM) = ferritina (pM) x 4,5", "160,9 x 4,5 = 724,05 -> 724", "Ricostruita",
+  "Riproduce esattamente il valore pubblicato. Il fattore 4,5 deriva dai circa 4500 atomi di ferro per molecola di ferritina, diviso 1000 per passare da picomoli a nanomoli. Nota: il calcolo usa la ferritina GREZZA; con quella aggiustata darebbe 543 nM, cioe dentro la finestra ottimale invece che sopra."),
+ (A3, "Aggiustamento per infiammazione", "valore aggiustato = valore grezzo x fattore BRINDA", "ferritina x 0,7502; sideremia x 1,2574", "Fattori dedotti",
+  "Il metodo BRINDA corregge i marcatori marziali in base ai reattanti di fase acuta. I marcatori di infiammazione non sono pubblicati in questo articolo, quindi i fattori sono stati ricavati dal rapporto fra valori aggiustati e grezzi. Quello sulla ferritina corrisponde a una riduzione del 25% esatto."),
+ (A3, "Transferrina / log(ferritina)", "transferrina (g/L) / log10(ferritina (ug/L))", "3,119 / 1,860 = 1,677 (referto 1,63)", "Ricostruita con riserva",
+  "La forma della formula e certa, il valore no: dipende dai pesi molecolari usati per convertire transferrina e ferritina dalle unita SI a quelle convenzionali, che la fonte non dichiara. Con i pesi plausibili il risultato oscilla fra 1,59 e 1,70 e l'1,63 pubblicato cade dentro la banda. Il modello usa 79.570 g/mol per la transferrina e 450.000 per la ferritina."),
+ (A3, "Conversioni verso unita convenzionali", "ferro: uM x 5,585 = ug/dL | ferritina: pM x 0,45 = ug/L | transferrina: uM x 7,957 = mg/dL", "sideremia 76 ug/dL; ferritina 72,4 ug/L", "Standard",
+  "Il pannello e espresso in unita SI, che quasi nessun laboratorio italiano usa. Il foglio 09 riporta la conversione completa per rendere i valori confrontabili con un referto ordinario."),
 ]
 r = 5
 for i, (fonte, nome, f, ver, orig, nota) in enumerate(FORM, 1):
@@ -600,6 +663,20 @@ EV = [
   "APPLICABILE: valida il polpaccio come surrogato della massa muscolare. La correzione per BMI usata dal referto non e pero quella del consenso: vedi foglio 08."),
  (A2, "35227529", "Consenso ESPEN-EASO (Donini)", "-", "Obesita sarcopenica", "-", "Insulino-resistenza, diabete 2, ridotta mobilita",
   "APPLICABILE: il soggetto non e obeso secondo il BMI ma ha gia il fenotipo. Formalizza l'associazione fra infiltrazione adiposa del muscolo e insulino-resistenza."),
+ (A3, "35623855", "Studio su donne in eta fertile (Finkelstein)", "979 donne", "Correzione della ferritina per infiammazione (BRINDA)", "46,3% -> 61,5%", "Prevalenza di carenza marziale",
+  "APPLICABILE: una persona su sette veniva dichiarata sana per un errore di lettura. Il soggetto e un fumatore da trent'anni, quindi con flogosi cronica di basso grado: e esattamente la condizione in cui la ferritina grezza inganna."),
+ (A3, "27346617", "Revisione (Elsayed, Sharif, Stack)", "-", "Saturazione della transferrina", "-", "Stato marziale reale",
+  "APPLICABILE: la saturazione e il marcatore piu informativo perche combina ferro circolante e capacita di trasporto. Nel soggetto vale 17,3% contro un minimo di 20."),
+ (A3, "36380788", "Revisione (Del Pinto, Ferri)", "-", "Carenza marziale con infiammazione cronica", "-", "Ruolo discriminante della saturazione",
+  "APPLICABILE: riconosce alla saturazione un ruolo discriminante proprio nelle situazioni in cui la ferritina non e leggibile."),
+ (A3, "22306005", "Revisione (Ganz e Nemeth)", "-", "Epcidina e ferroportina", "-", "Meccanismo di regolazione del ferro",
+  "IPOTESI, NON MISURA: spiega il meccanismo con cui il ferro resta bloccato nei depositi, ma l'epcidina non e stata dosata e non e dosabile nella routine clinica."),
+ (A3, "30401705", "Revisione (Weiss, Ganz, Goodnough)", "-", "Anemia da infiammazione", "-", "Eritropoiesi ferro-ristretta",
+  "APPLICABILE E DECISIVA SULLA CONDOTTA: nelle anemie da infiammazione la sola supplementazione marziale e spesso inefficace e la strategia utile passa dal trattare la causa."),
+ (A3, "27236129", "Revisione (Bahrainwala, Berns)", "-", "Ferritina e saturazione prese da sole", "-", "Capacita predittiva modesta",
+  "APPLICABILE: giustifica il commento 'profilo marziale non discriminante'. E il fondamento del rifiuto dell'algoritmo a dare una risposta che i dati non contengono."),
+ (A3, "31850722", "Studio (Gelaw, Woldu, Melku)", "-", "Marcatori dello stato marziale", "-", "Valutazione della carenza",
+  "Citata dalla fonte fra i riferimenti senza essere discussa nel corpo dell'articolo."),
 ]
 r = 5
 for i, (fonte, pmid, studio, n, esp, mis, esito, appl) in enumerate(EV, 1):
@@ -661,7 +738,7 @@ P = f"'02 Indici'!$P${R0}:$P${LAST}"
 N = f"'02 Indici'!$N${R0}:$N${LAST}"
 O = f"'02 Indici'!$O${R0}:$O${LAST}"
 
-section(4, "A - PUNTEGGIO STRUMENTALE (32 indici, due fonti)")
+section(4, "A - PUNTEGGIO STRUMENTALE (43 indici, tre fonti)")
 line(5, "Indici valutati in totale", f"=COUNT({O})", "0", "Righe presenti nel foglio 02.")
 line(6, "Indici normali", f'=COUNTIF({M},"Normale")', "0")
 line(7, "Indici borderline (in zona di guardia)", f'=COUNTIF({M},"Borderline")', "0",
@@ -671,12 +748,14 @@ line(9, "  di cui dall'articolo 1 (cardiologici)", f'=COUNTIFS({Q},"Art.1*",{M},
      "La fonte dichiara 1 indice fuori range su 16.")
 line(10, "  di cui dall'articolo 2 (antropometrici)", f'=COUNTIFS({Q},"Art.2*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.2*",{M},"Fuori (basso)")', "0",
      "La fonte dichiara 6 indici oltre soglia su 12; applicando i cut-off delle sue stesse tabelle ne risultano 9. Vedi foglio 08.")
-line(11, "Punteggio ponderato ottenuto", f"=SUM({P})", "0", "Somma di peso clinico x punteggio 0-3.")
-line(12, "Punteggio massimo teorico", f"=SUM({N})*3", "0", "Se ogni indice pesato fosse gravemente fuori range.")
-line(13, "COMPONENTE STRUMENTALE", "=IF(C12=0,0,C11/C12)", "0.0%", "Quota del massimo teorico raggiunta.", bold=True, color="C00000")
+line(11, "  di cui dall'articolo 3 (profilo marziale)", f'=COUNTIFS({Q},"Art.3*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.3*",{M},"Fuori (basso)")', "0",
+     "La fonte dichiara 5 valori fuori dalle finestre ottimali su 11; applicando gli intervalli della sua stessa tabella ne risultano 6. Vedi foglio 08.")
+line(12, "Punteggio ponderato ottenuto", f"=SUM({P})", "0", "Somma di peso clinico x punteggio 0-3.")
+line(13, "Punteggio massimo teorico", f"=SUM({N})*3", "0", "Se ogni indice pesato fosse gravemente fuori range.")
+line(14, "COMPONENTE STRUMENTALE", "=IF(C13=0,0,C12/C13)", "0.0%", "Quota del massimo teorico raggiunta.", bold=True, color="C00000")
 
-section(15, "B - FATTORI ANAMNESTICI CHE I REFERTI NON CONTENGONO")
-hdr(ws, 16, ["", "Fattore", "Presente", "Peso", "Punti", "", "Evidenza / nota"], start=1, h=20)
+section(16, "B - FATTORI ANAMNESTICI E PATTERN CHE I SINGOLI INDICI NON ESPRIMONO")
+hdr(ws, 17, ["", "Fattore", "Presente", "Peso", "Punti", "", "Evidenza / nota"], start=1, h=20)
 FATT = [
  ("Fumo attivo (>= 20 sigarette al giorno)", f"=IF({I_CIG}>=20,1,0)", 3,
   "PMID 8689656 - assetto autonomico spostato verso il simpatico anche a distanza dall'ultima sigaretta."),
@@ -692,8 +771,10 @@ FATT = [
   "PMID 15793048 - l'esercizio supervisionato abbassa del 19% il prodotto cardiovascolare; la sua assenza toglie il principale fattore correttivo."),
  ("Incremento ponderale > 5 kg dall'eta di 30 anni", f"=IF({I_W}-{I_W30}>5,1,0)", 1,
   "Sei chili in vent'anni, trecento grammi l'anno: l'aumento piu banale del mondo. Sotto, circa dieci chili di grasso in piu e quattro di muscolo in meno."),
+ ("Pattern di eritropoiesi ferro-ristretta", f"=IF(AND({E_SAT}<20,{E_DEP}>301.5),1,0)", 3,
+  "PMID 30401705 - calcolato dagli indici: saturazione sotto il 20% con depositi non esauriti. Il ferro c'e ma non arriva ai reticolociti. Nessuna singola riga del profilo marziale lo dice: emerge solo dalla combinazione."),
 ]
-r = 17
+r = 18
 f0 = r
 for lab, presf, peso, ev in FATT:
     ws.cell(row=r, column=2, value=lab).font = Font(name=FONT, size=10)
@@ -748,7 +829,7 @@ ws.cell(row=cr + 1, column=3).font = Font(name=FONT, size=10, bold=True, color=B
 ws.cell(row=cr + 1, column=3).fill = PatternFill("solid", fgColor=YEL)
 line(cr + 2, "Peso della componente anamnestica", f"=1-C{cr+1}", "0%",
      "I referti coprono la maggior parte del giudizio, ma non tutto: il resto viene da cio che non misurano.")
-line(cr + 3, "PUNTEGGIO DI PERICOLOSITA (0-100)", f"=(C13*C{cr+1}+{FATT_PCT}*C{cr+2})*100", "0.0",
+line(cr + 3, "PUNTEGGIO DI PERICOLOSITA (0-100)", f"=(C14*C{cr+1}+{FATT_PCT}*C{cr+2})*100", "0.0",
      "Media pesata delle due componenti su scala centesimale.", bold=True, color="C00000", size=11)
 ws.cell(row=cr + 3, column=3).font = Font(name=FONT, size=18, bold=True, color="C00000")
 ws.row_dimensions[cr + 3].height = 30
@@ -763,8 +844,9 @@ c = ws.cell(row=cr + 6, column=3, value=(
     f'" sono in zona di guardia pur essendo stampati come normali. "'
     f'&IF({I_HR}>{I_HRTHR},"La frequenza a riposo supera la soglia degli 80 bpm, oltre la quale il rischio cambia scala. ","")'
     f'&IF(AND({E_BMI}<25,{E_WHtR}>0.5),"Il BMI resta sotto 25 mentre la vita supera la meta dell altezza: e il fenotipo che il peso corporeo nasconde. ","")'
-    f'&"Fattori anamnestici presenti: "&{FATT_GOT}&" punti su "&{FATT_MAX}&". "'
-    f'&"Accertamenti mancanti che cambierebbero il giudizio: test da sforzo, studio del sonno e misurazioni ripetute della frequenza."'))
+    f'&IF(AND({E_SAT}<20,{E_DEP}>301.5),"Il profilo marziale mostra saturazione bassa con depositi non esauriti: il ferro c e ma non arriva dove serve, quindi la sola supplementazione marziale sarebbe verosimilmente inefficace e la leva utile e la causa infiammatoria. ","")'
+    f'&"Fattori anamnestici e pattern presenti: "&{FATT_GOT}&" punti su "&{FATT_MAX}&". "'
+    f'&"Accertamenti mancanti che cambierebbero il giudizio: test da sforzo, studio del sonno, misurazioni ripetute della frequenza, marcatori di infiammazione e contenuto emoglobinico reticolocitario."'))
 c.font = Font(name=FONT, size=10)
 c.alignment = Alignment(wrap_text=True, vertical="top")
 c.fill = WARN_FILL
@@ -783,6 +865,9 @@ MANCA = [
  ("Variabilita della frequenza cardiaca (HRV)", "LF, HF e guadagno barocettivo sono i parametri su cui il fumo agisce, e nessuno di essi compare nei referti."),
  ("Glicemia, insulinemia, enzimi epatici", "VAI e CMI segnalano resistenza insulinica e disfunzione del tessuto adiposo, ma la conferma diretta richiede i marcatori di sensibilita insulinica e di steatosi."),
  ("DEXA o bioimpedenziometria", "Gli indici antropometrici stratificano il rischio a costo quasi nullo, ma non quantificano la composizione corporea: sarcopenia e miosteatosi restano stime."),
+ ("Marcatori di infiammazione (PCR, AGP)", "Il referto applica al profilo marziale una correzione BRINDA che dipende dai reattanti di fase acuta, ma quei valori non compaiono. Senza di essi i fattori di aggiustamento restano dedotti, non verificati."),
+ ("Contenuto emoglobinico reticolocitario (Ret-He)", "E l'esame con cui la fonte stessa propone di rivalutare il quadro fra tre mesi. Direbbe se il ferro arriva davvero ai precursori, che e la domanda che il profilo marziale lascia aperta."),
+ ("Epcidina", "Spiegherebbe il blocco ipotizzato, ma non e dosabile nella routine: i metodi non sono armonizzati e mancano cut-off condivisi. Resta uno strumento di ricerca, quindi il meccanismo si deduce, non si legge (PMID 22306005)."),
 ]
 r = mr + 1
 for lab, why in MANCA:
@@ -938,6 +1023,18 @@ CTRL = [
   "Riproduce il valore pubblicato. Il rapporto alternativo PP/SBP darebbe 0,34."),
  (A1, "Zone di frequenza cardiaca", "87 / 105 / 122 / 140 / 157", "identiche con troncamento", "Riproducibile",
   "Le soglie si riproducono esattamente troncando all'intero le percentuali della FC massima, non arrotondando."),
+ (A3, "Coerenza interna del profilo marziale", "-", "tutte le relazioni tornano", "Riproducibile",
+  "Il pannello marziale e l'unico dei tre a essere internamente coerente al cento per cento: TIBC come doppio della transferrina, UIBC come differenza, saturazione come rapporto, saturazione aggiustata sul ferro corretto e depositi come ferritina per 4,5 riproducono tutti esattamente i valori pubblicati."),
+ (A3, "Fattori di aggiustamento BRINDA", "-", "1,2574 sul ferro; 0,7502 sulla ferritina", "Dedotto",
+  "I fattori si ricavano dal rapporto fra valori aggiustati e grezzi, ma non si verificano: la correzione BRINDA dipende dai reattanti di fase acuta e questo articolo non pubblica alcun marcatore di infiammazione, pur costruendoci sopra tutta l'argomentazione. Quello sulla ferritina e una riduzione del 25% esatto."),
+ (A3, "Transferrina / log(ferritina)", "1,63", "1,677 (da 1,59 a 1,70 secondo i pesi molecolari)", "Sensibile alle unita",
+  "La forma della formula e certa, il valore dipende dai pesi molecolari usati per convertire dalle unita SI a quelle convenzionali, che la fonte non dichiara. Il valore pubblicato cade dentro la banda dei valori plausibili. Con entrambi l'indice resta sotto il cut-off, ma a ridosso."),
+ (A3, "Depositi di ferro: quale ferritina", "724 nM", "724 da ferritina grezza; 543 da ferritina aggiustata", "Scelta non dichiarata",
+  "Il referto calcola i depositi sulla ferritina NON aggiustata, e cosi facendo li colloca sopra la finestra ottimale. Calcolandoli sulla ferritina aggiustata, che lo stesso referto pubblica due righe sopra, cadrebbero dentro la finestra. Le due righe raccontano storie diverse e la scelta non e motivata."),
+ (A3, "Conteggio dei valori fuori finestra ottimale", "5 su 11", "6 su 11", "Scostamento",
+  "Fuori dalle finestre ottimali risultano TIBC, UIBC, saturazione, saturazione aggiustata, ferritina aggiustata e depositi. L'articolo ne dichiara cinque."),
+ (A3, "Coerenza fra testo e tabella", "'nessuna riga in rosso'", "saturazione 17,3 sotto il riferimento 20-48", "Contraddizione interna",
+  "L'articolo apre dicendo che nessun valore e in rosso, e poche righe dopo afferma che la saturazione e l'unico valore sotto il riferimento anche senza aggiustamenti. Le due frasi non possono essere vere insieme: rispetto all'intervallo pubblicato in tabella, la saturazione e fuori."),
  ("Entrambe", "Tutti gli altri indici", "-", "coincidono", "Riproducibile",
   "Riproducono il valore pubblicato entro l'arrotondamento: pressione di pulsazione, riserva, Modified Shock Index, prodotto cardiovascolare, portata, Cardiac Index, morfotipo, pesi ideali di Lorenz e Creff, vita/altezza, vita/fianchi, Conicity Index, BAI, BRI, LAP, CMI e VAI."),
 ]
@@ -969,8 +1066,10 @@ ws.cell(row=sr, column=3, value="Sintesi").font = Font(name=FONT, size=10, bold=
 for k, (lab, val) in enumerate([
         ("Elementi verificati", f"=COUNTA(C5:C{r-1})"),
         ("Riproducibili senza riserve", f'=COUNTIF(F5:F{r-1},"Riproducibile")'),
-        ("Formule ricostruite dall'analista", f'=COUNTIF(F5:F{r-1},"Formula ricostruita")+COUNTIF(F5:F{r-1},"Riproducibile con assunzione")'),
-        ("Scostamenti o valori non riproducibili", f'=COUNTIF(F5:F{r-1},"Non riproducibile")+COUNTIF(F5:F{r-1},"Scostamento")+COUNTIF(F5:F{r-1},"Non verificabile")')]):
+        ("Ricostruiti o dipendenti da assunzioni dell'analista",
+         f'=COUNTIF(F5:F{r-1},"Formula ricostruita")+COUNTIF(F5:F{r-1},"Riproducibile con assunzione")'
+         f'+COUNTIF(F5:F{r-1},"Dedotto")+COUNTIF(F5:F{r-1},"Sensibile alle unita")'),
+        ("Scostamenti, valori non riproducibili o incongruenze", f"=E{sr+1}-E{sr+2}-E{sr+3}")]):
     ws.cell(row=sr + 1 + k, column=3, value=lab).font = Font(name=FONT, size=10)
     c = ws.cell(row=sr + 1 + k, column=5, value=val)
     c.font = Font(name=FONT, size=11, bold=True, color="C00000" if k == 3 else BLACK)
@@ -992,6 +1091,71 @@ c.alignment = Alignment(wrap_text=True, vertical="top")
 ws.merge_cells(start_row=cr2 + 1, start_column=3, end_row=cr2 + 4, end_column=7)
 for cc in range(3, 8):
     for rr in range(cr2 + 1, cr2 + 5):
+        ws.cell(row=rr, column=cc).fill = WARN_FILL
+        ws.cell(row=rr, column=cc).border = BORDER
+
+# =====================================================================
+# 09 CONVERSIONI
+# =====================================================================
+ws = wb.create_sheet("09 Conversioni")
+setw(ws, {"A": 5, "B": 36, "C": 14, "D": 9, "E": 10, "F": 16, "G": 12, "H": 60})
+title(ws, "09 - Profilo marziale in unita convenzionali",
+      "Il referto usa unita SI, che quasi nessun laboratorio italiano stampa. Qui gli stessi valori nelle unita di un referto ordinario.")
+hdr(ws, 4, ["#", "Analita", "Valore SI", "Unita SI", "Fattore", "Valore convenzionale", "Unita", "Nota"])
+
+CONV = [
+ ("Sideremia", C(32), "uM", K_FE_UGDL, "ug/dL", "0.0",
+  "Il valore convenzionale corrispondente e appena sopra il limite inferiore tipico per l'uomo adulto."),
+ ("Sideremia aggiustata", C(33), "uM", K_FE_UGDL, "ug/dL", "0.0", ""),
+ ("Transferrina", C(34), "uM", MW_TRF / 1e4, "mg/dL", "0.0",
+  "Convertita con peso molecolare 79.570 g/mol."),
+ ("TIBC", C(35), "uM", K_FE_UGDL, "ug/dL", "0.0",
+  "Il valore convenzionale e sopra l'intervallo tipico: molti posti liberi sui camion."),
+ ("UIBC", C(36), "uM", K_FE_UGDL, "ug/dL", "0.0", ""),
+ ("Ferritina", C(39), "pM", K_FER_UGL, "ug/L (ng/mL)", "0.0",
+  "Convertita con peso molecolare 450.000 g/mol. Nelle unita di un referto ordinario e un valore che nessuno segnalerebbe."),
+ ("Ferritina aggiustata", C(40), "pM", K_FER_UGL, "ug/L (ng/mL)", "0.0",
+  "Sotto la soglia di 30 ug/L nessuno discuterebbe la carenza; qui il valore resta sopra, ed e per questo che il caso e difficile."),
+ ("Soglia ottimale di ferritina aggiustata", "=283.1", "pM", K_FER_UGL, "ug/L (ng/mL)", "0.0",
+  "Il riferimento ottimale del referto tradotto in unita convenzionali."),
+]
+r = 5
+for i, (nome, sival, siu, k, cu, fmt, nota) in enumerate(CONV, 1):
+    ws.cell(row=r, column=1, value=i).alignment = Alignment(horizontal="center")
+    ws.cell(row=r, column=2, value=nome).font = Font(name=FONT, size=10, bold=True)
+    c = ws.cell(row=r, column=3, value=f"={sival}" if not str(sival).startswith("=") else sival)
+    c.font = Font(name=FONT, size=10, color=GREEN)
+    c.number_format = "0.0"
+    ws.cell(row=r, column=4, value=siu)
+    ws.cell(row=r, column=5, value=k).number_format = "0.0000"
+    cv = ws.cell(row=r, column=6, value=f"=C{r}*E{r}")
+    cv.font = Font(name=FONT, size=11, bold=True)
+    cv.number_format = fmt
+    ws.cell(row=r, column=7, value=cu)
+    ws.cell(row=r, column=8, value=nota).font = Font(name=FONT, size=9, italic=True, color="595959")
+    for cc in range(1, 9):
+        cell = ws.cell(row=r, column=cc)
+        cell.border = BORDER
+        if cell.font.name != FONT:
+            cell.font = Font(name=FONT, size=10)
+        cell.alignment = Alignment(horizontal="center" if cc in (1, 3, 4, 5, 6, 7) else "left",
+                                   vertical="center", wrap_text=(cc == 8))
+    ws.row_dimensions[r].height = rowh(nota, 66, 26, 46)
+    r += 1
+
+nr3 = r + 1
+ws.cell(row=nr3, column=2, value="Perche questo foglio esiste").font = Font(name=FONT, size=10, bold=True)
+c = ws.cell(row=nr3 + 1, column=2, value=(
+    "I fattori di conversione della ferritina e della transferrina dipendono dal peso molecolare, che non e una "
+    "costante universale: la ferritina e riportata in letteratura fra 440.000 e 474.000 g/mol a seconda della "
+    "composizione in catene leggere e pesanti. E la ragione per cui il rapporto transferrina/log(ferritina) del "
+    "foglio 02 non coincide al centesimo con quello pubblicato. Per sideremia, TIBC e UIBC il fattore 5,585 e "
+    "invece esatto, essendo il peso atomico del ferro diviso dieci."))
+c.font = Font(name=FONT, size=9, italic=True)
+c.alignment = Alignment(wrap_text=True, vertical="top")
+ws.merge_cells(start_row=nr3 + 1, start_column=2, end_row=nr3 + 3, end_column=8)
+for cc in range(2, 9):
+    for rr in range(nr3 + 1, nr3 + 4):
         ws.cell(row=rr, column=cc).fill = WARN_FILL
         ws.cell(row=rr, column=cc).border = BORDER
 
