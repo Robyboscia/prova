@@ -25,6 +25,7 @@ BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 A1 = "Art.1 - Indici cardiologici"
 A2 = "Art.2 - Indici antropometrici"
 A3 = "Art.3 - Profilo marziale"
+A4 = "Art.4 - Indici infiammatori"
 
 # Pesi molecolari usati per convertire il pannello marziale dalle unita SI
 # a quelle convenzionali. Documentati perche il rapporto transferrina/log(ferritina)
@@ -72,7 +73,7 @@ ws = wb.active
 ws.title = "00 Legenda"
 setw(ws, {"A": 32, "B": 100})
 title(ws, "Indici clinici - aggregazione multi-articolo, calcolo e valutazione della pericolosita",
-      "Fonti integrate: Art.1 indici cardiologici, Art.2 indici antropometrici, Art.3 profilo marziale. Stesso soggetto dimostrativo.")
+      "Fonti integrate: Art.1 cardiologici, Art.2 antropometrici, Art.3 profilo marziale, Art.4 indici infiammatori. Stesso soggetto dimostrativo.")
 
 LEG = [
     ("", ""),
@@ -86,7 +87,7 @@ LEG = [
     ("", ""),
     ("COME SI USA", "1) Apri '01 Input' e modifica SOLO le celle blu su sfondo giallo.\n"
                     "2) Tutti gli altri fogli si ricalcolano da soli.\n"
-                    "3) '02 Indici' contiene i 43 indici delle tre fonti, ricalcolati e confrontati con il referto.\n"
+                    "3) '02 Indici' contiene i 59 indici delle quattro fonti, ricalcolati e confrontati con il referto.\n"
                     "4) '06 Rischio' produce il punteggio complessivo di pericolosita.\n"
                     "5) '08 Controlli' elenca cosa e riproducibile e cosa no: leggilo prima di fidarti dei numeri."),
     ("", ""),
@@ -99,7 +100,7 @@ LEG = [
     ("", ""),
     ("FOGLI", ""),
     ("  01 Input", "Dati grezzi del soggetto, laboratorio e fattori anamnestici. Unico foglio da compilare."),
-    ("  02 Indici", "I 43 indici delle tre fonti: formula, valore ricalcolato, scostamento dal referto, intervallo "
+    ("  02 Indici", "I 59 indici delle quattro fonti: formula, valore ricalcolato, scostamento dal referto, intervallo "
                     "di riferimento, stato, peso clinico e punteggio."),
     ("  03 Formule", "Dizionario delle formule con derivazione e verifica numerica."),
     ("  04 Zone FC", "Zone di frequenza cardiaca ricavate dalla frequenza massima."),
@@ -177,6 +178,21 @@ INPUTS = [
     ("Fattore di aggiustamento BRINDA - sideremia", 1.2574, "-", "DEDOTTO: rapporto fra il valore aggiustato e quello grezzo pubblicati (17,1/13,6). I marcatori di infiammazione su cui si basa la correzione non sono riportati dall'articolo"),
     ("Fattore di aggiustamento BRINDA - ferritina", 0.7502, "-", "DEDOTTO: rapporto fra il valore aggiustato e quello grezzo pubblicati (120,7/160,9). Corrisponde a una riduzione del 25% esatto"),
     ("", None, None, None),
+    ("INFIAMMAZIONE - misure dirette", None, None, None),
+    ("Proteina C reattiva (PCR)", 0.3, "mg/dL", A4 + " - proteina di fase acuta: sale molto e in fretta nell'infiammazione acuta, ed e per questo un cattivo strumento per quella cronica di basso grado"),
+    ("VES a 1 ora", 14, "mm", A4 + " - misura una proprieta reologica del sangue che cambia nell'arco di giorni"),
+    ("Omocisteina", 14.6, "uM", A4),
+    ("Uricemia", 6.7, "mg/dL", A4),
+    ("", None, None, None),
+    ("EMOCROMO - valori ricostruiti per inversione degli indici", None, None, None),
+    ("Piastrine", 272.0, "10^9/L", "DEDOTTO da AISI/SIRI. L'articolo non pubblica l'emocromo assoluto: i valori di questa sezione sono stati ricavati invertendo gli indici derivati"),
+    ("Linfociti", 1.7407, "10^9/L", "DEDOTTO da (AISI/SII)/MLR"),
+    ("Neutrofili", 5.8684, "10^9/L", "DEDOTTO da SIRI x linfociti / monociti. In percentuale l'articolo cita 69%, con limite a 70"),
+    ("Monociti", 0.6615, "10^9/L", "DEDOTTO da AISI/SII. Corrisponde a circa il 7,8% della formula leucocitaria"),
+    ("Volume piastrinico medio (MPV)", 11.906, "fL", "DEDOTTO da (MPV/linfociti) x linfociti"),
+    ("Ampiezza di distribuzione eritrocitaria (RDW)", 14.5, "%", "ASSUNTO: il sistema e sottodeterminato. RDW/Piastrine e pubblicato con due sole cifre decimali (0,05), compatibile con un RDW fra 12,2 e 15,0. Scelto 14,5 perche coerente con l'anemia lieve descritta dalla serie"),
+    ("Emoglobina", 13.9, "g/dL", "ASSUNTO: discende dall'RDW scelto tramite il rapporto Emoglobina/RDW pubblicato (0,96)"),
+    ("", None, None, None),
     ("VALORI NON RICALCOLABILI (inseriti dal referto)", None, None, None),
     ("ABSI z-score da referto", 1.52, "z", A2 + " - il valore grezzo di ABSI e ricalcolabile, ma lo z-score richiede le tabelle NHANES per eta e sesso, che non sono pubblicate. Vedi foglio 08"),
     ("", None, None, None),
@@ -239,6 +255,11 @@ I_HDL, I_TG = I("Colesterolo HDL"), I("Trigliceridi")
 I_FE, I_TRF, I_FER = I("Sideremia"), I("Transferrina"), I("Ferritina")
 I_KFE = I("Fattore di aggiustamento BRINDA - sideremia")
 I_KFER = I("Fattore di aggiustamento BRINDA - ferritina")
+I_PCR, I_VES = I("Proteina C reattiva (PCR)"), I("VES a 1 ora")
+I_HCY, I_URIC = I("Omocisteina"), I("Uricemia")
+I_PLT, I_LYM = I("Piastrine"), I("Linfociti")
+I_NEU, I_MON = I("Neutrofili"), I("Monociti")
+I_MPV, I_RDW, I_HB = I("Volume piastrinico medio (MPV)"), I("Ampiezza di distribuzione eritrocitaria (RDW)"), I("Emoglobina")
 I_ABSIZ = I("ABSI z-score da referto")
 I_CIG, I_YRS = I("Sigarette al giorno"), I("Anni di abitudine tabagica")
 I_MIO = I("Miosteatosi documentata")
@@ -368,6 +389,40 @@ IND = [
   "Il fattore 4,5 deriva dai circa 4500 atomi di ferro che ogni molecola di ferritina puo contenere, con la conversione da pM a nM. Sopra la finestra ottimale: ferro presente ma sequestrato, non ferro in eccesso. Calcolandolo sulla ferritina AGGIUSTATA darebbe 543 nM, cioe dentro la finestra: la contraddizione fra le due righe e il cuore del referto non discriminante."),
  (A3, "Indici derivati", "Transferrina / log(ferritina)", "transferrina g/L / log10(ferritina ug/L)", f"=({I_TRF}*{K_TRF_GL})/LOG10({I_FER}*{K_FER_UGL})", "-", 1.63, 0, 1.70, "Alto", 2, "0.00",
   "Indice combinato per la carenza marziale in presenza di infiammazione. Il valore dipende dai pesi molecolari usati per la conversione in unita convenzionali, che la fonte non dichiara: al variare di quelli plausibili il risultato oscilla fra 1,59 e 1,70, e l'1,63 pubblicato cade dentro questa banda. Comunque a ridosso del cut-off."),
+
+ # ---------------- ARTICOLO 4 : INDICI INFIAMMATORI ----------------
+ (A4, "Classici", "Proteina C reattiva (PCR)", "misurata", f"={I_PCR}", "mg/dL", 0.3, 0, 0.5, "Informativo", 0, "0.0",
+  "Peso 0 come il BMI e come la ferritina, e per la stessa ragione: e un esame giusto per la domanda sbagliata. Sale molto e in fretta nell'infiammazione acuta, quindi non intercetta l'infiammazione cronica di basso grado, che non e un incendio ma un fornello lasciato acceso per vent'anni."),
+ (A4, "Classici", "VES a 1 ora", "misurata", f"={I_VES}", "mm", 14, 1, 25, "Informativo", 0, "0",
+  "Stesso limite della PCR con in piu una lentezza propria, perche misura una proprieta reologica del sangue che cambia nell'arco di giorni. Peso 0."),
+ (A4, "Rapporti cellulari", "Neutrofili / Linfociti (NLR)", "neutrofili / linfociti", f"={I_NEU}/{I_LYM}", "-", 3.4, 0.73, 3.33, "Alto", 2, "0.00",
+  "L'infiammazione cronica sposta due popolazioni in direzioni opposte: alza l'immunita innata e abbassa i linfociti. Il rapporto cattura lo spostamento anche quando entrambi i valori assoluti restano dentro i loro intervalli, che e esattamente il caso qui (neutrofili 69% con limite 70, linfociti 20,5% con limite 20)."),
+ (A4, "Rapporti cellulari", "Monociti / Linfociti (MLR)", "monociti / linfociti", f"={I_MON}/{I_LYM}", "-", 0.38, 0.12, 0.38, "Alto", 2, "0.00",
+  "Esattamente sul limite superiore, come la pressione diastolica dell'articolo 1. L'articolo lo conta fra i dieci valori fuori riferimento; il modello lo classifica come borderline perche non lo supera. E l'unica differenza fra il conteggio della fonte e quello del foglio 06."),
+ (A4, "Rapporti cellulari", "Piastrine / Linfociti (PLR)", "piastrine / linfociti", f"={I_PLT}/{I_LYM}", "-", 158, 63, 209, "Alto", 1, "0",
+  "Dentro l'intervallo. E uno dei sei indici che non segnalano nulla, e va registrato."),
+ (A4, "Indici compositi", "Systemic Inflammation Index (SII)", "piastrine x neutrofili / linfociti", f"={I_PLT}*{I_NEU}/{I_LYM}", "-", 917, 131, 901, "Alto", 2, "0",
+  "Combina le tre popolazioni in un solo numero. Appena oltre il limite superiore. Su 42.875 adulti seguiti per vent'anni SII e SIRI elevati risultano associati a mortalita totale e cardiovascolare (PMID 36769776)."),
+ (A4, "Indici compositi", "Systemic Inflammation Response Index (SIRI)", "neutrofili x monociti / linfociti", f"={I_NEU}*{I_MON}/{I_LYM}", "-", 2.23, 0, 0.68, "Alto", 3, "0.00",
+  "Tre volte e mezzo la soglia. Insieme all'AISI e lo scostamento piu largo di tutto il workbook, in un uomo che sull'emocromo aveva un solo parametro fuori su ventisette."),
+ (A4, "Indici compositi", "Aggregate Index of Systemic Inflammation (AISI)", "neutrofili x monociti x piastrine / linfociti", f"={I_NEU}*{I_MON}*{I_PLT}/{I_LYM}", "-", 606.56, 0, 147.16, "Alto", 3, "0.00",
+  "Quattro volte la soglia. Su 23.765 ipertesi il quartile piu alto mostrava un rischio di mortalita cardiovascolare quasi doppio rispetto al piu basso, con hazard ratio 1,91 (PMID 37265570). Gli indici derivati dall'emocromo sono stati associati anche alla sarcopenia (PMID 38755603), che chiude il cerchio con l'articolo 2."),
+ (A4, "Rapporti misti", "Monociti / HDL", "monociti / HDL x 1000", f"={I_MON}/{I_HDL}*1000", "per mille", 16.1, 0, 6, "Alto", 3, "0.0",
+  "Quasi il triplo del limite. Le HDL non trasportano solo colesterolo: hanno una funzione antinfiammatoria diretta e ostacolano il reclutamento dei monociti nella parete arteriosa. Il rapporto mette in relazione chi accende l'infiammazione e chi dovrebbe spegnerla. Correlato a PCR, conta leucocitaria e ipertensione resistente (PMID 34109496). L'HDL a 41 dell'articolo 2 qui smette di essere un dettaglio."),
+ (A4, "Rapporti misti", "Emoglobina / RDW", "emoglobina / RDW", f"={I_HB}/{I_RDW}", "-", 0.96, 1.0, 2.0, "Basso", 2, "0.00",
+  "Sotto il valore minimo. Mette insieme quanta emoglobina c'e e quanto sono disomogenei i globuli rossi: cala quando il midollo produce eritrociti di taglia irregolare, che e il quadro dell'eritropoiesi ferro-ristretta dell'articolo 3."),
+ (A4, "Rapporti misti", "MPV / Linfociti", "volume piastrinico medio / linfociti", f"={I_MPV}/{I_LYM}", "-", 6.84, 0, 5.55, "Alto", 1, "0.00",
+  "Il volume piastrinico medio sale quando il midollo rilascia piastrine piu giovani e reattive, ed e un marcatore di attivazione piastrinica nell'infiammazione (PMID 31148950)."),
+ (A4, "Rapporti misti", "MPV / Piastrine", "MPV / piastrine x 100", f"={I_MPV}/{I_PLT}*100", "-", 4.3, 0, 4.0, "Alto", 1, "0.00",
+  "Appena oltre la soglia. Descrive lo stesso fenomeno del precedente rapportato alla massa piastrinica totale."),
+ (A4, "Rapporti misti", "RDW / Piastrine", "RDW / piastrine", f"={I_RDW}/{I_PLT}", "-", 0.05, 0, 0.07, "Alto", 1, "0.000",
+  "Dentro la soglia. E pubblicato con due sole cifre decimali, il che lascia molta indeterminazione: e da questa riga che dipende la ricostruzione di RDW ed emoglobina nel foglio 01."),
+ (A4, "Metabolici", "Omocisteina", "misurata", f"={I_HCY}", "uM", 14.6, 3, 15, "Alto", 2, "0.0",
+  "Dentro l'intervallo largo per quattro decimi, ma il doppio del limite superiore della finestra ottimale (5,0-7,2) indicata dalla stessa tabella. E il divario piu ampio fra riferimento tollerato e riferimento desiderabile di tutto il workbook."),
+ (A4, "Metabolici", "Uricemia", "misurata", f"={I_URIC}", "mg/dL", 6.7, 3.5, 7.2, "Alto", 2, "0.0",
+  "Dentro l'intervallo largo, ben oltre la finestra ottimale (2,5-4,0). L'acido urico e a sua volta un promotore di infiammazione e di disfunzione endoteliale."),
+ (A4, "Metabolici", "Uricemia / HDL", "uricemia / HDL x 100", f"={I_URIC}/{I_HDL}*100", "-", 16.3, 0, 12.2, "Alto", 2, "0.0",
+  "Un terzo sopra il cut-off. Come il rapporto monociti/HDL, deve il suo valore tanto al numeratore alto quanto al denominatore basso: l'HDL a 41 compare come denominatore in due dei tre indici piu alterati di questa sezione."),
 ]
 
 r = R0
@@ -440,6 +495,7 @@ C = lambda off: f"'02 Indici'!$E${R0+off}"
 E_WHtR, E_LAP, E_CMI, E_VAI, E_CC = C(20), C(27), C(28), C(29), C(31)
 E_BMI = f"'02 Indici'!${BMI}"
 E_SAT, E_FERADJ, E_DEP = C(37), C(40), C(41)
+E_PCR, E_SIRI, E_AISI, E_MHR = C(43), C(49), C(50), C(51)
 
 # =====================================================================
 # 03 FORMULE
@@ -531,6 +587,27 @@ FORM = [
   "La forma della formula e certa, il valore no: dipende dai pesi molecolari usati per convertire transferrina e ferritina dalle unita SI a quelle convenzionali, che la fonte non dichiara. Con i pesi plausibili il risultato oscilla fra 1,59 e 1,70 e l'1,63 pubblicato cade dentro la banda. Il modello usa 79.570 g/mol per la transferrina e 450.000 per la ferritina."),
  (A3, "Conversioni verso unita convenzionali", "ferro: uM x 5,585 = ug/dL | ferritina: pM x 0,45 = ug/L | transferrina: uM x 7,957 = mg/dL", "sideremia 76 ug/dL; ferritina 72,4 ug/L", "Standard",
   "Il pannello e espresso in unita SI, che quasi nessun laboratorio italiano usa. Il foglio 09 riporta la conversione completa per rendere i valori confrontabili con un referto ordinario."),
+ (A4, "Neutrofili / Linfociti", "NLR = neutrofili / linfociti", "5,868 / 1,741 = 3,371 (referto 3,4)", "Esplicita",
+  "Essendo un rapporto si puo calcolare anche sulle percentuali, perche il totale dei leucociti si semplifica: 69/20,5 da 3,366, praticamente lo stesso numero."),
+ (A4, "Monociti / Linfociti", "MLR = monociti / linfociti", "0,6615 / 1,7407 = 0,380", "Esplicita", "Riproduce esattamente il valore pubblicato."),
+ (A4, "Piastrine / Linfociti", "PLR = piastrine / linfociti", "272 / 1,7407 = 156,3 (referto 158)", "Esplicita",
+  "Scarto dell'1,1%, dovuto agli arrotondamenti dell'emocromo ricostruito."),
+ (A4, "Systemic Inflammation Index", "SII = piastrine x neutrofili / linfociti", "272 x 5,868 / 1,7407 = 917,0", "Esplicita",
+  "Riproduce esattamente il valore pubblicato. E il prodotto delle tre popolazioni piu informative in un solo numero."),
+ (A4, "Systemic Inflammation Response Index", "SIRI = neutrofili x monociti / linfociti", "5,868 x 0,6615 / 1,7407 = 2,230", "Esplicita",
+  "Riproduce esattamente il valore pubblicato."),
+ (A4, "Aggregate Index of Systemic Inflammation", "AISI = neutrofili x monociti x piastrine / linfociti", "SIRI x piastrine = 606,56", "Esplicita",
+  "Riproduce esattamente il valore pubblicato. Nota utile: AISI diviso SIRI restituisce direttamente il numero delle piastrine, ed e la relazione da cui parte la ricostruzione dell'emocromo nel foglio 01."),
+ (A4, "Monociti / HDL", "MHR = monociti (10^9/L) / HDL (mg/dL) x 1000", "0,6615 / 41 x 1000 = 16,13 (referto 16,1)", "Ricostruita",
+  "L'espressione per mille con l'HDL in mg/dL riproduce il valore pubblicato. La forma piu diffusa in letteratura usa l'HDL in mmol/L e darebbe 0,62, un numero senza rapporto con il cut-off di 6."),
+ (A4, "Uricemia / HDL", "UHR = uricemia / HDL x 100", "6,7 / 41 x 100 = 16,34 (referto 16,3)", "Ricostruita",
+  "Riproduce il valore pubblicato. Entrambi i termini in mg/dL."),
+ (A4, "MPV / Piastrine", "MPV / piastrine x 100", "11,906 / 272 x 100 = 4,38 (referto 4,3)", "Ricostruita",
+  "Il fattore 100 e necessario per ottenere l'ordine di grandezza pubblicato. Scarto dell'1,8%."),
+ (A4, "Emoglobina / RDW", "Hb (g/dL) / RDW (%)", "13,9 / 14,5 = 0,959 -> 0,96", "Ricostruita con riserva",
+  "La forma e certa, i due valori no: l'articolo non pubblica ne emoglobina ne RDW, e il sistema resta sottodeterminato perche RDW/Piastrine ha due sole cifre decimali. Sono stati scelti i valori coerenti con l'anemia lieve descritta dalla serie."),
+ (A4, "Ricostruzione dell'emocromo", "piastrine = AISI/SIRI; monociti = AISI/SII; linfociti = monociti/MLR; neutrofili = SIRI x linfociti / monociti", "P 272; M 0,662; L 1,741; N 5,868", "Inversione degli indici",
+  "L'articolo non pubblica i conteggi assoluti, ma il sistema di sei indici in quattro incognite e sovradeterminato e si risolve. La verifica incrociata restituisce SII, SIRI, AISI e MLR esatti, NLR entro lo 0,8% e PLR entro l'1,1%."),
 ]
 r = 5
 for i, (fonte, nome, f, ver, orig, nota) in enumerate(FORM, 1):
@@ -677,6 +754,20 @@ EV = [
   "APPLICABILE: giustifica il commento 'profilo marziale non discriminante'. E il fondamento del rifiuto dell'algoritmo a dare una risposta che i dati non contengono."),
  (A3, "31850722", "Studio (Gelaw, Woldu, Melku)", "-", "Marcatori dello stato marziale", "-", "Valutazione della carenza",
   "Citata dalla fonte fra i riferimenti senza essere discussa nel corpo dell'articolo."),
+ (A4, "36769776", "Coorte NHANES, 20 anni di follow-up (Xia)", "42.875 adulti", "SII e SIRI elevati", "associazione significativa", "Mortalita totale e cardiovascolare",
+  "APPLICABILE A ENTRAMBI: il soggetto ha SII appena sopra il limite e SIRI a tre volte e mezzo la soglia."),
+ (A4, "37265570", "Coorte di ipertesi (Xiu)", "23.765 partecipanti", "AISI, quartile piu alto vs piu basso", "HR 1,91", "Mortalita cardiovascolare",
+  "APPLICABILE: l'AISI del soggetto e quattro volte il cut-off, quindi ampiamente nel quartile superiore. E la misura di rischio piu forte fra quelle citate dalle quattro fonti."),
+ (A4, "38755603", "Studio su indicatori derivati dall'emocromo", "-", "Indici infiammatori da emocromo", "-", "Sarcopenia e mortalita",
+  "CHIUDE UN CERCHIO: collega gli indici di questa sezione alla sarcopenia documentata nell'articolo 2, dove il polpaccio corretto risultava 33,5 cm contro una soglia di 34,0."),
+ (A4, "34109496", "Studio italiano su nefropatici (Gembillo)", "214 pazienti", "Rapporto monociti / HDL", "correlazione", "PCR, conta leucocitaria, ipertensione resistente",
+  "APPLICABILE: il rapporto del soggetto e quasi il triplo del limite. Notevole che risulti correlato alla PCR proprio in un caso in cui la PCR e normale."),
+ (A4, "30353545", "Revisione sul valore prognostico del SII", "-", "Systemic Inflammation Index", "-", "Prognosi nei tumori gastrointestinali",
+  "Contesto oncologico, non direttamente trasferibile al caso: sostiene la validita dell'indice, non la sua interpretazione qui."),
+ (A4, "31148950", "Revisione (Korniluk)", "-", "Volume piastrinico medio", "-", "Attivazione piastrinica nell'infiammazione",
+  "APPLICABILE: sostiene i due rapporti basati sull'MPV, entrambi oltre soglia nel soggetto."),
+ (A4, "12160596", "Studio metodologico (Van Tiel)", "-", "VES", "-", "Limiti interpretativi",
+  "Sostiene il ridimensionamento della VES come strumento per l'infiammazione cronica di basso grado."),
 ]
 r = 5
 for i, (fonte, pmid, studio, n, esp, mis, esito, appl) in enumerate(EV, 1):
@@ -738,7 +829,7 @@ P = f"'02 Indici'!$P${R0}:$P${LAST}"
 N = f"'02 Indici'!$N${R0}:$N${LAST}"
 O = f"'02 Indici'!$O${R0}:$O${LAST}"
 
-section(4, "A - PUNTEGGIO STRUMENTALE (43 indici, tre fonti)")
+section(4, "A - PUNTEGGIO STRUMENTALE (59 indici, quattro fonti)")
 line(5, "Indici valutati in totale", f"=COUNT({O})", "0", "Righe presenti nel foglio 02.")
 line(6, "Indici normali", f'=COUNTIF({M},"Normale")', "0")
 line(7, "Indici borderline (in zona di guardia)", f'=COUNTIF({M},"Borderline")', "0",
@@ -750,12 +841,14 @@ line(10, "  di cui dall'articolo 2 (antropometrici)", f'=COUNTIFS({Q},"Art.2*",{
      "La fonte dichiara 6 indici oltre soglia su 12; applicando i cut-off delle sue stesse tabelle ne risultano 9. Vedi foglio 08.")
 line(11, "  di cui dall'articolo 3 (profilo marziale)", f'=COUNTIFS({Q},"Art.3*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.3*",{M},"Fuori (basso)")', "0",
      "La fonte dichiara 5 valori fuori dalle finestre ottimali su 11; applicando gli intervalli della sua stessa tabella ne risultano 6. Vedi foglio 08.")
-line(12, "Punteggio ponderato ottenuto", f"=SUM({P})", "0", "Somma di peso clinico x punteggio 0-3.")
-line(13, "Punteggio massimo teorico", f"=SUM({N})*3", "0", "Se ogni indice pesato fosse gravemente fuori range.")
-line(14, "COMPONENTE STRUMENTALE", "=IF(C13=0,0,C12/C13)", "0.0%", "Quota del massimo teorico raggiunta.", bold=True, color="C00000")
+line(12, "  di cui dall'articolo 4 (infiammatori)", f'=COUNTIFS({Q},"Art.4*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.4*",{M},"Fuori (basso)")', "0",
+     "La fonte dichiara 10 indici fuori riferimento su 16. Il modello ne trova 9 piu il rapporto monociti/linfociti esattamente sul limite superiore, che la fonte conta e il modello classifica come borderline.")
+line(13, "Punteggio ponderato ottenuto", f"=SUM({P})", "0", "Somma di peso clinico x punteggio 0-3.")
+line(14, "Punteggio massimo teorico", f"=SUM({N})*3", "0", "Se ogni indice pesato fosse gravemente fuori range.")
+line(15, "COMPONENTE STRUMENTALE", "=IF(C14=0,0,C13/C14)", "0.0%", "Quota del massimo teorico raggiunta.", bold=True, color="C00000")
 
-section(16, "B - FATTORI ANAMNESTICI E PATTERN CHE I SINGOLI INDICI NON ESPRIMONO")
-hdr(ws, 17, ["", "Fattore", "Presente", "Peso", "Punti", "", "Evidenza / nota"], start=1, h=20)
+section(17, "B - FATTORI ANAMNESTICI E PATTERN CHE I SINGOLI INDICI NON ESPRIMONO")
+hdr(ws, 18, ["", "Fattore", "Presente", "Peso", "Punti", "", "Evidenza / nota"], start=1, h=20)
 FATT = [
  ("Fumo attivo (>= 20 sigarette al giorno)", f"=IF({I_CIG}>=20,1,0)", 3,
   "PMID 8689656 - assetto autonomico spostato verso il simpatico anche a distanza dall'ultima sigaretta."),
@@ -773,8 +866,11 @@ FATT = [
   "Sei chili in vent'anni, trecento grammi l'anno: l'aumento piu banale del mondo. Sotto, circa dieci chili di grasso in piu e quattro di muscolo in meno."),
  ("Pattern di eritropoiesi ferro-ristretta", f"=IF(AND({E_SAT}<20,{E_DEP}>301.5),1,0)", 3,
   "PMID 30401705 - calcolato dagli indici: saturazione sotto il 20% con depositi non esauriti. Il ferro c'e ma non arriva ai reticolociti. Nessuna singola riga del profilo marziale lo dice: emerge solo dalla combinazione."),
+ ("Infiammazione cronica di basso grado con indici classici negativi",
+  f'=IF(AND({E_PCR}<=0.5,COUNTIFS({Q},"Art.4*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.4*",{M},"Fuori (basso)")>=5),1,0)', 3,
+  "PMID 36769776 e 37265570 - calcolato: PCR normale con almeno cinque indici derivati oltre soglia. E la condizione che rende non verificabile l'aggiustamento per infiammazione dell'articolo 3 e che al tempo stesso lo giustifica sul piano fisiopatologico."),
 ]
-r = 18
+r = 19
 f0 = r
 for lab, presf, peso, ev in FATT:
     ws.cell(row=r, column=2, value=lab).font = Font(name=FONT, size=10)
@@ -829,7 +925,7 @@ ws.cell(row=cr + 1, column=3).font = Font(name=FONT, size=10, bold=True, color=B
 ws.cell(row=cr + 1, column=3).fill = PatternFill("solid", fgColor=YEL)
 line(cr + 2, "Peso della componente anamnestica", f"=1-C{cr+1}", "0%",
      "I referti coprono la maggior parte del giudizio, ma non tutto: il resto viene da cio che non misurano.")
-line(cr + 3, "PUNTEGGIO DI PERICOLOSITA (0-100)", f"=(C14*C{cr+1}+{FATT_PCT}*C{cr+2})*100", "0.0",
+line(cr + 3, "PUNTEGGIO DI PERICOLOSITA (0-100)", f"=(C15*C{cr+1}+{FATT_PCT}*C{cr+2})*100", "0.0",
      "Media pesata delle due componenti su scala centesimale.", bold=True, color="C00000", size=11)
 ws.cell(row=cr + 3, column=3).font = Font(name=FONT, size=18, bold=True, color="C00000")
 ws.row_dimensions[cr + 3].height = 30
@@ -845,6 +941,7 @@ c = ws.cell(row=cr + 6, column=3, value=(
     f'&IF({I_HR}>{I_HRTHR},"La frequenza a riposo supera la soglia degli 80 bpm, oltre la quale il rischio cambia scala. ","")'
     f'&IF(AND({E_BMI}<25,{E_WHtR}>0.5),"Il BMI resta sotto 25 mentre la vita supera la meta dell altezza: e il fenotipo che il peso corporeo nasconde. ","")'
     f'&IF(AND({E_SAT}<20,{E_DEP}>301.5),"Il profilo marziale mostra saturazione bassa con depositi non esauriti: il ferro c e ma non arriva dove serve, quindi la sola supplementazione marziale sarebbe verosimilmente inefficace e la leva utile e la causa infiammatoria. ","")'
+    f'&IF({E_PCR}<=0.5,"I due indici infiammatori classici sono negativi, ma gli indici derivati dall emocromo documentano infiammazione cronica di basso grado: SIRI a "&TEXT({E_SIRI},"0,00")&" contro 0,68 e AISI a "&TEXT({E_AISI},"0")&" contro 147. ","")'
     f'&"Fattori anamnestici e pattern presenti: "&{FATT_GOT}&" punti su "&{FATT_MAX}&". "'
     f'&"Accertamenti mancanti che cambierebbero il giudizio: test da sforzo, studio del sonno, misurazioni ripetute della frequenza, marcatori di infiammazione e contenuto emoglobinico reticolocitario."'))
 c.font = Font(name=FONT, size=10)
@@ -1035,6 +1132,16 @@ CTRL = [
   "Fuori dalle finestre ottimali risultano TIBC, UIBC, saturazione, saturazione aggiustata, ferritina aggiustata e depositi. L'articolo ne dichiara cinque."),
  (A3, "Coerenza fra testo e tabella", "'nessuna riga in rosso'", "saturazione 17,3 sotto il riferimento 20-48", "Contraddizione interna",
   "L'articolo apre dicendo che nessun valore e in rosso, e poche righe dopo afferma che la saturazione e l'unico valore sotto il riferimento anche senza aggiustamenti. Le due frasi non possono essere vere insieme: rispetto all'intervallo pubblicato in tabella, la saturazione e fuori."),
+ (A4, "Ricostruzione dell'emocromo per inversione", "non pubblicato", "P 272; L 1,741; N 5,868; M 0,662", "Riproducibile",
+  "L'articolo non pubblica i conteggi assoluti, ma il sistema di sei indici in quattro incognite e sovradeterminato e ammette soluzione. La verifica incrociata restituisce SII, SIRI, AISI e MLR esatti al centesimo, NLR entro lo 0,8% e PLR entro l'1,1%: la coerenza interna della sezione e alta."),
+ (A4, "Emoglobina e RDW", "non pubblicati", "RDW 14,5; Hb 13,9 (scelti)", "Sottodeterminato",
+  "Il rapporto RDW/Piastrine e pubblicato con due sole cifre decimali (0,05), il che lascia l'RDW libero fra 12,2 e 15,0 e con esso l'emoglobina fra 11,8 e 14,4. Sono stati scelti i valori coerenti con l'anemia lieve descritta dalla serie. E l'unica parte del quarto articolo che resta un'ipotesi."),
+ (A4, "Conteggio degli indici fuori riferimento", "10 su 16", "9 fuori + 1 sul limite", "Coerente",
+  "Il rapporto monociti/linfociti vale esattamente 0,38 contro un limite superiore di 0,38. Contandolo, i dieci dichiarati tornano esattamente. E l'unico dei quattro articoli il cui conteggio non presenta discrepanze."),
+ (A4, "Rapporto monociti/HDL: quali unita", "16,1 per mille", "16,13 con HDL in mg/dL", "Ricostruita",
+  "La forma per mille con l'HDL in mg/dL riproduce il valore pubblicato. La forma piu diffusa in letteratura, con HDL in mmol/L, darebbe 0,62: un numero che non ha alcun rapporto con il cut-off di 6 indicato nella stessa riga."),
+ ("Art.3 + Art.4", "Aggiustamento per infiammazione: verifica incrociata", "ferritina ridotta del 25%", "PCR 0,3 mg/dL, cioe 3 mg/L", "Tensione fra le fonti",
+  "PUNTO PIU DELICATO DEL WORKBOOK. L'articolo 3 applica alla ferritina una riduzione del 25% per infiammazione; l'articolo 4 pubblica una PCR di 3 mg/L, sotto la soglia convenzionale di 5 mg/L oltre la quale la correzione BRINDA entra in gioco. Con la sola PCR quella riduzione appare piu ampia del dovuto. L'alfa-1-glicoproteina acida, l'altro reattante su cui BRINDA si basa, non e pubblicata da nessuna delle due fonti, quindi la correzione resta possibile ma non verificabile. Sul piano fisiopatologico i dieci indici derivati alterati la sostengono; sul piano del calcolo, no."),
  ("Entrambe", "Tutti gli altri indici", "-", "coincidono", "Riproducibile",
   "Riproducono il valore pubblicato entro l'arrotondamento: pressione di pulsazione, riserva, Modified Shock Index, prodotto cardiovascolare, portata, Cardiac Index, morfotipo, pesi ideali di Lorenz e Creff, vita/altezza, vita/fianchi, Conicity Index, BAI, BRI, LAP, CMI e VAI."),
 ]
