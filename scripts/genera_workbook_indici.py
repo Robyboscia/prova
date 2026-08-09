@@ -33,7 +33,7 @@ A4 = "Art.4 - Indici infiammatori"
 MW_TRF = 79570      # transferrina, g/mol
 MW_FER = 450000     # ferritina, g/mol
 K_TRF_GL = MW_TRF / 1e6        # uM -> g/L
-K_FER_UGL = MW_FER / 1e6 / 1e3  # pM -> ug/L
+K_FER_UGL = MW_FER / 1e6        # pM -> ug/L
 K_FE_UGDL = 5.585              # uM -> ug/dL (ferro)
 
 
@@ -324,7 +324,7 @@ IND = [
  (A1, "Pompa", "Cardiac Index (CI)", "CO / BSA", f"=E{R0+10}/{I_BSA}", "L/min/m2", 2.8, 2.5, 3.9, "Basso", 1, "0.00",
   "Portata indicizzata per superficie corporea. Nel terzo inferiore dell'intervallo."),
  (A1, "Pompa", "Left Cardiac Work Index (LCWI)", "CI x MAP x 2,222", f"=E{R0+11}*E{R0+2}*2.222", "mW/m2", 627, 400, 900, "Bilaterale", 1, "0",
-  "La costante 2,222 converte L/min x mmHg in milliwatt (1 L/min = 1,667e-5 m3/s; 1 mmHg = 133,322 Pa). Ricalcolando con il CI non arrotondato si ottiene 639 contro i 627 pubblicati: differenza di solo arrotondamento."),
+  "La costante 2,222 converte L/min x mmHg in milliwatt (1 L/min = 1,667e-5 m3/s; 1 mmHg = 133,322 Pa). Ricalcolando con il CI e la MAP non arrotondati si ottengono 643 contro i 627 pubblicati: differenza di solo arrotondamento."),
  (A1, "Pompa", "Indice di rigidita arteriosa", "PP / MAP", f"=E{R0+3}/E{R0+2}", "-", 0.44, 0.30, 0.55, "Alto", 2, "0.00",
   "Rapporto fra componente pulsatile e continua. Ricostruito per riproduzione numerica: PP/MAP da 0,436, mentre PP/SBP darebbe 0,34."),
  (A1, "Pompa", "Resistenze vascolari sistemiche (SVRI)", "80 x (MAP - CVP) / CI / 1000", f"=80*(E{R0+2}-{I_CVP})/E{R0+11}/1000", "kU*m2", 2.7, 1.8, 2.8, "Alto", 2, "0.00",
@@ -371,7 +371,7 @@ IND = [
   "Dentro l'intervallo per sei decimi di micromole: e il valore piu basso possibile senza essere segnalato. Ha un ritmo circadiano marcato, quindi un prelievo pomeridiano abbasserebbe la saturazione di diversi punti senza che le riserve siano cambiate."),
  (A3, "Ferro circolante", "Sideremia aggiustata per infiammazione", "sideremia x fattore BRINDA", f"={I_FE}*{I_KFE}", "uM", 17.1, 15, 23, "Basso", 1, "0.0",
   "La correzione per l'infiammazione alza il ferro circolante e abbassa la ferritina, cioe spinge le due grandezze in direzioni opposte. Il fattore non e pubblicato: e stato dedotto dal rapporto fra valore aggiustato e valore grezzo."),
- (A3, "Trasporto", "Transferrina", "misurata", f"={I_TRF}", "uM", 25.1, 25.1, 50.3, "Alto", 1, "0.0",
+ (A3, "Trasporto", "Transferrina", "misurata", f"={I_TRF}", "uM", 39.2, 25.1, 50.3, "Alto", 1, "0.0",
   "Il camion che trasporta il ferro. Il fegato ne produce di piu proprio quando il ferro scarseggia, quindi un valore alto e un segnale di carenza, non di abbondanza."),
  (A3, "Trasporto", "TIBC (capacita totale legante)", "2 x transferrina", f"=2*E{R0+34}", "uM", 78.4, 45, 76, "Alto", 1, "0.0",
   "Ogni molecola di transferrina lega due atomi di ferro: da qui il fattore 2, che riproduce esattamente il valore pubblicato. Oltre la finestra ottimale significa che circolano molti posti liberi sui camion."),
@@ -398,7 +398,7 @@ IND = [
  (A4, "Rapporti cellulari", "Neutrofili / Linfociti (NLR)", "neutrofili / linfociti", f"={I_NEU}/{I_LYM}", "-", 3.4, 0.73, 3.33, "Alto", 2, "0.00",
   "L'infiammazione cronica sposta due popolazioni in direzioni opposte: alza l'immunita innata e abbassa i linfociti. Il rapporto cattura lo spostamento anche quando entrambi i valori assoluti restano dentro i loro intervalli, che e esattamente il caso qui (neutrofili 69% con limite 70, linfociti 20,5% con limite 20)."),
  (A4, "Rapporti cellulari", "Monociti / Linfociti (MLR)", "monociti / linfociti", f"={I_MON}/{I_LYM}", "-", 0.38, 0.12, 0.38, "Alto", 2, "0.00",
-  "Esattamente sul limite superiore, come la pressione diastolica dell'articolo 1. L'articolo lo conta fra i dieci valori fuori riferimento; il modello lo classifica come borderline perche non lo supera. E l'unica differenza fra il conteggio della fonte e quello del foglio 06."),
+  "Esattamente sul limite superiore, come la pressione diastolica dell'articolo 1. Il valore ricostruito lo supera di due centomillesimi, quindi il modello lo classifica come fuori e il conteggio coincide con i dieci dichiarati dalla fonte. E pero una posizione di equilibrio instabile: basta la terza cifra decimale dell'emocromo ricostruito per farlo ricadere dentro. Va letto come 'sulla soglia', non come 'oltre'."),
  (A4, "Rapporti cellulari", "Piastrine / Linfociti (PLR)", "piastrine / linfociti", f"={I_PLT}/{I_LYM}", "-", 158, 63, 209, "Alto", 1, "0",
   "Dentro l'intervallo. E uno dei sei indici che non segnalano nulla, e va registrato."),
  (A4, "Indici compositi", "Systemic Inflammation Index (SII)", "piastrine x neutrofili / linfociti", f"={I_PLT}*{I_NEU}/{I_LYM}", "-", 917, 131, 901, "Alto", 2, "0",
@@ -527,7 +527,7 @@ FORM = [
   "Lo stesso output si ottiene con SV 80 mL e FC 68: la portata normale non distingue una pompa capiente lenta da una piccola veloce."),
  (A1, "Cardiac Index", "CI = CO / BSA", "5,412 / 1,9 = 2,85 -> 2,8", "Esplicita", "Portata indicizzata per superficie corporea."),
  (A1, "Left Cardiac Work Index", "LCWI = CI x MAP x 2,222", "2,8 x 101 x 2,222 = 628 (referto 627)", "Ricostruita",
-  "La costante converte L/min x mmHg in milliwatt: 1 L/min = 1,6667e-5 m3/s e 1 mmHg = 133,322 Pa, prodotto 2,222 mW. Con il CI non arrotondato si ottiene 639, circa il 2% sopra il pubblicato."),
+  "La costante converte L/min x mmHg in milliwatt: 1 L/min = 1,6667e-5 m3/s e 1 mmHg = 133,322 Pa, prodotto 2,222 mW. Con il CI e la MAP non arrotondati si ottengono 643, circa il 2,6% sopra il pubblicato."),
  (A1, "Indice di rigidita arteriosa", "ASI = PP / MAP", "44 / 101 = 0,436 -> 0,44", "Ricostruita",
   "Il rapporto alternativo PP/SBP darebbe 0,34 e non riproduce il referto."),
  (A1, "Resistenze vascolari sistemiche", "SVRI = 80 x (MAP - CVP) / CI", "80 x (101-5) / 2,85 = 2.696 -> 2,7 kU*m2", "Ricostruita",
@@ -842,7 +842,7 @@ line(10, "  di cui dall'articolo 2 (antropometrici)", f'=COUNTIFS({Q},"Art.2*",{
 line(11, "  di cui dall'articolo 3 (profilo marziale)", f'=COUNTIFS({Q},"Art.3*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.3*",{M},"Fuori (basso)")', "0",
      "La fonte dichiara 5 valori fuori dalle finestre ottimali su 11; applicando gli intervalli della sua stessa tabella ne risultano 6. Vedi foglio 08.")
 line(12, "  di cui dall'articolo 4 (infiammatori)", f'=COUNTIFS({Q},"Art.4*",{M},"Fuori (alto)")+COUNTIFS({Q},"Art.4*",{M},"Fuori (basso)")', "0",
-     "La fonte dichiara 10 indici fuori riferimento su 16. Il modello ne trova 9 piu il rapporto monociti/linfociti esattamente sul limite superiore, che la fonte conta e il modello classifica come borderline.")
+     "La fonte dichiara 10 indici fuori riferimento su 16 e il conteggio coincide, ma il decimo (monociti/linfociti) sta esattamente sul limite: e il solo caso in cui la classificazione dipende dall'ultima cifra decimale.")
 line(13, "Punteggio ponderato ottenuto", f"=SUM({P})", "0", "Somma di peso clinico x punteggio 0-3.")
 line(14, "Punteggio massimo teorico", f"=SUM({N})*3", "0", "Se ogni indice pesato fosse gravemente fuori range.")
 line(15, "COMPONENTE STRUMENTALE", "=IF(C14=0,0,C13/C14)", "0.0%", "Quota del massimo teorico raggiunta.", bold=True, color="C00000")
@@ -941,7 +941,7 @@ c = ws.cell(row=cr + 6, column=3, value=(
     f'&IF({I_HR}>{I_HRTHR},"La frequenza a riposo supera la soglia degli 80 bpm, oltre la quale il rischio cambia scala. ","")'
     f'&IF(AND({E_BMI}<25,{E_WHtR}>0.5),"Il BMI resta sotto 25 mentre la vita supera la meta dell altezza: e il fenotipo che il peso corporeo nasconde. ","")'
     f'&IF(AND({E_SAT}<20,{E_DEP}>301.5),"Il profilo marziale mostra saturazione bassa con depositi non esauriti: il ferro c e ma non arriva dove serve, quindi la sola supplementazione marziale sarebbe verosimilmente inefficace e la leva utile e la causa infiammatoria. ","")'
-    f'&IF({E_PCR}<=0.5,"I due indici infiammatori classici sono negativi, ma gli indici derivati dall emocromo documentano infiammazione cronica di basso grado: SIRI a "&TEXT({E_SIRI},"0,00")&" contro 0,68 e AISI a "&TEXT({E_AISI},"0")&" contro 147. ","")'
+    f'&IF({E_PCR}<=0.5,"I due indici infiammatori classici sono negativi, ma gli indici derivati dall emocromo documentano infiammazione cronica di basso grado: SIRI a "&TEXT({E_SIRI},"0.00")&" contro 0,68 e AISI a "&TEXT({E_AISI},"0")&" contro 147. ","")'
     f'&"Fattori anamnestici e pattern presenti: "&{FATT_GOT}&" punti su "&{FATT_MAX}&". "'
     f'&"Accertamenti mancanti che cambierebbero il giudizio: test da sforzo, studio del sonno, misurazioni ripetute della frequenza, marcatori di infiammazione e contenuto emoglobinico reticolocitario."'))
 c.font = Font(name=FONT, size=10)
@@ -984,7 +984,7 @@ c = ws.cell(row=dr, column=3, value=(
     "Il punteggio composito e una sintesi documentale costruita su pesi scelti dall'analista, non uno score clinico "
     "validato. Serve a rendere esplicito e discutibile un giudizio, non a sostituirlo. I pesi sono modificabili nella "
     "colonna 'Peso' del foglio 02 e nella colonna D della sezione B. Prima di usare i numeri, leggere il foglio "
-    "'08 Controlli': sette valori pubblicati non si riproducono dai dati grezzi."))
+    "'08 Controlli', che riporta per ogni valore pubblicato se si riproduce dai dati grezzi e con quale riserva."))
 c.font = Font(name=FONT, size=9, italic=True)
 c.alignment = Alignment(wrap_text=True, vertical="top")
 ws.merge_cells(start_row=dr, start_column=3, end_row=dr + 2, end_column=7)
@@ -1113,7 +1113,7 @@ CTRL = [
  (A1, "Pressione arteriosa media", "101 mmHg", "98,7 (classica) / 101,6 (DBP+0,4xPP)", "Formula ricostruita",
   "La formula classica non riproduce il valore pubblicato. Rilevante perche la MAP e il denominatore del Modified Shock Index: con la formula classica il MSI passerebbe da 0,81 a 0,83."),
  (A1, "Left Cardiac Work Index", "627 mW/m2", "639 mW/m2", "Scostamento minore",
-  "Circa il 2%, interamente dovuto agli arrotondamenti a monte: usando il Cardiac Index arrotondato a 2,8 si ottengono 628. Nessun impatto sul giudizio."),
+  "Circa il 2,6%, interamente dovuto agli arrotondamenti a monte: usando il Cardiac Index arrotondato a 2,8 e la MAP a 101 si ottengono 628. Nessun impatto sul giudizio."),
  (A1, "Resistenze vascolari sistemiche", "2,7 kU*m2", "2,70 con CVP assunta a 5 mmHg", "Riproducibile con assunzione",
   "La pressione venosa centrale non e pubblicata. Con CVP 5 mmHg il calcolo coincide, con CVP 0 si otterrebbe 2,8, che spingerebbe l'indice sopra il limite superiore di 2,8. L'assunzione e quindi tutt'altro che neutra."),
  (A1, "Indice di rigidita arteriosa", "0,44", "0,436 (PP/MAP)", "Formula ricostruita",
@@ -1136,9 +1136,9 @@ CTRL = [
   "L'articolo non pubblica i conteggi assoluti, ma il sistema di sei indici in quattro incognite e sovradeterminato e ammette soluzione. La verifica incrociata restituisce SII, SIRI, AISI e MLR esatti al centesimo, NLR entro lo 0,8% e PLR entro l'1,1%: la coerenza interna della sezione e alta."),
  (A4, "Emoglobina e RDW", "non pubblicati", "RDW 14,5; Hb 13,9 (scelti)", "Sottodeterminato",
   "Il rapporto RDW/Piastrine e pubblicato con due sole cifre decimali (0,05), il che lascia l'RDW libero fra 12,2 e 15,0 e con esso l'emoglobina fra 11,8 e 14,4. Sono stati scelti i valori coerenti con l'anemia lieve descritta dalla serie. E l'unica parte del quarto articolo che resta un'ipotesi."),
- (A4, "Conteggio degli indici fuori riferimento", "10 su 16", "9 fuori + 1 sul limite", "Coerente",
+ (A4, "Conteggio degli indici fuori riferimento", "10 su 16", "9 fuori + 1 sul limite", "Riproducibile",
   "Il rapporto monociti/linfociti vale esattamente 0,38 contro un limite superiore di 0,38. Contandolo, i dieci dichiarati tornano esattamente. E l'unico dei quattro articoli il cui conteggio non presenta discrepanze."),
- (A4, "Rapporto monociti/HDL: quali unita", "16,1 per mille", "16,13 con HDL in mg/dL", "Ricostruita",
+ (A4, "Rapporto monociti/HDL: quali unita", "16,1 per mille", "16,13 con HDL in mg/dL", "Formula ricostruita",
   "La forma per mille con l'HDL in mg/dL riproduce il valore pubblicato. La forma piu diffusa in letteratura, con HDL in mmol/L, darebbe 0,62: un numero che non ha alcun rapporto con il cut-off di 6 indicato nella stessa riga."),
  ("Art.3 + Art.4", "Aggiustamento per infiammazione: verifica incrociata", "ferritina ridotta del 25%", "PCR 0,3 mg/dL, cioe 3 mg/L", "Tensione fra le fonti",
   "PUNTO PIU DELICATO DEL WORKBOOK. L'articolo 3 applica alla ferritina una riduzione del 25% per infiammazione; l'articolo 4 pubblica una PCR di 3 mg/L, sotto la soglia convenzionale di 5 mg/L oltre la quale la correzione BRINDA entra in gioco. Con la sola PCR quella riduzione appare piu ampia del dovuto. L'alfa-1-glicoproteina acida, l'altro reattante su cui BRINDA si basa, non e pubblicata da nessuna delle due fonti, quindi la correzione resta possibile ma non verificabile. Sul piano fisiopatologico i dieci indici derivati alterati la sostengono; sul piano del calcolo, no."),
@@ -1152,7 +1152,8 @@ for i, (fonte, elem, pub, calc, esito, imp) in enumerate(CTRL, 1):
     ws.cell(row=r, column=3, value=elem).font = Font(name=FONT, size=10, bold=True)
     ws.cell(row=r, column=4, value=pub).font = Font(name=FONT, size=10, color=BLUE)
     ws.cell(row=r, column=5, value=calc).font = Font(name=FONT, size=10, bold=True)
-    bad = esito in ("Non riproducibile", "Scostamento", "Non verificabile")
+    bad = esito in ("Non riproducibile", "Scostamento", "Scostamento minore", "Non verificabile",
+                    "Scelta non dichiarata", "Contraddizione interna", "Tensione fra le fonti")
     ws.cell(row=r, column=6, value=esito).font = Font(name=FONT, size=10, bold=True,
                                                      color="C00000" if bad else "008000")
     ws.cell(row=r, column=7, value=imp).font = Font(name=FONT, size=9)
@@ -1175,7 +1176,8 @@ for k, (lab, val) in enumerate([
         ("Riproducibili senza riserve", f'=COUNTIF(F5:F{r-1},"Riproducibile")'),
         ("Ricostruiti o dipendenti da assunzioni dell'analista",
          f'=COUNTIF(F5:F{r-1},"Formula ricostruita")+COUNTIF(F5:F{r-1},"Riproducibile con assunzione")'
-         f'+COUNTIF(F5:F{r-1},"Dedotto")+COUNTIF(F5:F{r-1},"Sensibile alle unita")'),
+         f'+COUNTIF(F5:F{r-1},"Dedotto")+COUNTIF(F5:F{r-1},"Sensibile alle unita")'
+         f'+COUNTIF(F5:F{r-1},"Sottodeterminato")'),
         ("Scostamenti, valori non riproducibili o incongruenze", f"=E{sr+1}-E{sr+2}-E{sr+3}")]):
     ws.cell(row=sr + 1 + k, column=3, value=lab).font = Font(name=FONT, size=10)
     c = ws.cell(row=sr + 1 + k, column=5, value=val)
