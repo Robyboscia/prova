@@ -1,0 +1,44 @@
+# Mental Pro™
+
+> Integratore alimentare italiano in polvere per il sonno e il rilassamento mentale,
+> formulato dal farmacista Roberto Boscia. Venduto esclusivamente in Italia su mentalpro.it.
+
+## Prodotto
+
+- **Nome:** Mental Pro™
+- **Formato:** polvere solubile (non compresse, non capsule)
+- **Confezione:** 180 g — 60 dosi da 3 g — 30 giorni di trattamento
+- **Produzione:** Italia
+- **Spedizione:** 2-3 giorni lavorativi, solo Italia
+- **Garanzia:** 60 giorni soddisfatti o rimborsati, valida sulla confezione singola
+
+## Ingredienti principali (per dose)
+
+- **Inositolo** — 2000 mg
+- **Magnesio Bisglicinato** — contribuisce alla normale funzione psicologica
+  e al normale funzionamento del sistema nervoso (claim autorizzato EFSA,
+  Reg. CE 1924/2006)
+- **Taurina**
+- **Glicina**
+
+## Prezzi
+
+| Formato | Prezzo | Dosi |
+|---|---|---|
+| 1 confezione (Reset Iniziale) | 47,00 € | 60 |
+| 3 confezioni (Bundle Sleep Elite) | 117,00 € | 180 |
+| 6 confezioni (Massimo Risparmio) | 249,00 € | 360 |
+
+## Pagine
+
+- [Home e scheda prodotto](https://mentalpro.it/): formulazione, meccanismo
+  d'azione, testimonianze, FAQ, bibliografia scientifica
+- [Privacy Policy](https://mentalpro.it/privacy-policy.html)
+- [Termini di Servizio](https://mentalpro.it/termini-di-servizio.html)
+- [Feed prodotti (XML)](https://mentalpro.it/product-feed.xml)
+
+## Note
+
+Mental Pro™ è un integratore alimentare, non un farmaco: non cura, previene
+né tratta alcuna patologia. Non sostituisce una dieta variata ed equilibrata
+né uno stile di vita sano. I risultati individuali possono variare.

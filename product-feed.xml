@@ -132,9 +132,6 @@
     <g:attribute_value>Glicina</g:attribute_value>
   </g:product_detail>
   <g:product_detail>
-    <g:section_name>Garanzia</g:section_name>
-    <g:attribute_name>Garanzia rimborso</g:attribute_name>
-  <g:product_detail>
     <g:section_name>Spedizione</g:section_name>
     <g:attribute_name>Tempi di consegna</g:attribute_name>
     <g:attribute_value>2-3 giorni lavorativi in Italia</g:attribute_value>
@@ -202,9 +199,6 @@
     <g:attribute_name>Ingrediente 4</g:attribute_name>
     <g:attribute_value>Glicina</g:attribute_value>
   </g:product_detail>
-  <g:product_detail>
-    <g:section_name>Garanzia</g:section_name>
-    <g:attribute_name>Garanzia rimborso</g:attribute_name>
   <g:product_detail>
     <g:section_name>Spedizione</g:section_name>
     <g:attribute_name>Tempi di consegna</g:attribute_name>
