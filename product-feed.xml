@@ -7,8 +7,8 @@
 
 <item>
   <g:id>mentalpro-1</g:id>
-  <title>Mental Pro™ Integratore Sonno in Polvere — 180g, 60 dosi (30 giorni)</title>
-  <description>Integratore alimentare in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. Favorisce il rilassamento mentale e un sonno più profondo senza effetto sedativo. 180g per confezione, 60 dosi da 3g. Prodotto in Italia. Spedizione in tutta Italia in 2-3 giorni lavorativi. Garanzia rimborso 60 giorni.</description>
+  <title>Mental Pro™ Integratore Sonno in Polvere — 180g, 60 dosi (60 giorni)</title>
+  <description>Integratore alimentare in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. Favorisce il rilassamento mentale e un sonno più profondo senza effetto sedativo. 180g per confezione, 60 dosi da 3g, una al giorno. Prodotto in Italia. Spedizione in tutta Italia in 2-3 giorni lavorativi. Garanzia rimborso 60 giorni.</description>
   <link>https://mentalpro.it/</link>
   <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
   <g:condition>new</g:condition>
@@ -36,7 +36,7 @@
   <g:product_detail>
     <g:section_name>Quantità</g:section_name>
     <g:attribute_name>Durata trattamento</g:attribute_name>
-    <g:attribute_value>30 giorni</g:attribute_value>
+    <g:attribute_value>60 giorni</g:attribute_value>
   </g:product_detail>
   <g:product_detail>
     <g:section_name>Ingredienti chiave</g:section_name>
@@ -80,8 +80,8 @@
 
 <item>
   <g:id>mentalpro-3</g:id>
-  <title>Mental Pro™ Bundle Sleep Elite — 3 Confezioni 540g, 180 dosi (90 giorni)</title>
-  <description>Bundle Sleep Elite: 3 confezioni di Mental Pro™, integratore in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. 540g totali, 180 dosi, 90 giorni di trattamento. Risparmio rispetto all'acquisto singolo (€39 a confezione). Prodotto in Italia. Spedizione 2-3 giorni lavorativi.</description>
+  <title>Mental Pro™ Bundle Sleep Elite — 3 Confezioni 540g, 180 dosi (180 giorni)</title>
+  <description>Bundle Sleep Elite: 3 confezioni di Mental Pro™, integratore in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. 540g totali, 180 dosi, 180 giorni di trattamento. Risparmio rispetto all'acquisto singolo (€39 a confezione). Prodotto in Italia. Spedizione 2-3 giorni lavorativi.</description>
   <link>https://mentalpro.it/</link>
   <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
   <g:condition>new</g:condition>
@@ -109,7 +109,7 @@
   <g:product_detail>
     <g:section_name>Quantità</g:section_name>
     <g:attribute_name>Durata trattamento</g:attribute_name>
-    <g:attribute_value>90 giorni</g:attribute_value>
+    <g:attribute_value>180 giorni</g:attribute_value>
   </g:product_detail>
   <g:product_detail>
     <g:section_name>Ingredienti chiave</g:section_name>
@@ -148,13 +148,13 @@
 
 <item>
   <g:id>mentalpro-6</g:id>
-  <title>Mental Pro™ Massimo Risparmio — 6 Confezioni 1080g, 360 dosi (180 giorni)</title>
-  <description>Bundle massimo risparmio: 6 confezioni di Mental Pro™, integratore in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. 1080g totali, 360 dosi, 180 giorni di trattamento continuo. Miglior prezzo per dose (€41,50 a confezione). Prodotto in Italia. Spedizione 2-3 giorni lavorativi.</description>
+  <title>Mental Pro™ Massimo Risparmio — 6 Confezioni 1080g, 360 dosi (360 giorni)</title>
+  <description>Bundle massimo risparmio: 6 confezioni di Mental Pro™, integratore in polvere per il sonno e il rilassamento mentale. Formula con Inositolo 2000mg, Magnesio Bisglicinato, Taurina e Glicina. 1080g totali, 360 dosi, 360 giorni di trattamento continuo. Miglior prezzo per confezione (€37 a confezione). Prodotto in Italia. Spedizione 2-3 giorni lavorativi.</description>
   <link>https://mentalpro.it/</link>
   <g:image_link>https://mentalpro.it/images/product.webp</g:image_link>
   <g:condition>new</g:condition>
   <g:availability>in stock</g:availability>
-  <g:price>249.00 EUR</g:price>
+  <g:price>222.00 EUR</g:price>
   <g:brand>Mental Pro</g:brand>
   <g:mpn>MENTALPRO-6</g:mpn>
   <g:identifier_exists>no</g:identifier_exists>
@@ -177,7 +177,7 @@
   <g:product_detail>
     <g:section_name>Quantità</g:section_name>
     <g:attribute_name>Durata trattamento</g:attribute_name>
-    <g:attribute_value>180 giorni</g:attribute_value>
+    <g:attribute_value>360 giorni</g:attribute_value>
   </g:product_detail>
   <g:product_detail>
     <g:section_name>Ingredienti chiave</g:section_name>
