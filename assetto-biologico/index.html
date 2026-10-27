@@ -370,7 +370,7 @@
     }
 
     /* REVEAL animations */
-    .reveal { opacity: 0; transform: translateY(44px); }
+    .reveal { opacity: 1; transform: none; }
 
     /* Hero entrance */
     @keyframes enterUp {
@@ -519,13 +519,13 @@
         <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:48px;">
           <div>
             <div style="display:flex;align-items:baseline;line-height:1;">
-              <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="97">0</div>
+              <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="97">97</div>
               <span class="stat-num" style="font-size:clamp(44px,6vw,72px);">%</span>
             </div>
             <p class="muted" style="font-size:13px;margin-top:12px;">di chi l'ha provato dice:<br>"gli esami erano normali,<br>ma i sintomi no"</p>
           </div>
           <div>
-            <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="3">0</div>
+            <div class="stat-num" style="font-size:clamp(44px,6vw,72px);" data-count="3">3</div>
             <p class="muted" style="font-size:13px;margin-top:12px;">consulenze integrate<br>incluse nel percorso</p>
           </div>
           <div>
@@ -1383,12 +1383,17 @@
   <script src="./js/gsap.min.js"></script>
   <script src="./js/ScrollTrigger.min.js"></script>
   <script>
+    // Content stays readable even if animation libraries fail to load or initialize.
+    (() => {
+    if (!window.gsap || !window.ScrollTrigger ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    try {
     gsap.registerPlugin(ScrollTrigger);
 
     // Scroll reveal
     gsap.utils.toArray('.reveal').forEach(el => {
       gsap.fromTo(el,
-        { opacity: 0, y: 48 },
+        { opacity: 1, y: 48 },
         {
           opacity: 1, y: 0,
           duration: 0.8,
@@ -1433,6 +1438,17 @@
         scrollTrigger: { trigger: glow.parentElement, start: 'top bottom', end: 'bottom top', scrub: 1.5 }
       });
     });
+    } catch (error) {
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      document.querySelectorAll('[data-count]').forEach(el => {
+        el.textContent = el.dataset.count;
+      });
+      console.warn('Optional animations unavailable:', error);
+    }
+    })();
   </script>
 
 </body>
